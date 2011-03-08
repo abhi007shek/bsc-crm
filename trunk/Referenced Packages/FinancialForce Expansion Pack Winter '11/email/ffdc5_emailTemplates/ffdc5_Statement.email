@@ -1,0 +1,31 @@
+<messaging:emailTemplate subject="Statement" recipientType="Contact" relatedToType="c2g__codaMassEmailAccount__c">
+    <messaging:htmlEmailBody >
+        <p align="center">
+            <img src="{!relatedTo.c2g__OwnerCompany__r.c2g__LogoURL__c}"/><br/>
+            <small><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Street__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__City__c}"/><apex:outputText value=", "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__StateProvince__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__ZipPostCode__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Country__c}"/><br/>
+            <apex:outputText value="Phone: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Phone__c}"/><apex:outputText value=" Fax: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Fax__c}"/><br/><br/></small>
+        </p>
+        <p>
+            <c:CODAFormatterExt date="{!TODAY()}"/>
+            <br/><br/>
+            <apex:outputField value="{!relatedTo.c2g__Account__r.Name}"/>
+            <br/><br/>
+            Dear Sir
+            <br/><br/>
+            Please find attached a statement of your account with us. We would appreciate prompt payment of these items.
+        </p>
+        <br/><br/>
+        <c:CODAStatementsTable statementInfo="{!relatedTo}"/>        
+        <br/>
+        <p>
+            If you have any questions about this payment please do not hesitate to contact us.     
+            <br/><br/>
+            Yours faithfully
+            <br/><br/>
+            {!$User.FirstName} {!$User.LastName}
+        </p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

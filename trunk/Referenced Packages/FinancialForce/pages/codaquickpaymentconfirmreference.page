@@ -1,0 +1,128 @@
+<!-- codaquickpaymentconfirmreference -->
+<apex:page standardController="c2g__codaPayment__c" extensions="c2g.CODAQuickPaymentController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	
+	<script src="{!URLFOR($Resource.front,'front/base/frameworks/jquery-1.4.2.min.js')}" type="text/javascript"></script>
+	<script src="{!URLFOR($Resource.front,'front/base/base.js')}" type="text/javascript"></script>
+	
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	
+	<style>
+		input.renumberDown{display:none;}
+		.showRenumber input.renumberDown{display:inline;}			
+	</style>
+	
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){return CODA2GoButtons.disableSaveButtons();}">
+		<DIV id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></DIV>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPaymentConfirmReferencePaymentProposalTitle}" subtitle="{!viewstate.payment.dto.Name}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1037')}"/>
+		<apex:pageBlock title="{!$Label.codaPaymentConfirmReferenceTitle}" id="paymentReference" mode="edit">
+			<!-- Buttons -->
+			<apex:pageBlockButtons >
+				<!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaQuickPaymentConfirmPay}" id="confirm_h" action="{!confirmAndPay}" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPaymentConfirmReferenceCancelButton}" action="{!goToViewPage}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/>
+				<!-- Normal Buttons -->
+				<apex:commandButton value="{!$Label.codaQuickPaymentConfirmPay}" id="confirm" onclick="if(!CODA.queing()){document.getElementById('{!$Component.confirm_h}').click()};return false;"/>
+				<apex:commandButton value="{!$Label.codaPaymentConfirmReferenceCancelButton2}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+				<script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaPaymentProcessing}";
+	                var confirm = document.getElementById("{!$Component.confirm}");
+	                var cancel = document.getElementById("{!$Component.cancel}");	               
+	              
+					CODA2GoButtons.initButtons([confirm.id,cancel.id]);	
+				</script>
+			</apex:pageBlockButtons>
+			
+			<!-- Messages -->		
+			<apex:include pageName="c2g__codamulticompanymodewarning" rendered="{!viewstate.reportingModeMessage}"/>
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+					<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+						<apex:outputText value="{!errorMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+				<apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!viewstate.showGeneralMessages}">
+					<apex:repeat value="{!viewstate.generalMessages}" var="generalMessage" rendered="{!viewstate.showGeneralMessages}">
+						<apex:outputText value="{!generalMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+
+			<!-- Confirm Payment References -->  
+			<apex:pageBlockSection id="confirmPaymentReferencesDetailBlockSection" title="{!$Label.codaPagePaymentConfirmReference}" collapsible="false" columns="2">
+				<apex:outputField id="paymentId" value="{!viewstate.payment.dto.Name}" style="aling:left;"/>
+				<apex:pageBlockSectionItem />
+				<apex:dataTable id="dtReferencesDetail" value="{!viewstate.paymentConfirmReference}" var="paymentConfirmReference" rowClasses="odd,even" styleClass="list checkTable" headerClass="listheader" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+	                <apex:column styleClass="widthauto">
+	                    <apex:facet name="header">{!$Label.codaPaymentConfirmReferenceVendorName}</apex:facet>
+	                    <apex:outputField id="vendorName" value="{!paymentConfirmReference.paymentVendor.dto.c2g__Account__c}"/>
+	                </apex:column>
+	                <apex:column styleClass="widthmedium alignright">
+	                    <apex:facet name="header">{!$Label.codaPaymentConfirmReferencePaymentAmount}</apex:facet>
+	                    <apex:outputText id="paymentAmount" value="{!paymentConfirmReference.paymentAmount}"/>
+	                </apex:column>
+	                <apex:column styleClass="widthauto">
+	                    <apex:facet name="header">{!$Label.codaPaymentConfirmReferencePaymentReference}</apex:facet>	                  
+	                    <apex:inputText id="checkNumber" value="{!paymentConfirmReference.checkNumberAsString}" /> 		              	               	               
+	               		<apex:actionFunction name="onChangeCheckNumber" action="{!paymentConfirmReference.addNewLineTableVoid}" oncomplete="CODA.resumeQueueProcessing();CODA.showRenumberButton('{!$Component.checkNumber}')" reRender="messagePanel,dtReferencesDetail,dtVoidChecks,checkNumber"/>
+						<script>
+							CODA.addQueuedOnBlurEvent(null, "{!$Component.checkNumber}", "{!$Label.codaQuickPaymentCheckAddingVoidLine}", onChangeCheckNumber,true); 
+						</script>
+	                </apex:column>
+	                <apex:column >
+	                	<apex:facet name="header">&nbsp;</apex:facet>
+	                	<input type="button" class="btn renumberDown" value="{!$Label.codaQuickPaymentRenumberDownButton}" onclick="document.getElementById('renumberDownButton').click();"/>
+	                </apex:column>
+                </apex:dataTable>    
+        
+                
+                <apex:actionFunction name="renumberDownAction" action="{!viewstate.renumberDown}" oncomplete="CODA.resumeQueueProcessing();" reRender="messagePanel,dtReferencesDetail,paymentReference"/>
+                <input id="renumberDownButton" type="button" class="btn hiddensubmit" onclick="CODA.addEventToQueue('renumberDownAction',renumberDownAction,'{!$Label.codaQuickPaymentRenumberingDown}',true)" value="{!$Label.codaQuickPaymentRenumberDownButton}"/>
+                
+                <script>
+                CODA.showRenumberButton =function(linenumber){
+                	var input = $FFDC(document.getElementById(linenumber));
+                	input.parents('.checkTable tr').addClass('showRenumber');
+                }
+                </script>
+                
+        	</apex:pageBlockSection>  
+			<apex:pageBlockSection id="voidChecksTableSection" title="{!$Label.codaQuickPaymentChecksVoid}" collapsible="false" columns="2">
+				<apex:dataTable id="dtVoidChecks" value="{!viewstate.voidChecksLines}" var="voidChecksTable" rowClasses="odd,even" styleClass="list" headerClass="listheader" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+	                	<apex:column styleClass="widthauto alignleft">
+	                    <apex:facet name="header">{!$Label.codaQuickPaymentChecksVoidNumber}</apex:facet>
+	                    <apex:outputText id="numberCheck" value="{!voidChecksTable.numberAsString}"/>	                     
+	                </apex:column>
+	                <apex:column styleClass="widthauto alignleft">
+	                    <apex:facet name="header">{!$Label.codaQuickPaymentChecksVoidRange}</apex:facet>
+	                    <apex:outputField id="range" value="{!voidChecksTable.checkRange.dto.c2g__CheckRange__c}"/>
+	                </apex:column>
+	                <apex:column styleClass="iconColumn aligncenter">
+	                	<apex:actionFunction name="onChangeStatus{!voidChecksTable.number}" action="{!voidChecksTable.updatingStatus}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');" reRender="messagePanel,status,cashEntry"/>
+						<script>
+							function callStatusCheckBox_{!voidChecksTable.number}()
+							{
+								CODA.addEventToQueue('{!voidChecksTable.status}',onChangeStatus{!voidChecksTable.number},'{!$Label.codaQuickPaymentChecksUpdatingStatus}',true);
+							}
+						</script>
+	                    <apex:facet name="header">{!$Label.codaQuickPaymentChecksVoidTypeVoid}</apex:facet>
+	                    <apex:inputCheckBox id="status" value="{!voidChecksTable.status}" onClick="javascript:setTimeout('callStatusCheckBox_{!voidChecksTable.number}()',1);"/>
+	                </apex:column>
+					<apex:column styleClass="iconColumn aligncenter">
+						<apex:actionFunction name="onChangeCashEntry{!voidChecksTable.number}" action="{!voidChecksTable.updatingCashEntry}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');" reRender="messagePanel,status,cashEntry"/>
+						<script>
+							function callCashEntryCheckBox_{!voidChecksTable.number}()
+							{
+								CODA.addEventToQueue('{!voidChecksTable.cashEntry}',onChangeCashEntry{!voidChecksTable.number},'{!$Label.codaQuickPaymentChecksUpdatingStatus}',true);
+							}
+						</script>
+	                    <apex:facet name="header">{!$Label.codaQuickPaymentChecksVoidTypeCash}</apex:facet>
+	                    <apex:inputCheckBox id="cashEntry" value="{!voidChecksTable.cashEntry}" onClick="javascript:setTimeout('callCashEntryCheckBox_{!voidChecksTable.number}()',1);"/>
+	                </apex:column>
+                </apex:dataTable>
+        	</apex:pageBlockSection>      	
+		</apex:pageBlock>	
+	</apex:form>
+</apex:page>

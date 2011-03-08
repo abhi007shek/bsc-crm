@@ -1,0 +1,97 @@
+<apex:page controller="PAYCP1.WorldpayPaymentResponseController" showHeader="false" action="{!processAction}"> 
+  
+  <style>
+    .backlink a img { border: none; }
+    body { font-size: 10pt; font-family: arial; }
+  </style>
+  
+  <table cellspacing="0" border="0" width="100%">
+    <wpdisplay payment=test-check contents=true>
+      <tr valign=top>
+        <td class="bannererror"><wpdisplay msg=ban.notLive stylize=banner.error></td>
+      </tr>
+      <tr><td>&nbsp;</td></tr>
+    </wpdisplay>
+
+    <apex:outputPanel layout="none" rendered="{! authorized }" >
+
+      <tr>
+        <td style="font-weight: bold; font-size: 18pt">The card payment has been successfully processed</td>
+      </tr>
+
+      <tr><td>&nbsp;</td></tr>
+    
+      <tr>
+        <td width="100%" >
+          <table cellspacing="0" border="0" width="100%" style="margin-left:30px;">
+            <tr>
+              <td style="color: rgb(79, 129, 189)">Your merchant's reference is: <wpdisplay item=cartId></td>
+            </tr>
+            <tr>
+              <td style="color: rgb(79, 129, 189)">The authorisation code is: <wpdisplay item=transId></td>
+            </tr>
+            <tr>
+              <td style="color: rgb(79, 129, 189)">The transaction amount was: <wpdisplay item=authAmount></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </apex:outputPanel>  
+
+    <apex:outputPanel layout="none" rendered="{! cancelled }" >
+      <tr>
+        <td style="font-weight: bold; font-size: 18pt">The card payment has been cancelled</td>
+      </tr>
+
+      <tr><td>&nbsp;</td></tr>
+
+      <tr>
+        <td width="100%" >
+          <table cellspacing="0" border="0" width="100%" style="margin-left:30px;">
+            <tr>
+              <td style="color: rgb(79, 129, 189)">Your merchant's reference is: <wpdisplay item=cartId></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </apex:outputPanel>  
+
+    <apex:outputPanel layout="none" rendered="{! ReturnURL != null }" >
+
+      <tr><td>&nbsp;</td></tr>
+
+      <tr>
+        <td class="backlink">
+          <table border="0" cellspacing="0">
+            <tr>
+              <td>To return to the originating record, click here: </td>
+              <td>
+                <a href="{! ReturnURL}" target="_top" >
+                  <img src="https://<wpdisplay item=MC_sourceHost>{!URLFOR($Resource.PAYCP1__arrow)}" />
+                </a>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </apex:outputPanel>
+    
+    <apex:outputPanel layout="none" rendered="{! showBranding }" >
+
+      <tr><td>&nbsp;</td></tr>
+    
+      <tr >
+        <td style="color: rgb(79, 129, 189); ">
+          <table border="0">
+            <tr>
+              <td>Powered by: </td>
+              <td><img src="https://<wpdisplay item=MC_sourceHost>{!URLFOR($Resource.PAYCP1__payonomy)}" /></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </apex:outputPanel>
+    
+  </table>
+  
+</apex:page>

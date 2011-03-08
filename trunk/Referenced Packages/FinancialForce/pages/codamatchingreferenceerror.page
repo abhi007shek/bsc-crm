@@ -1,0 +1,5 @@
+<apex:page standardController="c2g__codaMatchingReference__c" >
+<!-- Begin Default Content REMOVE THIS -->
+<h1>{!$Label.codacashMatchingHistoryError}</h1>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

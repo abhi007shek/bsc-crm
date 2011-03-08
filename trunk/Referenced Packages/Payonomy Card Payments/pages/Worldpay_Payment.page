@@ -1,0 +1,88 @@
+<apex:page controller="PAYCP1.WorldpayPaymentExtension" action="{!checkLicence}" showHeader="{!ShowHeader}" sidebar="{!ShowSidebar}" >
+
+ 
+  <apex:outputPanel layout="none" rendered="{! hasLicenceCheck }" >
+    <apex:outputPanel layout="none" rendered="{! LicenceCheck.canUse }" >
+
+      <table border="0" width="100%" height="100%">
+        <tr>
+          <td>
+            <apex:outputPanel layout="none" rendered="{! hasLicenceMessage }" >
+              <font color="red">
+                <br/>
+                Message from Licence Manager: {! LicenceCheck.messages }
+                <br/>
+                <br/>
+              </font>
+            </apex:outputPanel>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <apex:outputPanel layout="none" rendered="{! hasLicenceMessages }" >
+              <font color="red">
+                <br/>
+                Messages from Licence Manager: 
+                <br/>
+                <apex:dataList value="{! LicenceCheck.messages }" var="msg">
+                      <apex:outputText value="{!msg}"/>
+                </apex:dataList>
+        
+                <br/>
+              </font>
+            </apex:outputPanel>
+          </td>
+        </tr>
+        
+        <tr>
+          <td>
+            <apex:pageMessages />
+          </td>
+        </tr>
+        
+        <tr>
+          <td height="100%">
+            <apex:iframe width="100%" height="800px" src="{! WorldpayURL }" scrolling="false" id="WorldpayFrame"/>
+          </td>
+        </tr>
+      </table>
+      
+
+    </apex:outputPanel>
+  
+    <apex:outputPanel layout="none" rendered="{! !LicenceCheck.canUse }" >
+      You do not have a licence for this product.
+
+      <apex:outputPanel layout="none" rendered="{! hasLicenceMessage }" >
+        <font color="red">
+          <br/>
+          Message from Licence Manager: {! LicenceCheck.messages }
+          <br/>
+          <br/>
+        </font>
+      </apex:outputPanel>
+
+      <apex:outputPanel layout="none" rendered="{! hasLicenceMessages }" >
+        <font color="red">
+          <br/>
+          Messages from Licence Manager: 
+          <br/>
+          <apex:dataList value="{! LicenceCheck.messages }" var="msg">
+                <apex:outputText value="{!msg}"/>
+          </apex:dataList>
+        
+          <br/>
+        </font>
+      </apex:outputPanel>
+    </apex:outputPanel>
+  </apex:outputPanel>
+
+  <apex:outputPanel layout="none" rendered="{! !hasLicenceCheck }" >
+    <font color="red">
+      Failed to check licence
+    </font>
+  </apex:outputPanel>
+
+
+</apex:page>

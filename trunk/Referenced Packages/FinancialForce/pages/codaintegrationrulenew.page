@@ -1,0 +1,309 @@
+<!-- CODAIntegrationRule -->
+<apex:page standardController="c2g__codaIntegrationRule__c" extensions="c2g.CODAIntegrationRuleController">
+    <script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+    <script>
+        CODA.documentFunctionTimer("keyup", CODA.executeQueue, 1500);
+        CODA.documentFunctionTimer("click", CODA.executeQueue, 1500);  
+    </script>
+   <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <style>
+        .extracollapsed
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extracollapsed_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .newlinebutton 
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});
+        }
+        .pbError
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+        }
+        .informationerrorblock
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});
+        }
+    </style>
+    
+    <apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+        <DIV id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></DIV>
+
+        <!-- Header -->
+        <apex:sectionHeader title="{!$Label.codaPageIntegrationRule}" subtitle="{!$Label.codaIntegrationRuleNewPageNew}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1057')}"/>
+		<!-- Back to Listing -->
+		<DIV class="goBreadcrumb">
+			&nbsp;&#171;<a href="{!URLFOR($Action.codaIntegrationRule__c.Tab,$ObjectType.codaIntegrationRule__c)}">{!$Label.codaIntegrationRuleNewPageBackToList}</a>
+		</DIV>            
+        <!-- Integration Rule Details -->
+        <apex:pageBlock title="{!$Label.codaPageIntegrationRuleDetails}" id="IntegrationRuleBlock" mode="edit">
+
+            <!-- Buttons -->
+            <apex:pageBlockButtons >  
+                <!-- Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaPageIntegrationRuleSave}" action="{!save}" id="save_h" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaPageIntegrationRuleCancel}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender="messagePanel"/>
+                <!--  End of Hidden Buttons-->
+                <apex:commandButton value="{!$Label.codaPageIntegrationRuleSave}" id="save" rerender="messagePanel" onclick="if(!CODA.queing()){document.getElementById('{!$Component.save_h}').click()};return false;" />
+                <apex:commandButton value="{!$Label.codaPageIntegrationRuleCancel}" id="cancel" rerender="messagePanel" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+                <script>
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaPageIntegrationRuleProcessing}";
+                    var save = document.getElementById("{!$Component.save}");
+                    var cancel = document.getElementById("{!$Component.cancel}");
+                    CODA2GoButtons.initButtons([save.id,cancel.id]);
+                </script>
+            </apex:pageBlockButtons>
+
+            <!-- Messages -->
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                    <!--apex:messages/-->
+                    <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <apex:outputText value="{!errorMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel> 
+
+            <!-- Integration Rule -->
+            <apex:pageBlockSection id="objectDetail" title="{!$Label.codaIntegrationRuleNewPageMainSection}" columns="2">
+                               
+				<apex:inputField id="NameField" value="{!viewstate.IntegrationRule.IntegrationRule.dto.Name}"/>
+                
+                <apex:pageBlockSectionItem />
+				
+                <apex:pageBlockSectionItem >
+	                <apex:outputLabel for="DescriptionField" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__Description__c.label}"/>
+	                <apex:outputPanel id="Description">
+	                	<apex:inputTextarea id="DescriptionField" rows="3" cols="50" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__Description__c}"/>                 	
+	                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                                                 
+            </apex:pageBlockSection>
+            
+            <!-- Master Object -->
+            <apex:pageBlockSection id="masterObjectSection" title="{!$Label.codaIntegrationRuleNewPageMasterObjectSection}" columns="2">
+                
+                <apex:pageBlockSectionItem >
+					<apex:outputLabel for="targetMasterObject" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__TargetObject__c.label}"/>
+	                <apex:outputPanel id="targetMasterObjectPanel">
+	                    <apex:inputField id="targetMasterObject" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__TargetObject__c}"/>
+	                    <apex:actionFunction name="onChangeTargetMasterObject" action="{!updateMasterFields}" reRender="messagePanel,multiLineCashEntry,masterObjectFieldsSection,dtFieldsMaster,relationshipTargetField,GetButtonCode" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+	                        CODA.addQueuedOnBlurEvent(null, "{!$Component.targetMasterObject}", "{!$Label.codaIntegrationRulePageUpdatingFieldsForTarget}", onChangeTargetMasterObject,true);
+	                    </script>
+	                </apex:outputPanel> 
+				</apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+	                <apex:outputLabel for="sourceMasterObject" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__SourceObject__c.label}"/>
+	                <apex:outputPanel id="sourceMasterObjectPanel">
+	                    <apex:selectList id="sourceMasterObject" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__SourceObject__c}" multiselect="false" size="1">
+	                            <apex:selectOptions value="{!viewstate.fillSourceObject}"/>
+	                    </apex:selectList> 
+	                    <apex:actionFunction name="onChangeSourceMasterObject" action="{!updateMasterFields}" reRender="messagePanel,documentNumber,processedIndicator,masterObjectFieldsSection,dtFieldsMaster,relationshipSourceField,GetButtonCode" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+	                        CODA.addQueuedOnBlurEvent(null, "{!$Component.sourceMasterObject}", "{!$Label.codaIntegrationRulePageUpdatingFieldsForSource}", onChangeSourceMasterObject,true);
+	                    </script>
+	                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+	                <apex:outputLabel for="multiLineCashEntry" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__MultiLineCashEntry__c.label}"/>
+                	<apex:inputCheckbox id="multiLineCashEntry" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__MultiLineCashEntry__c}" disabled="{!!viewstate.cashEntryInSourceMaster}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel for="documentNumber" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__DocumentNumber__c.label}"/>
+                	<apex:outputPanel id="documentNumberPanel">
+                		<apex:selectList id="documentNumber" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__DocumentNumber__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.availableFieldsFromMaster}"/>
+                        </apex:selectList>
+                	</apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem />
+                
+                <apex:pageBlockSectionItem >
+                	<apex:outputLabel for="processedIndicator" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__ProcessedIndicator__c.label}"/>
+                	<apex:outputPanel id="processedIndicatorPanel">
+                		<apex:selectList id="processedIndicator" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__ProcessedIndicator__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.availableFieldsFromMaster}"/>
+                        </apex:selectList>
+                	</apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+            </apex:pageBlockSection>
+            
+            <hr/> <!-- Master Object Fields -->            
+			
+			<apex:pageBlockSection id="masterObjectFieldsSection"  columns="6">
+				<apex:dataTable id="dtFieldsMaster" value="{!viewstate.fieldsLineItemsMaster}" var="fieldsLineItem" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+				
+					<apex:column styleClass="widthauto">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__TargetField__c.label}</apex:facet>                         
+                        <apex:selectList id="targetFieldMasterList" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__TargetFieldPath__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.AvailableFieldsToMaster}"/>
+                        </apex:selectList>  
+                        
+                        <apex:actionFunction name="onChangeTargetObjectMasterLine" action="{!fieldsLineItem.updateToLineItemMaster}" reRender="messagePanel,forwritingMaster" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+    	                    CODA.addQueuedOnBlurEvent(null, "{!$Component.targetFieldMasterList}", "{!$Label.codaIntegrationRuleUpdatingTargetField}", onChangeTargetObjectMasterLine, true);
+        	            </script>
+        	            
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!viewstate.haveSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__SourceField__c.label}</apex:facet>
+                        <apex:selectList id="sourceFieldMasterList" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__SourceFieldPath__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.AvailableFieldsFromMaster}"/>
+                        </apex:selectList>
+                        
+                        <apex:actionFunction name="onChangeSourceObjectMasterLine" action="{!fieldsLineItem.updateFromLineItemMaster}" reRender="messagePanel" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+    	                    CODA.addQueuedOnBlurEvent(null, "{!$Component.sourceFieldMasterList}", "{!$Label.codaIntegrationRuleUpdatingSourceField}", onChangeSourceObjectMasterLine, true);
+        	            </script>            
+        	            
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForReading__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forreadingMaster" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForReading__c}"/>
+                    </apex:column>
+
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForWriting__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forwritingMaster" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForWriting__c}" disabled="{!fieldsLineItem.IsReadOnly}"/>
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForPrinting__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forprintingMaster" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForPrinting__c}"/>
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthicon alignright">
+                        <apex:facet name="header">&nbsp;</apex:facet>
+                        <apex:actionFunction name="removeLineItemMaster{!fieldsLineItem.LineNumber}"  action="{!fieldsLineItem.remove}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');" reRender="messagePanel,dtFieldsMaster"/>
+                        <a href="javascript:CODA.addEventToQueue('removeLineItemMaster{!fieldsLineItem.LineNumber}', removeLineItemMaster{!fieldsLineItem.LineNumber}, '{!$Label.codaPageIntegrationRuleRemovingLine}', true);">
+                            <apex:image value="{!URLFOR($Resource.c2g__coda2go, 'coda2go/web/images/delete.gif')}" width="16" height="16" title="{!$Label.codaPageIntegrationRuleRemoveLine}" styleClass="absMiddle"/>
+                        </a>
+                    </apex:column>
+				
+				</apex:dataTable>    
+			</apex:pageBlockSection>
+
+            <apex:outputPanel id="newLineItemMasterPanel">
+                <apex:actionFunction name="addFieldsLineItemMaster" action="{!addFieldsLineItemMaster}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');CODA.setFocus('{!$Component.masterObjectFieldsSection.dtFieldsMaster}','{!$Component.masterObjectFieldsSection.dtFieldsMaster}')" reRender="messagePanel,masterObjectFieldsSection,dtFieldsMaster"/>
+                <input type="button"  class="newlinebutton" onclick="CODA.addEventToQueue('addFieldsLineItemMaster',addFieldsLineItemMaster,'{!$Label.codaPageIntegrationRuleAddingLine}',true)" value="{!$Label.codaPageIntegrationRuleNewLine}"/>
+            </apex:outputPanel>
+            <div class="clearboth"></div>
+            
+            <!-- Detail Object -->
+            <apex:pageBlockSection id="detailObjectSection" title="{!$Label.codaIntegrationRuleNewPageDetailObjectSection}" columns="2">
+            
+            	<apex:pageBlockSectionItem >
+					<apex:outputLabel for="targetDetailObject" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__TargetDetailObject__c.label}"/>
+	                <apex:outputPanel id="TargetDetailObjectPanel">
+	                    <apex:inputField id="targetDetailObject" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__TargetDetailObject__c}"/>
+	                    <apex:actionFunction name="onChangeTargetDetailObject" action="{!updateDetailFields}" reRender="messagePanel,relationshipTargetField,detailObjectFieldsSection,dtFieldsDetail,GetButtonCode" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+	                        CODA.addQueuedOnBlurEvent(null, "{!$Component.targetDetailObject}", "{!$Label.codaIntegrationRuleNewPageUpdatingFields1}", onChangeTargetDetailObject,true);
+	                    </script>
+	                </apex:outputPanel> 
+				</apex:pageBlockSectionItem>
+            	
+				<apex:pageBlockSectionItem >
+	                <apex:outputLabel for="SourceDetailObject" value="{!$ObjectType.c2g__codaIntegrationRule__c.fields.c2g__SourceDetailObject__c.label}"/>
+	                <apex:outputPanel id="SourceDetailObjectPanel">
+	                    <apex:selectList id="SourceDetailObject" value="{!viewstate.IntegrationRule.IntegrationRule.dto.c2g__SourceDetailObject__c}" multiselect="false" size="1">
+	                            <apex:selectOptions value="{!viewstate.fillSourceObject}"/>
+	                    </apex:selectList>
+	                    <apex:actionFunction name="onChangeSourceDetailObject" action="{!updateDetailFields}" reRender="messagePanel,relationshipSourceField,detailObjectFieldsSection,dtFieldsDetail,GetButtonCode" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+	                        CODA.addQueuedOnBlurEvent(null, "{!$Component.SourceDetailObject}", "{!$Label.codaIntegrationRuleNewPageUpdatingFields2}", onChangeSourceDetailObject,true);
+	                    </script>
+	                </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+            	
+            </apex:pageBlockSection>
+            
+            <hr/> <!-- Detail Object Fields -->            
+			
+			<apex:pageBlockSection id="detailObjectFieldsSection" columns="6">
+				<apex:dataTable id="dtFieldsDetail" value="{!viewstate.fieldsLineItemsDetail}" var="fieldsLineItem" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+					
+					<apex:column styleClass="widthauto">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__TargetField__c.label}</apex:facet>                         
+                        <apex:selectList id="targetFieldDetailList" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__TargetFieldPath__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.AvailableFieldsToDetail}"/>
+                        </apex:selectList>  
+                              	            
+        	            <apex:actionFunction name="onChangeTargetObjectDetailLine" action="{!fieldsLineItem.updateToLineItemDetail}" reRender="messagePanel,forwritingDetail" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+    	                    CODA.addQueuedOnBlurEvent(null, "{!$Component.targetFieldDetailList}", "{!$Label.codaIntegrationRuleNewPageUpdatingTargetField}", onChangeTargetObjectDetailLine, true);
+        	            </script>
+        	            
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!viewstate.haveSourceDetailObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__SourceField__c.label}</apex:facet>
+                        <apex:selectList id="sourceFieldDetailList" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__SourceFieldPath__c}" multiselect="false" size="1">
+                            <apex:selectOptions value="{!viewstate.AvailableFieldsFromDetail}"/>
+                        </apex:selectList>
+        	            
+        	            <apex:actionFunction name="onChangeSourceObjectDetailLine" action="{!fieldsLineItem.updateFromLineItemDetail}" reRender="messagePanel" oncomplete="CODA.resumeQueueProcessing();"/>
+	                    <script>
+    	                    CODA.addQueuedOnBlurEvent(null, "{!$Component.sourceFieldDetailList}", "{!$Label.codaIntegrationRuleNewPageUpdatingSourceField}", onChangeSourceObjectDetailLine, true);
+        	            </script>
+        	            
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveDetailTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForReading__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forreadingDetail" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForReading__c}"/>
+                    </apex:column>
+
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveDetailTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForWriting__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forwritingDetail" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForWriting__c}" disabled="{!fieldsLineItem.IsReadOnly}"/>
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthauto" rendered="{!!viewstate.haveDetailTargetAndSourceObject}">
+                        <apex:facet name="header">{!$ObjectType.c2g__codaIntegrationRuleLineItem__c.fields.c2g__ForPrinting__c.label}</apex:facet>
+                        <apex:inputCheckbox id="forprintingDetail" value="{!fieldsLineItem.IntegrationRuleLineItem.dto.c2g__ForPrinting__c}"/>
+                    </apex:column>
+                    
+                    <apex:column styleClass="widthicon alignright">
+                        <apex:facet name="header">&nbsp;</apex:facet>
+                        <apex:actionFunction name="removeLineItemDetail{!fieldsLineItem.LineNumber}"  action="{!fieldsLineItem.remove}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');" reRender="messagePanel,dtFieldsDetail"/>
+                        <a href="javascript:CODA.addEventToQueue('removeLineItemDetail{!fieldsLineItem.LineNumber}', removeLineItemDetail{!fieldsLineItem.LineNumber}, '{!$Label.codaIntegrationRuleNewPageRemovingLine1}', true);">
+                            <apex:image value="{!URLFOR($Resource.c2g__coda2go, 'coda2go/web/images/delete.gif')}" width="16" height="16" title="{!$Label.codaIntegrationRuleNewPageRemoveLine1}" styleClass="absMiddle"/>
+                        </a>
+                    </apex:column>
+					
+				</apex:dataTable>
+			</apex:pageBlockSection>
+			
+			<apex:outputPanel id="newLineItemDetailPanel">
+                <apex:actionFunction name="addFieldsLineItemDetail" action="{!addFieldsLineItemDetail}" oncomplete="CODA.resumeQueueProcessing();CODA.setExpanderIconState('edit');CODA.setFocus('{!$Component.detailObjectFieldsSection.dtFieldsDetail}','{!$Component.detailObjectFieldsSection.dtFieldsDetail}')" reRender="messagePanel,detailObjectFieldsSection,dtFieldsDetail"/>
+                <input type="button"  class="newlinebutton" onclick="CODA.addEventToQueue('addFieldsLineItemDetail',addFieldsLineItemDetail,'{!$Label.codaIntegrationRuleNewPageAddingLine1}',true)" value="{!$Label.codaIntegrationRuleNewPageNewLine1}"/>
+            </apex:outputPanel>
+            <div class="clearboth"></div>
+			
+        </apex:pageBlock>
+        <script>
+            CODA.setExpanderIconState('edit');
+        </script>
+    </apex:form>	
+</apex:page>

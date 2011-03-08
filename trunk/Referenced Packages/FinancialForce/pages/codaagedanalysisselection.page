@@ -1,0 +1,180 @@
+<!-- codaagedanalysisselection -->
+<apex:page controller="c2g.CODAAgedAnalysisController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<style>
+	.rightArrowsIcon{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/arrows_rt.gif')}) !important;
+	}
+	.leftArrowsIcon{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/arrows_lt.gif')}) !important;
+	}
+	
+	.extracollapsed_h
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	
+	.extraexpanded_h
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	 
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	
+	.pbInfo
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbInfoIcon.gif')});
+	}
+	</style>
+	<apex:form >
+		<div id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></div>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageAgedAnalysisSelectionAgedAnaly}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1041')}"/>
+		
+		<!-- Messages -->
+		<apex:outputPanel id="messagePanel" layout="block">
+			<apex:outputPanel id="errorMessagePanel" layout="block" styleClass="pbError" rendered="{!!viewstate.errorMessages.empty}">
+				<apex:messages />
+				<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage">
+					<apex:outputText value="{!errorMessage}"/><br/>
+				</apex:repeat>
+			</apex:outputPanel>
+			<apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!!viewstate.generalMessages.empty}">
+				<apex:repeat value="{!viewstate.generalMessages}" var="generalMessage">
+					<apex:outputText value="{!generalMessage}"/><br/>
+				</apex:repeat>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		<!-- Aged Analysis Selection -->
+		<apex:pageBlock mode="edit">
+			<apex:pageBlockButtons location="top">
+				<apex:commandButton value="{!$Label.codaPageAgedAnalysisSelectionRunReport}" action="{!runReport}" id="save" disabled="{!!viewstate.canRun}" />
+			</apex:pageBlockButtons>						
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="{!$Label.codaPageAgedAnalysisSelectionRunReport2}" action="{!runReport}" id="saveBottom" disabled="{!!viewstate.canRun}" />
+			</apex:pageBlockButtons>
+			
+			<apex:pageBlockSection title="{!$Label.codaPageAgedAnalysisSelectionAgedAnaly2}" columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.Name.label}" for="agedDef" />
+					<apex:outputPanel id="agedDefPanel"> 
+						<apex:inputField id="agedDef" value="{!viewstate.lookup.dto.c2g__AgedAnalysisDefinition__c}" />
+						<apex:actionFunction name="onChangeDef" action="{!callReset}" oncomplete="CODA.indicatorOff();" reRender="messagePanel,agedDefPanel,currencyMode,selectAccountsPanel,currencyPanel,accountsPanel,save,saveBottom"/>
+						<script>
+							CODA.addOnBlurEvent("{!$Component.agedDef}", "{!$Label.codaPageAgedAnalysisSelectionRetrievin}", onChangeDef);
+						</script>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem datastyleClass="radiowidth">
+					<apex:outputLabel value="{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__AgedAnalysisCurrency__c.label}"/>
+					<apex:outputPanel id="currencyMode">
+						<apex:selectRadio id="agedDefCurrencyModeRadio" value="{!viewstate.agedDef.agedAnalysisCurrency}" style="margin-top:-5px;">
+							<apex:selectOption itemLabel="{!$Label.codaPageAgedAnalysisSelectionHome}" itemValue="Home"/>
+							<apex:selectOption itemLabel="{!$Label.codaPageAgedAnalysisSelectionAccount}" itemValue="Account"/>
+						</apex:selectRadio>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="{!$Label.codaPageAgedAnalysisSelectionTransacti}" columns="1" id="selectTransactions">
+				<apex:pageBlockSectionItem datastyleClass="radiowidth">
+					<apex:outputLabel value="{!$ObjectType.c2g__codaTransactionLineItem__c.fields.c2g__GeneralLedgerAccount__c.label}"/>
+					<apex:outputPanel layout="block" style="position:absolute" id="selectAccountsPanel">
+						<apex:selectRadio value="{!viewstate.glaMode}" style="margin-top:-5px;">
+							<apex:actionSupport event="onclick" action="{!viewstate.loadAvailableAccounts}" onsubmit="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisSelectionRefreshin}')" oncomplete="CODA.indicatorOff()" reRender="messagePanel,accountsPanel,glaPanel"/>
+							<apex:selectOption itemLabel="{!$Label.codaPageAgedAnalysisSelectionAll}" itemValue="all"/>
+							<apex:selectOption itemLabel="&nbsp;" itemValue="single" itemEscaped="false"/>
+						</apex:selectRadio>
+						<apex:outputPanel id="glaPanel" layout="block" style="position:absolute;top:1px;left:133px;width:200px;">
+							<apex:inputField id="gla" value="{!viewstate.lookup.dto.c2g__GeneralLedgerAccount__c}"/>
+							<apex:actionFunction name="onChangeGla" action="{!viewstate.loadAvailableAccounts}" oncomplete="CODA.indicatorOff();CODA.setExpanderIconState('edit');" reRender="accountsPanel,glaPanel"/>
+							<script>
+								CODA.addOnBlurEvent("{!$Component.gla}", "{!$Label.codaPageAgedAnalysisSelectionRefreshin2}", onChangeGla);
+							</script>
+						</apex:outputPanel>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem datastyleClass="radiowidth">
+					<apex:outputLabel value="{!$ObjectType.c2g__codaTransactionLineItem__c.fields.c2g__AccountCurrency__c.label}"/>
+					<apex:outputPanel layout="block" style="position:absolute" id="currencyPanel">
+						<apex:selectRadio value="{!viewstate.currencyMode}" style="margin-top:-5px;">
+							<apex:actionSupport event="onclick" action="{!viewstate.loadAvailableAccounts}" onsubmit="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisSelectionRefreshin3}')" oncomplete="CODA.indicatorOff()" reRender="messagePanel,currency,accountsPanel"/>
+							<apex:selectOption itemLabel="{!$Label.codaPageAgedAnalysisSelectionAll2}" itemValue="all"/>
+							<apex:selectOption itemLabel="&nbsp;" itemValue="single" itemEscaped="false"/>
+						</apex:selectRadio>
+						<apex:outputPanel id="currency" layout="block" style="height:22px;position:absolute;top:1px;left:133px;"> 
+							<DIV id="currencyValueArea" style="display:block;">
+								<nobr>
+									<apex:outputText id="selectedCurrency" value="{!viewstate.currency}"/>
+									<apex:outputPanel >
+										<input type="button" value="{!$Label.codaPageAgedAnalysisSelectionSelectCur}" class="btn" onclick="CODA.toggleElements('currencyValueArea','currencySelectorArea')"/>
+									</apex:outputPanel>
+								</nobr>
+							</DIV>
+							<DIV id="currencySelectorArea" class="hidden">
+								<nobr>
+								<apex:selectList id="selectCurrency" value="{!viewstate.SelectCurrency}" disabled="{!viewstate.CurrencyLocked}" multiselect="false" size="1">
+									<apex:selectOptions value="{!viewstate.subscribedCurrencies}"/> 
+								</apex:selectList>
+								<apex:commandButton id="applyCurrencyButton" value="{!$Label.codaPageAgedAnalysisSelectionApply}" action="{!changeCurrency}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisSelectionChangingC}')" oncomplete="CODA.indicatorOff();" disabled="{!viewstate.CurrencyLocked}" reRender="messagePanel,currencyvalue,selectedCurrency,currencyPanel,accountsPanel"/>
+								<input type="button" value="{!$Label.codaPageAgedAnalysisSelectionCancel}" class="btn" onclick="CODA.toggleElements('currencyValueArea','currencySelectorArea')"/>
+								</nobr>
+							</DIV>
+						</apex:outputPanel>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:pageBlockSection title="{!$Label.codaPageAgedAnalysisSelectionSelectAcc}" columns="1" id="selectAccounts">
+				<apex:pageBlockSectionItem >
+					<apex:outputPanel id="accountsPanel">
+						<apex:panelGrid columns="3" border="0" columnClasses="leftCol,centerCol,rightCol" styleClass="dualSelect">
+							<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionAvailable}"/>
+							<apex:outputLabel value=" "/>
+							<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionSelected}"/>
+							<apex:panelGroup >
+								<apex:selectList value="{!viewstate.selectedAvailableAccounts}" multiselect="true" size="10">
+									<apex:selectOptions value="{!viewstate.availableAccounts}"/>
+								</apex:selectList>
+							</apex:panelGroup>
+							<apex:panelGroup >
+								<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionAdd}"/>
+								<apex:outputLabel >
+									<apex:commandLink action="{!viewstate.addSelected}">
+										<apex:image value="/s.gif" styleClass="rightArrowIcon" alt="{!$Label.codaPageAgedAnalysisSelectionAddSelect}"/>
+									</apex:commandLink>
+								</apex:outputLabel>
+								<apex:outputLabel >
+									<apex:commandLink action="{!viewstate.removeSelected}">
+										<apex:image value="/s.gif" styleClass="leftArrowIcon" alt="{!$Label.codaPageAgedAnalysisSelectionRemoveSel}"/>
+									</apex:commandLink>
+								</apex:outputLabel>
+								<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionRemove}"/>
+								<hr/>
+								<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionAddAll}"/>
+								<apex:outputLabel >
+									<apex:commandLink action="{!viewstate.addAll}">
+										<apex:image value="/s.gif" styleClass="rightArrowsIcon" alt="{!$Label.codaPageAgedAnalysisSelectionAddAll2}"/>
+									</apex:commandLink>
+								</apex:outputLabel>
+								<apex:outputLabel >
+									<apex:commandLink action="{!viewstate.removeAll}">
+										<apex:image value="/s.gif" styleClass="leftArrowsIcon" alt="{!$Label.codaPageAgedAnalysisSelectionRemoveAll}"/>
+									</apex:commandLink>
+								</apex:outputLabel>
+								<apex:outputLabel value="{!$Label.codaPageAgedAnalysisSelectionRemoveAll2}"/>
+							</apex:panelGroup>
+							<apex:panelGroup >
+								<apex:selectList value="{!viewstate.selectedSelectedAccounts}" multiselect="true" size="10">
+									<apex:selectOptions value="{!viewstate.selectedAccounts}"/>
+								</apex:selectList>
+							</apex:panelGroup>
+						</apex:panelGrid>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>c2g__codaCashEntry__c.c2g__CashEntryCurrency__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaCashEntry__c.c2g__OwnerCompany__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaCashEntryLineItem__c.c2g__Account__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaCashEntryLineItem__c.c2g__AccountPaymentMethod__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>c2g__codaCashEntryLineItem__c.c2g__CashEntryValue__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaCashEntryLineItem__c.c2g__PaymentCurrency__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Posted vendor payments for Accounts Payable Dashboard</description>
+    <filter>
+        <criteriaItems>
+            <column>c2g__codaCashEntry__c.c2g__Type__c</column>
+            <operator>equals</operator>
+            <value>Payment</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>c2g__codaCashEntry__c.c2g__Account__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Posted Payments</name>
+    <reportType>CustomEntityCustomEntity$c2g__codaCashEntry__c$c2g__codaCashEntryLineItem__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaCashEntry__c.c2g__Date__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

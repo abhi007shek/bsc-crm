@@ -1,0 +1,51 @@
+<apex:page standardController="PAYCP1__Single_Card_Payment__c" >
+  <apex:sectionHeader title="Single Card Payment" subtitle="{!PAYCP1__Single_Card_Payment__c.id}"/>
+
+   
+    <apex:pageBlock title="Payment Details" >
+      <apex:pageBlockButtons >
+        <apex:outputPanel layout="none" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED'}">
+          <input type="button" value="Make Refund" class="btn" onclick="window.location.href='{! $Page.Make_Single_Refund }?id={!PAYCP1__Single_Card_Payment__c.id}'"/>
+        </apex:outputPanel>
+      </apex:pageBlockButtons>
+    
+      <apex:pageBlockSection columns="1" title="Payment Details">
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.Name}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Payment_Description__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Transaction_Amount__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c!=PAYCP1__Single_Card_Payment__c.PAYCP1__Transaction_Amount__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Installation_Id__c}"/>
+
+        <apex:pageBlockSectionItem >
+          <apex:outputLabel value="Status" for="account__name"/>
+          <apex:outputPanel layout="none">
+            <apex:outputText value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c}" rendered="{! PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c!='AUTHORISED' }" />
+            <apex:outputText value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c}" rendered="{! (PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED') && (PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c==PAYCP1__Single_Card_Payment__c.PAYCP1__Transaction_Amount__c) }" />
+            <apex:outputText value="REFUNDED" rendered="{! (PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED') && (PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c==0) } " />
+            <apex:outputText value="PARTIALLY REFUNDED" rendered="{! (PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED') && (PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c!=PAYCP1__Single_Card_Payment__c.PAYCP1__Transaction_Amount__c) && (PAYCP1__Single_Card_Payment__c.PAYCP1__Balance__c>0) }" />
+          </apex:outputPanel>
+        </apex:pageBlockSectionItem>
+
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Card_Type__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED'}" />
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Authorisation_Code__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED'}" />
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__When_Authorised__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Status__c=='AUTHORISED'}" />
+	  </apex:pageBlockSection>
+
+      <apex:pageBlockSection columns="1" title="Customer Details">
+
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Name_On_Card__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Email__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Address__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Postcode__c}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Opportunity__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Opportunity__c!=null}" />
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Lead__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Lead__c!=null}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Contact__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Contact__c!=null}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Account__c}" rendered="{!PAYCP1__Single_Card_Payment__c.PAYCP1__Created_From_Account__c!=null}"/>
+        <apex:outputField value="{!PAYCP1__Single_Card_Payment__c.OwnerId}"/>
+        
+      </apex:pageBlockSection>
+    </apex:pageBlock>
+      
+    <apex:relatedList list="PAYCP1__Single_Card_Payment_Refunds__r" />
+
+</apex:page>

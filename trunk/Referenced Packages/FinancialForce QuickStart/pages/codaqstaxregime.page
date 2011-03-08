@@ -1,0 +1,87 @@
+<!-- This page will be the step 2 -->
+<apex:page controller="ffqs.CODAQSTaxRegimeController" sidebar="false" tabStyle="QuickStart__tab">
+  	<apex:stylesheet value="{!URLFOR($Resource.ffqs__FinancialForce_Wizard,'styles/wizard.css')}" />
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/prototype.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/scriptaculous.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/effects.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/wizard.js')}" type="text/javascript"></script>
+
+    <div class="wizard" id="wizard">
+	    <div class="header">
+	        <h2>{!$Label.codaexttaxregime}</h2>
+	    </div>
+	    
+	    <div class="form">
+	    <apex:form >
+        	<div class="stepsWrapper">
+	            <ul class="steps steps10">
+	                <li class="on on_current firstChild">
+	                    <div><span class="step">1</span><span class="title"> {!$Label.codaextcompanydetails}</span></div>
+	                </li>
+	                <li class="current">
+	                    <div><span class="step">2</span><span class="title"> {!$Label.codaexttaxregime}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">3</span><span class="title"> {!$Label.codaexttaxdetails}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">4</span><span class="title"> {!$Label.codaextuseraccess}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">5</span><span class="title"> {!$Label.codawzacccurrsetup}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">6</span><span class="title"> {!$Label.codawzfinancialcalendar}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">7</span><span class="title"> {!$Label.codawzchartofacc}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">8</span><span class="title"> {!$Label.codaextaccountsreceivableanalysis}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">9</span><span class="title"> {!$Label.codaextcreatecompany}</span></div>
+	                </li>
+	                <li class="lastChild">
+	                    <div><span class="step">10</span><span class="title"> {!$Label.codaextactivatecompany}</span></div>
+	                </li>
+	            </ul>
+	        </div>
+	        
+	        <div class="information">
+	            <h3>{!$Label.codaextentertaxregime}</h3>
+	        </div>
+	        
+	        <div class="left">      
+	            <div class="row">
+	                <div class="title">
+	                    <apex:outputLabel for="taxMode">{!$Label.codaexttaxmode} :</apex:outputLabel>
+	                </div>
+	                <div class="field">
+	                    <apex:selectList id="taxmode"  value="{!ViewState.taxMode}" size="1" title="">
+	                        <apex:selectOptions value="{!ViewState.TaxModes}"></apex:selectOptions>
+	                    </apex:selectList>
+	                </div>
+	            </div>
+	       	</div>
+	       
+	        <div class="right">
+	            <div class="row">
+	                <div class="title"></div>
+	                <div class="field">
+	                    <!-- Hidden Buttons --> 
+	                    <apex:commandButton value="{!$Label.codaextnext}" action="{!nextPage}" id="next_h" styleclass="hiddensubmit"/>      
+	                    <apex:commandButton value="{!$Label.codaextprevious}" action="{!previousPage}" id="previous_h" styleclass="hiddensubmit"/>      
+	                    <apex:commandButton value="{!$Label.codaextsaveprogress}" action="{!saveProgress}" id="save_h" styleclass="hiddensubmit"/>    
+	                    
+	                    <!-- End of Hidden Buttons -->
+	                    <apex:commandButton value="{!$Label.codaextnext}" id="next" onclick="document.getElementById('{!$Component.next_h}').click();return false;" rerender=""/>
+	                    <apex:commandButton value="{!$Label.codaextprevious}" id="previous" onclick="document.getElementById('{!$Component.previous_h}').click();return false;" rerender="" styleClass="btnLeft"/>                   
+	                    <apex:commandButton value="{!$Label.codaextsaveprogress}" id="saveProgress" onclick="document.getElementById('{!$Component.save_h}').click();return false;" rerender="" styleClass="btnSave btnRight"/>                   
+	                </div>
+	            </div>
+	        </div>
+    	</apex:form>
+    	</div>   
+    </div>
+</apex:page>
