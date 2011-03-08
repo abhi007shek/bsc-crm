@@ -1,0 +1,93 @@
+<!-- codainvoiceincomescheduleview -->
+<apex:page standardController="c2g__codaInvoice__c" extensions="c2g.CODAInvoiceController" tabStyle="c2g__codaInvoice__c">
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/IncomeScheduleCompare/IncomeScheduleCompare.css')}"/>
+    <script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+    <style>
+        .pbError { background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')}); }
+    </style>
+    
+    <apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+    
+        <!-- Header -->
+        <apex:sectionHeader title="{!$Label.codaInvoiceIncomeScheduleHeaderView}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1000')}"/>
+        <!-- Income Schedule Detail -->
+        <apex:pageBlock title="{!$Label.codaInvoiceIncomeScheduleTitleView}" id="incomeScheduleTitle" mode="view">
+        
+	        <!-- Messages -->
+	        <apex:include pageName="c2g__codamulticompanymodewarning" rendered="{!viewstate.reportingModeMessage}"/> 
+	        <apex:outputPanel id="messagePanel" layout="block">
+	            <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+	                <!--apex:messages/-->
+	                <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+	                    <apex:outputText value="{!errorMessage}"/><br/>
+	                </apex:repeat>
+	            </apex:outputPanel>
+	        </apex:outputPanel>
+        
+            <!-- Buttons -->
+            <apex:pageBlockButtons >            
+            <!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaInvoiceIncomeScheduleCancelView}" action="{!viewstate.invoice.invoiceLineItemForSchedule.cancelViewMode}" id="cancel_h" styleclass="hiddensubmit" immediate="true"/>
+				<!--  End of Hidden Buttons-->
+				<apex:commandButton value="{!$Label.codaInvoiceIncomeScheduleCancelView}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+                <script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaprocessing}"
+					var cancel = document.getElementById("{!$Component.cancel}");
+	                CODA2GoButtons.initButtons([cancel.id]);
+				</script>
+            </apex:pageBlockButtons>
+            
+            <!-- Product Income Schedule -->
+            <apex:pageBlockSection id="incomeSchedulePerProduct" title="{!$Label.codaInvoiceIncomeScheduleProductIncomeScheduleView}" columns="2" collapsible="false">
+				<apex:outputField id="incomeSchedule" value="{!viewstate.invoice.invoiceLineItemForSchedule.dto.c2g__IncomeSchedule__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.codaInvoiceIncomeScheduleNetTotalView}" for="netTotal"/>
+					<apex:outputPanel id="netTotal" styleClass="largeValue">
+						{!viewstate.currencySymbol}<span class="netTotal"><apex:outputText value="{!viewstate.invoice.invoiceLineItemForSchedule.incomeScheduleNetTotalAsString}" styleClass="largeValue"/></span>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:outputField id="numberOfJournals" value="{!viewstate.invoice.invoiceLineItemForSchedule.dto.c2g__NumberofJournals__c}"/>
+				<apex:outputField id="startDate" value="{!viewstate.invoice.invoiceLineItemForSchedule.dto.c2g__StartDate__c}" />
+				<apex:outputField id="periodInterval" value="{!viewstate.invoice.invoiceLineItemForSchedule.dto.c2g__PeriodInterval__c}" />
+				<apex:outputField id="usePartPeriods" value="{!viewstate.invoice.invoiceLineItemForSchedule.dto.c2g__UsePartPeriods__c}"/>
+				
+			</apex:pageBlockSection>
+				
+			<apex:pageBlockSection columns="1" collapsible="false">	
+				
+				<!-- Year/Period And Amount table -->
+            	<apex:dataTable id="dtIncomeSchedule" value="{!viewstate.invoice.invoiceLineItemForSchedule.scheduleLineItems}" var="scheduleLineItem" rowClasses="odd,even" headerClass="headerRow" footerClass="footerRow" styleClass="list detailListnoPadding listIncomeSchedule" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+					
+					<apex:column styleClass="widthauto" headerClass="widthauto" footerClass="alignright">
+						<apex:facet name="header">
+							{!$Label.codaInvoiceIncomeScheduleYearPeriodView}								
+						</apex:facet>
+						<apex:facet name="footer">
+							<apex:outputText value="{!$Label.codaInvoiceIncomeScheduleIncomeScheduleTotalView}"/>
+						</apex:facet>
+						<apex:outputText id="period" value="{!scheduleLineItem.yearPeriod}"/>
+					</apex:column>
+					
+					<apex:column styleClass="widthlarge alignright" headerClass="widthlarge alignright" footerClass="widthlarge alignright">
+						<apex:facet name="header">
+							{!$Label.codaInvoiceIncomeScheduleAmountView}								
+						</apex:facet>
+						<apex:facet name="footer">
+							<apex:outputPanel styleClass="largeValue">
+								{!viewstate.currencySymbol}<apex:outputText id="scheduleTotal" value="{!viewstate.invoice.invoiceLineItemForSchedule.incomeScheduleTotalAsString}" />
+							</apex:outputPanel>
+						</apex:facet>
+						<apex:outputField id="amount" value="{!scheduleLineItem.dto.c2g__Amount__c}"/>
+					</apex:column>
+					
+				</apex:dataTable>
+	
+				
+				
+			</apex:pageBlockSection>
+			
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

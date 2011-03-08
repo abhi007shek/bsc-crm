@@ -1,0 +1,60 @@
+<messaging:emailTemplate subject="Remittance" recipientType="Contact" relatedToType="c2g__codaPaymentMediaSummary__c">
+    <messaging:htmlEmailBody >
+        <p align="center">
+            <img src="{!relatedTo.c2g__OwnerCompany__r.c2g__LogoURL__c}"/><br/>
+            <small><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Street__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__City__c}"/><apex:outputText value=", "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__StateProvince__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__ZipPostCode__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Country__c}"/><br/>
+            <apex:outputText value="Phone: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Phone__c}"/><apex:outputText value=" Fax: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Fax__c}"/><br/><br/></small>
+        </p>
+        <p>
+            <c:CODAFormatterExt date="{!TODAY()}"/>
+            <br/><br/>
+            <apex:outputField value="{!relatedTo.c2g__Account__r.Name}"/>
+            <br/><br/>
+            Dear Sir
+            <br/><br/>
+            We have submitted the following payment to you.
+        </p>
+        <table border="0" cellpadding="2">
+            <tr>
+                <td>Payment Date</td>
+                <td><c:CODAFormatterExt date="{!relatedTo.c2g__PaymentMediaControl__r.c2g__PaymentDate__c}"/></td>
+            </tr> 
+            <tr>
+                <td>Payment Method</td>
+                <td><apex:outputField value="{!relatedTo.c2g__PaymentMediaControl__r.c2g__PaymentMethod__c}"/></td>
+            </tr> 
+            <tr>
+                <td>Payment Currency</td>
+                <td><apex:outputField value="{!relatedTo.c2g__PaymentControlCurrency__c}"/></td>
+            </tr> 
+            <tr>
+                <td>Payment Amount</td>
+                <td><c:CODAFormatterExt number="{!ABS(relatedTo.c2g__PaymentValue__c)}" currency="{!relatedTo.c2g__PaymentControlCurrency__c}"/></td>
+            </tr> 
+            <tr>
+                <td>Discount</td>
+                <td><c:CODAFormatterExt number="{!ABS(relatedTo.c2g__DiscountValue__c)}" currency="{!relatedTo.c2g__PaymentControlCurrency__c}"/></td>
+            </tr> 
+        </table>
+        <br/><br/>
+            <apex:dataTable value="{!relatedTo.c2g__PaymentMediaDetails__r}" var="line" border="1" cellpadding="1">
+                <apex:column style="text-align:left" headervalue="Document Number" value="{!line.c2g__DocumentNumber__c}"/>
+                <apex:column style="text-align:left" headervalue="Document Type" value="{!line.c2g__DocumentType__c}"/>
+                <apex:column style="text-align:center" headervalue="Document Date"><c:CODAFormatterExt date="{!line.c2g__DocumentDate__c}"/></apex:column>
+                <apex:column style="text-align:right" headervalue="Original Value"><c:CODAFormatterExt number="{!ABS(line.c2g__OriginalValue__c)}" currency="{!relatedTo.c2g__PaymentControlCurrency__c}"/></apex:column>
+                <apex:column style="text-align:right" headervalue="Discount"><c:CODAFormatterExt number="{!ABS(line.c2g__Discount__c)}" currency="{!relatedTo.c2g__PaymentControlCurrency__c}"/></apex:column>
+                <apex:column style="text-align:right" headervalue="Payment Value"><c:CODAFormatterExt number="{!ABS(line.c2g__PaymentValue__c)}" currency="{!relatedTo.c2g__PaymentControlCurrency__c}"/></apex:column>
+            </apex:dataTable>
+        <br/>
+        <p>
+            If you have any questions about this payment please do not hesitate to contact us. 
+            <br/><br/>
+            Yours faithfully
+            <br/><br/>
+            {!$User.FirstName} {!$User.LastName}
+        </p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

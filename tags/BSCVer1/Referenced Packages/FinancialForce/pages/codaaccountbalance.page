@@ -1,0 +1,86 @@
+<apex:page standardController="Account" extensions="c2g.CODAAccountBalanceController" sidebar="true" showHeader="false" standardStylesheets="true" >
+<style>
+body{
+    background-color:#F3F3EC;
+}
+.accountBlock .secondaryPalette{
+    background-color:#F3F3EC !important;
+    border-color:#F3F3EC !important;
+    background-image:none !important;
+}
+.width300{
+width:300px;
+display:block;
+}
+
+.width100{
+width:100px;
+}
+
+.alignRight{text-align:right;}
+
+.bPageBlock .accountBalanceTotalRow .detailList .labelCol {width:auto};
+.bPageBlock .accountBalanceTotalRow .detailList .dataCol{width:auto};
+.bPageBlock .accountBalanceTotalRow .detailList .labelCol.first .label{display:block; width:300px; text-align:right;}
+.bPageBlock .accountBalanceTotalRow .detailList .dataCol.first{width:100px !important;text-align:right !important;  }
+
+</style>
+<apex:pageBlock id="ff_block">
+
+<apex:pageBlockSection id="balanceTableSection"  columns="2" >
+    <apex:outputPanel id="balanceValues" rendered="{!!viewstate.hasErrorMessages}">
+       <apex:pageBlockSectionItem >
+            <apex:dataTable id="dtAcountBalance" width="400px" value="{!viewstate.balanceLines}" var="balanceLine" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+                
+                <apex:column styleClass="width300" headerClass="width300">
+                    <apex:facet name="header">{!$Label.codaAccountBalanceCompanyColum}</apex:facet>                      
+                    <apex:outputText value="{!balanceLine.CompanyName}" id="companyName" ></apex:outputText> 
+                </apex:column>
+                    
+                <apex:column rendered="{!viewstate.hasReport}"  styleClass="alignRight width100" headerClass="alignRight width100">
+                    <apex:facet name="header">{!$Label.codaAccountBalanceBalanceColum}</apex:facet>                        
+                    <apex:outputLink value="{!balanceLine.ReportId}" id="accBalanceLnk1" target="_parent" styleClass="alignright">{!balanceLine.AccountBalance}</apex:outputLink> 
+                    &nbsp;<apex:outputText value="{!viewstate.CurrencyName}" id="currencyNameLnk1" ></apex:outputText> 
+                </apex:column>
+                
+                 <apex:column rendered="{!!viewstate.hasReport}"  styleClass="alignRight width100" headerClass="alignRight width100">
+                    <apex:facet name="header">{!$Label.codaAccountBalanceBalanceColum}</apex:facet>                        
+                    <apex:outputText value="{!balanceLine.ReportId}" id="accBalance1">{!balanceLine.AccountBalance}</apex:outputText> 
+                    &nbsp;<apex:outputText value="{!viewstate.CurrencyName}" id="currencyName1" ></apex:outputText> 
+                </apex:column>
+                
+            </apex:dataTable>
+		</apex:pageBlockSectionItem>
+		<apex:pageBlockSectionItem >
+             <hr/>
+           <apex:dataTable id="dtAcountBalanceTotal" value="{!viewstate.List}" var="line"  rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+               <apex:column styleClass="width300" headerClass="width300">
+                     <apex:outputLabel styleClass="width300">{!$Label.codaAccountBalanceTotal}</apex:outputLabel>   
+                </apex:column>
+               
+                <apex:column rendered="{!viewstate.hasReport}"  styleClass="alignRight width100" headerClass="alignRight width100">
+                    <apex:outputLink value="{!viewstate.ReportIdTotal}" id="accBalanceLnk2Total" target="_parent">{!viewstate.AccountBalanceTotal}</apex:outputLink>
+                    &nbsp;<apex:outputText value="{!viewstate.CurrencyName}" id="currencyNameLnk4" ></apex:outputText> 
+                </apex:column>
+                
+                <apex:column rendered="{!!viewstate.hasReport}"  styleClass="alignRight width100" headerClass="alignRight width100">
+                    <apex:outputText value="{!viewstate.ReportIdTotal}" id="accBalance2Total">{!viewstate.AccountBalanceTotal}</apex:outputText>
+                    &nbsp;<apex:outputText value="{!viewstate.CurrencyName}" id="currencyName4" ></apex:outputText> 
+                </apex:column>
+                
+             </apex:dataTable> 
+       
+   </apex:pageBlockSectionItem>
+   </apex:outputPanel>
+   </apex:pageBlockSection>
+   
+    <apex:outputPanel id="messagePanel" layout="block" rendered="{!viewstate.hasErrorMessages}">
+        <apex:outputPanel id="errorPanel" layout="block" >
+            <apex:repeat value="{!viewstate.ErrorMessages}" var="errorMessage"> 
+                <apex:outputText value="{!errorMessage}" /><br />
+            </apex:repeat>
+        </apex:outputPanel>
+    </apex:outputPanel>   
+
+</apex:pageBlock>
+</apex:page>

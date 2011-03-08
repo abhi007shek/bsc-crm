@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__OwnerCompany__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__TransactionDate__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__Period__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__TransactionType__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__Credits__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__Debits__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__HomeValueTotal__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Show me all transactions that have been posted</description>
+    <format>Summary</format>
+    <name>Transactions Audit Report</name>
+    <reportType>CustomEntity$c2g__codaTransaction__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <sortColumn>CUST_NAME</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaTransaction__c.c2g__TransactionDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
