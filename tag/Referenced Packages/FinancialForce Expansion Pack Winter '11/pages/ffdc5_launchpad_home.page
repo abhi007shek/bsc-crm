@@ -1,0 +1,107 @@
+<apex:page >
+<apex:stylesheet value="{!URLFOR($Resource.ffxp__ffdc5_launchpad,'ffdc5_launchpad/css/launchpad.css')}"/>
+<style type="text/css">
+/* Page specific styles */
+div#gridcell_0-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}mail2.png') no-repeat top center;}
+div#gridcell_0-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}books_preferences.png') no-repeat top center;}
+div#gridcell_0-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}money2.png') no-repeat top center;}
+div#gridcell_2-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}chest_into.png') no-repeat top center;}
+div#gridcell_2-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}chest_out.png') no-repeat top center;}
+div#gridcell_2-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}column-chart.png') no-repeat top center;}
+div#gridcell_4-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}gear.png') no-repeat top center;}
+</style>
+<script type="text/javascript">
+    function hoverToggle(strId, strImageName)
+    {
+        var strImagePath = 'url(' + "{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/')}" + strImageName+'.png)';
+        document.getElementById(strId).style.backgroundImage=strImagePath;
+    }
+</script>
+<div id="home" class="panel_left">
+    <div class="title_bar title_bar_top">
+        <h1><span class="ff_heading">Accounting Launchpad</span>&nbsp;<span class="ff_help" title="Go to FinancialForce Help" onclick="window.open('{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm')}','_blank')"><img src="{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}help.png" /></span></h1>
+        <div class="select_panel">
+            <select name="Launchpad_select" id="Launchpad_select" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                    <option label="" value="">Select Launchpad...</option>
+                    <option label="" value="ffdc5_launchpad_home">Accounting Launchpad</option>
+                    <option label="" value="ffdc5_launchpad_billing">Billing Launchpad</option>
+                    <option label="" value="ffdc5_launchpad_accounts_receivable">Accounts Receivable</option>
+                    <option label="" value="ffdc5_launchpad_accounts_payable">Accounts Payable</option>
+                    <option label="" value="ffdc5_launchpad_cash_management">Cash Management</option>
+                    <option label="" value="ffdc5_launchpad_general_ledger">General Ledger &amp; Budgeting</option>
+                    <option label="" value="ffdc5_launchpad_data_setup">Data Setup</option>
+            </select>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="grid_wrapper" id="grid_wrapper_0">
+            <div class="gridrow_0">
+                <div id="gridcell_0-0" class="ff_button" onclick="window.open('ffdc5_launchpad_billing','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Billing
+                </div>
+                <div id="gridcell_0-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_0-2" class="ff_button" onclick="window.open('ffdc5_launchpad_general_ledger','_top')">
+                    <span class="icon">&nbsp;</span>
+                    General Ledger<br />&amp; Budgeting
+                </div>
+                <div id="gridcell_0-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_0-4" class="ff_button" onclick="window.open('ffdc5_launchpad_cash_management','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Cash <br />Management
+                </div>
+            </div>
+            <div class="gridrow_1">
+                <div id="gridcell_1-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_1-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_1-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_1-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_1-4" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_2">
+                <div id="gridcell_2-0" class="ff_button" onclick="window.open('ffdc5_launchpad_accounts_receivable','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Accounts <br/>Receivable
+                </div>
+                <div id="gridcell_2-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_2-2" class="ff_button" onclick="window.open('ffdc5_launchpad_accounts_payable','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Accounts <br/>Payable
+                </div>
+                <div id="gridcell_2-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_2-4" class="ff_button" onclick="window.open('/00O/o','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Reports
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="grid_wrapper" id="grid_wrapper_1">
+            <div class="gridrow_4">
+                <div id="gridcell_4-0" class="ff_button" onclick="window.open('ffdc5_launchpad_data_setup','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Data <br/>Setup
+                </div>
+                <div id="gridcell_4-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_4-2" class="ff_spacer">
+                </div>
+                <div id="gridcell_4-3" class="ff_spacer_h-mid"> 
+                </div>
+                <div id="gridcell_4-4" class="ff_spacer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</apex:page>

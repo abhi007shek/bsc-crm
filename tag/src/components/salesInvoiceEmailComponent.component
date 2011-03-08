@@ -1,0 +1,171 @@
+<apex:component controller="salesInvoiceEmailComController" access="global" >
+	<apex:attribute name="salesInvoiceId" description="This is the Sales Invoice Id." type="Id" assignTo="{!salesInvoiceId}"/> 
+	<apex:attribute name="taxType" description="This is the tax type." type="String" assignTo="{!taxType}"/>
+	<apex:attribute name="isoCode" description="This is the currency iso code." type="String" assignTo="{!isoCode}"/>
+	
+	<apex:attribute name="netTotal" description="This is the currency iso code." type="Double" assignTo="{!netTotal}"/>
+	<apex:attribute name="taxTotal" description="This is the currency iso code." type="Double" assignTo="{!taxTotal}"/>
+	<apex:attribute name="invoiceTotal" description="This is the currency iso code." type="Double" assignTo="{!invoiceTotal}"/>
+	        
+     <!-- Invoice Lines -->
+     <apex:variable var="lblProductName"                 value="Product Name" />
+     <apex:variable var="lblProductCode"                 value="Product Code: " />
+     <apex:variable var="lblQuantity"                    value="Quantity" />
+     <apex:variable var="lblUnitPrice"                   value="Unit Price" />
+     <apex:variable var="lblTaxCode"                     value="Tax Code" />
+     <apex:variable var="lblTaxValue"                    value="Tax Value" />
+     <apex:variable var="lblNetValue"                    value="Net Value" />  
+     
+     <!-- Invoice Total -->
+     <apex:variable var="lblInvoiceNetTotal"             value="Net Total" />
+     <apex:variable var="lblInvoiceTaxTotal"             value="Tax Total" />
+     <apex:variable var="lblInvoiceTotal"                value="Invoice Total" />
+     
+      <!-- Tax Summary -->
+      <apex:variable var="lblTaxSummary"               	 value="Tax Summary" />
+     <apex:variable var="lbltaxRate"             		 value="Tax Rate" />
+     <apex:variable var="lblnetValue"                    value="Net Value" />
+     <apex:variable var="lbltaxValue"                    value="Tax Value" />
+     <apex:variable var="lblproductCode"                 value="Product Code" />
+     
+	
+	<apex:dataTable value="{!LineItems}" var="line" styleClass="boxed noBottomMargin">
+                
+                <apex:column styleClass="textAlignCenter alignTop widthLineNumbers">
+                    <apex:facet name="header">&nbsp;</apex:facet>
+                    <apex:outputText value="{0,number,0}">
+                        <apex:param value="{!line.c2g__LineNumber__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column styleClass="alignTop">
+                    <apex:facet name="header">{!lblProductName}</apex:facet>
+                    	{!line.c2g__Product__r.Name}<br/>
+                    <span class="description">{!lblproductCode}{!line.c2g__Product__r.ProductCode}</span> 
+                    <span class="description">{!line.c2g__LineDescription__c}</span>
+                </apex:column>
+                
+                <apex:column styleClass="alignTop textAlignRight widthSmall">
+                    <apex:facet name="header">{!lblQuantity}</apex:facet>
+                    <apex:outputText value="{0,number,0.00}">
+                        <apex:param value="{!line.c2g__Quantity__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                
+                <apex:column styleClass="alignTop textAlignRight widthMedium">
+                    <apex:facet name="header">{!lblUnitPrice}</apex:facet>
+                    <apex:outputText value="{0,number,#,###,###,###,###,###.00}">
+                        {!invoiceCurrencySymbol}<apex:param value="{!line.c2g__UnitPrice__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                
+                <!-- SUT Tax Columns -->
+                <apex:column styleClass="alignTop textAlign widthSmall" rendered="{!taxType=='SUT'}">
+                    <apex:facet name="header">{!lblTaxCode}</apex:facet>
+                    {!line.c2g__TaxCode1__r.Name}
+                </apex:column>
+                
+                <apex:column styleClass="alignTop textAlignRight widthMedium" rendered="{!taxType=='SUT'}">
+                    <apex:facet name="header">{!lblTaxValue}</apex:facet>
+                    <apex:outputText value="{0,number,#,###,###,###,###,##0.00}">
+                        {!invoiceCurrencySymbol}<apex:param value="{!line.c2g__TaxValueTotal__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!-- SUT Tax Columns -->
+                
+                <!-- VAT Tax Columns -->
+                <apex:column styleClass="alignTop widthSmall" rendered="{!taxType=='VAT'}">
+                    <apex:facet name="header">{!lblTaxCode}</apex:facet>
+                    {!line.c2g__TaxCode1__r.Name}
+                </apex:column>
+                
+                <apex:column styleClass="alignTop textAlignRight widthMedium" rendered="{!taxType=='VAT'}">
+                    <apex:facet name="header">{!lblTaxValue}</apex:facet>
+                    <apex:outputText value="{0,number,#,###,###,###,###,##0.00}">
+                        {!invoiceCurrencySymbol}<apex:param value="{!line.c2g__TaxValueTotal__c}"/>
+                    </apex:outputText>
+                </apex:column>
+                <!-- VAT Tax Columns -->
+                
+                <apex:column styleClass="alignTop textAlignRight widthMedium">
+                    <apex:facet name="header">{!lblnetValue}</apex:facet>
+                    <apex:outputText value="{0,number,#,###,###,###,###,###.00}">
+                        {!invoiceCurrencySymbol}<apex:param value="{!line.c2g__NetValue__c}"/>
+                    </apex:outputText>
+                </apex:column>
+            </apex:dataTable>
+    
+     
+            <table>
+            	<tr>
+            		<td>
+       					<!-- Tax Summary -->
+				       <apex:dataTable value="{!TaxSummaries}" var="TaxSummary" styleClass="boxed noBottomMargin">
+				       <apex:facet name="header">{!lblTaxSummary}</apex:facet>
+				       <apex:column styleClass="alignTop textAlignLeft widthMedium">
+				             <apex:facet name="header">{!lblTaxCode}</apex:facet>
+				             <apex:outputText >
+				                  {!TaxSummary.taxCode}
+				              </apex:outputText>
+				         </apex:column>
+				         
+				         <apex:column styleClass="alignTop textAlignRight widthMedium" rendered="{!taxType=='VAT'}">
+				             <apex:facet name="header">{!lbltaxRate}</apex:facet>
+				             <apex:outputText >
+				                  {!TaxSummary.taxRate}
+				              </apex:outputText>
+				         </apex:column>
+				       
+				       <apex:column styleClass="alignTop textAlignRight widthMedium" rendered="{!taxType=='VAT'}">
+				             <apex:facet name="header">{!lblnetValue}</apex:facet>
+				             <apex:outputText value="{0,number,#,###,###,###,###,###.00}">
+				                  {!invoiceCurrencySymbol}<apex:param value="{!TaxSummary.netValue}"/>  
+				              </apex:outputText>
+				         </apex:column>	
+				      
+				       <apex:column styleClass="alignTop textAlignRight widthMedium">
+				             <apex:facet name="header">{!lbltaxValue}</apex:facet>
+				             <apex:outputText value="{0,number,#,###,###,###,###,##0.00}">
+				                  {!invoiceCurrencySymbol}<apex:param value="{!TaxSummary.taxValue}"/>
+				              </apex:outputText>
+				         </apex:column>	          
+				       </apex:dataTable>     		
+            		</td>
+            		
+            		<!-- Summary Values --> 
+            	    <td class="alignTop noPadding">
+                        <table class="boxed boxedNoTop">
+                            <tr>
+                                <th class="nobg noLines textAlignRight">{!lblInvoiceNetTotal}</th>
+                                <td class="textAlignRight widthMedium">
+                                    <apex:outputText value="{0,number,#,###,###,###,###,###.00}">
+                                        {!invoiceCurrencySymbol}<apex:param value="{!netTotal}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="nobg noLines textAlignRight">{!lblInvoiceTaxTotal}</th>
+                                <td class="textAlignRight widthMedium">
+                                	<apex:outputText value="{0,number,#,###,###,###,###,##0.00}">
+                                        {!invoiceCurrencySymbol}<apex:param value="{!taxTotal}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="nobg noLines textAlignRight">{!lblInvoiceTotal}</th>
+                                <td class="textAlignRight widthMedium">
+                                	<apex:outputText value="{0,number,#,###,###,###,###,###.00}">
+                                        {!invoiceCurrencySymbol}<apex:param value="{!invoiceTotal}"/>
+                                    </apex:outputText>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+         
+         
+       
+            
+	
+</apex:component>

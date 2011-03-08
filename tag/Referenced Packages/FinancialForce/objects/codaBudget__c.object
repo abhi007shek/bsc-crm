@@ -1,0 +1,1296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <customHelp>codaBudgetDefHelp</customHelp>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod001__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod002__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod003__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod004__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod005__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod006__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod007__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod008__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod009__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod010__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod011__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualPeriod012__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Actual Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod001__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BroughtForwardActual__c + ActualPeriod001__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod002__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod001__c + ActualPeriod002__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod003__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod002__c + ActualPeriod003__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod004__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod003__c + ActualPeriod004__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod005__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod004__c + ActualPeriod005__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod006__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod005__c + ActualPeriod006__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod007__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod006__c + ActualPeriod007__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod008__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod007__c + ActualPeriod008__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod009__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod008__c + ActualPeriod009__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod010__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod009__c + ActualPeriod010__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod011__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod010__c + ActualPeriod011__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>ActualYTDPeriod012__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod011__c + ActualPeriod012__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Actual YTD Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BankAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bank Account</label>
+        <referenceTo>codaBankAccount__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BroughtForwardActual__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Brought Forward Actual</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BroughtForwardBudget__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Brought Forward Budget</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod001__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod002__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod003__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod004__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod005__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod006__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod007__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod008__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod009__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod010__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod011__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetPeriod012__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Budget Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod001__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BroughtForwardBudget__c + BudgetPeriod001__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod002__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod001__c + BudgetPeriod002__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod003__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod002__c + BudgetPeriod003__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod004__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod003__c + BudgetPeriod004__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod005__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod004__c + BudgetPeriod005__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod006__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod005__c + BudgetPeriod006__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod007__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod006__c + BudgetPeriod007__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod008__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod007__c + BudgetPeriod008__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod009__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod008__c + BudgetPeriod009__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod010__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod009__c + BudgetPeriod010__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod011__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod010__c + BudgetPeriod011__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>BudgetYTDPeriod012__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>BudgetYTDPeriod011__c + BudgetPeriod012__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Budget YTD Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>GeneralLedgerAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>General Ledger Account</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>HashCode__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>Hash Code</label>
+        <length>255</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>IntersectDefinition__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Intersect Definition</label>
+        <referenceTo>codaIntersectDefinition__c</referenceTo>
+        <relationshipLabel>Budgets and Balances</relationshipLabel>
+        <relationshipName>BudgetsAndBalances</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>NumberPeriodUpdate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number Period Update</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>OwnerCompany__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <referenceTo>codaCompany__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod001__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod001__c - BudgetPeriod001__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod002__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod002__c - BudgetPeriod002__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod003__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod003__c - BudgetPeriod003__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod004__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod004__c - BudgetPeriod004__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod005__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod005__c - BudgetPeriod005__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod006__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod006__c - BudgetPeriod006__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod007__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod007__c - BudgetPeriod007__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod008__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod008__c - BudgetPeriod008__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod009__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod009__c - BudgetPeriod009__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod010__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod010__c - BudgetPeriod010__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod011__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod011__c - BudgetPeriod011__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VariancePeriod012__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualPeriod012__c - BudgetPeriod012__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod001__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod001__c - BudgetYTDPeriod001__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 001</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod002__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod002__c - BudgetYTDPeriod002__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 002</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod003__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod003__c - BudgetYTDPeriod003__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 003</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod004__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod004__c - BudgetYTDPeriod004__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 004</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod005__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod005__c - BudgetYTDPeriod005__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 005</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod006__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod006__c - BudgetYTDPeriod006__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 006</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod007__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod007__c - BudgetYTDPeriod007__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 007</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod008__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod008__c - BudgetYTDPeriod008__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 008</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod009__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod009__c - BudgetYTDPeriod009__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 009</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod010__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod010__c - BudgetYTDPeriod010__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 010</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod011__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod011__c - BudgetYTDPeriod011__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 011</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>VarianceYTDPeriod012__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>ActualYTDPeriod012__c - BudgetYTDPeriod012__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Variance YTD Period 012</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Year</label>
+        <referenceTo>codaYear__c</referenceTo>
+        <relationshipLabel>Budgets</relationshipLabel>
+        <relationshipName>Budgets</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <label>Budget and Balance</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Year__c</columns>
+        <columns>GeneralLedgerAccount__c</columns>
+        <columns>Account__c</columns>
+        <columns>BankAccount__c</columns>
+        <columns>Product__c</columns>
+        <columns>TaxCode__c</columns>
+        <columns>Dimension1__c</columns>
+        <columns>Dimension2__c</columns>
+        <columns>Dimension3__c</columns>
+        <columns>Dimension4__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>GeneralLedgerAccount__c</field>
+            <operation>equals</operation>
+            <value>5310 - Commission</value>
+        </filters>
+        <filters>
+            <field>Dimension1__c</field>
+            <operation>equals</operation>
+            <value>520 - Sales - Hammersmith</value>
+        </filters>
+        <filters>
+            <field>Dimension2__c</field>
+            <operation>equals</operation>
+            <value>2040 - Training</value>
+        </filters>
+        <filters>
+            <field>Dimension4__c</field>
+            <operation>equals</operation>
+            <value>CR1/18577</value>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>BUD{000000}</displayFormat>
+        <label>Budget ID</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Budgets and Balances</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>GeneralLedgerAccount__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>BankAccount__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Product__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>TaxCode__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Dimension1__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Dimension2__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Dimension3__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Dimension4__c</customTabListAdditionalFields>
+        <searchResultsAdditionalFields>GeneralLedgerAccount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>BankAccount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Product__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>TaxCode__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Dimension1__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Dimension2__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Dimension3__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Dimension4__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+</CustomObject>

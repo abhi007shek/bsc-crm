@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>codapaymenttemplateedit</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>codapaymenttemplatenew</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>codapaymenttemplateview</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <customHelp>codaPaymentTemplateHelp</customHelp>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Defines a template for a new payment proposal.</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>AccountCurrency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account Currency</label>
+        <referenceTo>codaAccountingCurrency__c</referenceTo>
+        <relationshipLabel>Payment Templates (Account Currency)</relationshipLabel>
+        <relationshipName>PaymentTemplatesAC</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BankAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bank Account</label>
+        <referenceTo>codaBankAccount__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplates</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CWODimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplatesCWO</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CWODimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplatesCWO</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CWODimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplatesCWO</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CWODimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplatesCWO</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CurrencyMode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency Mode</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Account</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Document</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CurrencyWriteOff__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency Write-off</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Payment Templates (Currency Write-off)</relationshipLabel>
+        <relationshipName>PaymentTemplatesCurrencyWriteOff</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Description__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DocumentCurrency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Document Currency</label>
+        <referenceTo>codaAccountingCurrency__c</referenceTo>
+        <relationshipLabel>Payment Templates (Document Currency)</relationshipLabel>
+        <relationshipName>PaymentTemplatesDC</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>GeneralLedgerAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>General Ledger Account</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplates</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OwnerCompany__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <referenceTo>codaCompany__c</referenceTo>
+        <relationshipLabel>Payment Templates</relationshipLabel>
+        <relationshipName>PaymentTemplates</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentCurrency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Currency</label>
+        <referenceTo>codaAccountingCurrency__c</referenceTo>
+        <relationshipLabel>Payment Templates (Payment Currency)</relationshipLabel>
+        <relationshipName>Payment_Templates</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentMediaTypes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Media</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PaymentMethod__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Cash</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Check</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Electronic</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PaymentTypes__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Type</label>
+        <length>18</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>SDRDimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Payment Templates (Dimension 1)</relationshipLabel>
+        <relationshipName>PaymentTemplatesSDR</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SDRDimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Payment Templates (Dimension 2)</relationshipLabel>
+        <relationshipName>PaymentTemplatesSDR</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SDRDimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Payment Templates (Dimension 3)</relationshipLabel>
+        <relationshipName>PaymentTemplatesSDR</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SDRDimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Payment Templates (Dimension 4)</relationshipLabel>
+        <relationshipName>PaymentTemplatesSDR</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>SettlementDiscountReceived__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Settlement Discount</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Payment Templates (Settlement Discount Received)</relationshipLabel>
+        <relationshipName>PaymentTemplatesSettlementDiscountReceiv</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Payment Template</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>GeneralLedgerAccount__c</columns>
+        <columns>CurrencyMode__c</columns>
+        <columns>PaymentMethod__c</columns>
+        <columns>PaymentMediaTypes__c</columns>
+        <columns>PaymentTypes__c</columns>
+        <columns>BankAccount__c</columns>
+        <columns>OwnerCompany__c</columns>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+        <language>en_US</language>
+    </listViews>
+    <nameField>
+        <label>Payment Template Name</label>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+    </nameField>
+    <pluralLabel>Payment Templates</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>CurrencyMode__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PaymentMethod__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PaymentMediaTypes__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PaymentTypes__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>BankAccount__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATEDBY_USER</customTabListAdditionalFields>
+        <customTabListAdditionalFields>CREATED_DATE</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

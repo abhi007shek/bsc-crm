@@ -1,0 +1,222 @@
+<!-- codaselectiondefinitionview -->
+<apex:page standardController="c2g__codaSelection__c" extensions="c2g.CODASelectionController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>  
+      <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+      <style>
+      .extracollapsed
+	  {
+		  BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	  }
+	  
+	  .extraexpanded
+	  {
+		  BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	  }
+	  
+	  .extracollapsed_h
+	  {
+		  BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	  }
+	
+	  .extraexpanded_h
+	  {
+		  BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	  }
+	
+	  .newlinebutton
+	  {
+		  background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});
+	  }
+	
+	  .pbError
+	  {
+		  background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	  }
+	  .informationerrorblock
+	  {
+		  background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});
+	  }
+      </style>
+      <apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+            <!-- Header -->
+            <apex:sectionHeader title="{!$Label.codaSelectionDefinitionViewPageTitle}" subtitle="{!viewstate.selection.dto.Name}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1068')}"/>
+            <!-- Back to Listing -->
+            <DIV class="goBreadcrumb">
+            &nbsp;&#171;<a href="{!URLFOR($Action.codaSelection__c.Tab,$ObjectType.codaSelection__c)}">{!$Label.codaSelectionDefinitionViewPageBackToList}</a>
+            </DIV>
+            <!-- Selection Wizard Detail -->
+            <apex:pageBlock title="{!$Label.codaSelectionDefinitionViewPageSelectionDefinitionDetail}" id="selectionWizardBlock" mode="detail">
+            
+                  <!-- Buttons -->
+                  <apex:pageBlockButtons >
+                        <!-- Hidden Buttons -->
+                        <apex:commandButton value="{!$Label.codaSelectionDefinitionViewPageEdit}" action="{!edit}" rendered="{!viewstate.selection.canEdit}" id="edit_h" styleclass="hiddensubmit"/>
+                        <!-- <apex:commandButton value="{!$Label.codaSelectionDefinitionViewPageCancel}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/> -->
+                        <!-- End of Hidden Buttons -->
+                        <apex:commandButton value="{!$Label.codaSelectionDefinitionViewPageEdith}" onclick="document.getElementById('{!$Component.edit_h}').click();return false;" rendered="{!viewstate.selection.canEdit}" id="edit" rerender=""/>
+                        <!-- <apex:commandButton value="{!$Label.codaSelectionDefinitionViewPageCancelh}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/> -->
+                        <script>
+                             var CODA2GoButtons = new CODA2GoPage();
+                    		 var CODA2GoBtnSaveValue = "{!$Label.codaSelectionDefinitionViewPageProcessing}";
+		                     var edit = document.getElementById("{!$Component.edit}");
+		                     CODA2GoButtons.initButtons([edit.id]);
+                        </script>
+                  </apex:pageBlockButtons>
+                  
+                  <!-- Messages -->
+                  <apex:outputPanel id="messagePanel" layout="block">
+                        <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                             <!--apex:messages/-->
+                             <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                                   <apex:outputText value="{!errorMessage}"/><br/>
+                             </apex:repeat>
+                        </apex:outputPanel>
+                  </apex:outputPanel>
+                  
+                  <!-- HEADER DETAIL -->
+                  <apex:pageBlockSection title="{!$Label.codaSelectionDefinitionViewPageDetail}" id="SelectionDetail" columns="2" collapsible="false">
+                  		<apex:outputField id="selectionName" value="{!viewstate.selection.dto.Name}"/>
+                  		<apex:outputField id="selectionDescription" value="{!viewstate.selection.dto.c2g__SelectionDescription__c}" style="height:60px;width:90%;"/>
+              	  </apex:pageBlockSection>
+				  
+				  <!-- HEADER FILTER -->
+                  <apex:pageBlockSection title="{!$Label.codaSelectionDefinitionViewPageHeader}" id="HeaderSelectionFields" columns="2" collapsible="false">
+                  	<apex:pageBlockSectionItem >
+                  		<apex:outputLabel value="{!$Label.codaSelectionDefinitionViewPageHeaderObject}" for="HeaderObjectField"/>
+                  		<apex:outputText id="HeaderObjectField" value="{!viewstate.selection.dto.c2g__SelectionHeaderObjectLabel__c}"/>
+                 	</apex:pageBlockSectionItem>
+                  </apex:pageBlockSection>
+                  
+                  <hr/> 
+                  
+                  <apex:pageBlockSection id="HeaderFieldsSection" columns="2" collapsible="true">
+                  		<apex:dataTable id="dtHeaderFields" value="{!viewstate.selection.SelectionHeaderFieldsAndLoadHeaderMap}" var="SelectionHeaderFieldLine" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+                  			
+                  			<!--apex:column styleClass="widthauto">
+								<apex:facet name="header">&nbsp;</apex:facet>
+								<apex:outputText id="HFlinenumber" value="{!SelectionHeaderFieldLine.dto.LineNumber__c}"/>
+							</apex:column-->
+                  			
+                  			<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageField}</apex:facet>
+								<apex:outputText id="HeaderField" value="{!SelectionHeaderFieldLine.dto.c2g__FieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageRelatedField}</apex:facet>
+								<apex:outputText id="HeaderRelatedField" value="{!SelectionHeaderFieldLine.dto.c2g__RelatedFieldLabel__c}"/>
+							</apex:column>
+							
+                  		</apex:dataTable>
+                  </apex:pageBlockSection>
+                  
+                  <hr/>
+                  
+                  <apex:pageBlockSection id="HeaderCriteriaSection" columns="5" collapsible="false">
+                  		<apex:dataTable id="dtHeaderCriterions" value="{!viewstate.selection.SelectionHeaderCriterias}" var="SelectionCriterionHeaderLines" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+                  		
+                  			<!--apex:column styleClass="widthauto">
+								<apex:facet name="header">&nbsp;</apex:facet>
+								<apex:outputText id="HClinenumber" value="{!SelectionCriterionHeaderLines.dto.LineNumber__c}"/>
+							</apex:column-->
+                  		
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__Field__c.label}</apex:facet>
+								<apex:outputText id="field" value="{!SelectionCriterionHeaderLines.dto.c2g__FieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageRelation}</apex:facet>
+								<apex:outputText id="HeaderRelationCriterion" value="{!SelectionCriterionHeaderLines.dto.c2g__RelatedFieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__Operator__c.label}</apex:facet>
+								<apex:outputText id="operator" value="{!SelectionCriterionHeaderLines.dto.c2g__Operator__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__ValueFrom__c.label}</apex:facet>
+								<apex:outputText id="valueFrom" value="{!SelectionCriterionHeaderLines.dto.c2g__ValueFrom__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__ValueTo__c.label}</apex:facet>
+								<apex:outputText id="ValueTo" value="{!SelectionCriterionHeaderLines.dto.c2g__ValueTo__c}"/>
+							</apex:column>
+							
+                  		</apex:dataTable>
+                  </apex:pageBlockSection>
+                  
+                  <!-- LINE ITEM FILTER -->
+                  <apex:pageBlockSection title="{!$Label.codaSelectionDefinitionViewPageLineItems}" id="LineItemSelectionFields" columns="2" collapsible="false">
+                  	<apex:pageBlockSectionItem >
+                    	<apex:outputLabel value="{!$Label.codaSelectionDefinitionVewPageLineItemObject}" for="LineItemObjectField" styleclass="paddtop"/>
+                    	<apex:outputField id="LineItemObjectField" value="{!viewstate.selection.dto.c2g__SelectionLineItemObjectLabel__c}"/> 
+					</apex:pageBlockSectionItem>
+                  </apex:pageBlockSection>
+                  
+                  <hr/>
+                  
+                  <apex:pageBlockSection id="LineItemFieldsSection" columns="2" collapsible="true">
+                  		<apex:dataTable id="dtLineItemFields" value="{!viewstate.selection.SelectionLineItemFieldsAndLoadLineItemMap}" var="SelectionLineItemFieldLine" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+                  			
+                  			<!--apex:column styleClass="widthauto">
+								<apex:facet name="header">&nbsp;</apex:facet>
+								<apex:outputText id="LIFlinenumber" value="{!SelectionLineItemFieldLine.dto.LineNumber__c}"/>
+							</apex:column-->
+                  			
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageField2}</apex:facet>
+								<apex:outputText id="LineItemField" value="{!SelectionLineItemFieldLine.dto.c2g__FieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageRelatedField2}</apex:facet>
+								<apex:outputText id="LineItemRelatedField" value="{!SelectionLineItemFieldLine.dto.c2g__RelatedFieldLabel__c}"/>
+							</apex:column>
+							
+                  		</apex:dataTable>
+                  </apex:pageBlockSection>
+                  
+                  <hr/>
+                  
+                  <apex:pageBlockSection id="LineItemCriteriaSection" columns="5" collapsible="true">
+                  		<apex:dataTable id="dtLineItemCriterions" value="{!viewstate.selection.SelectionLineItemCriterias}" var="SelectionCriterionLineItemLines" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+
+							<!--apex:column styleClass="widthauto">
+								<apex:facet name="header">&nbsp;</apex:facet>
+								<apex:outputText id="LIClinenumber" value="{!SelectionCriterionLineItemLines.dto.LineNumber__c}"/>
+							</apex:column-->
+
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__Field__c.label}</apex:facet>
+								<apex:outputText id="LIfield" value="{!SelectionCriterionLineItemLines.dto.c2g__FieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$Label.codaSelectionDefinitionViewPageRelation2}</apex:facet>
+								<apex:outputText id="LIrelation" value="{!SelectionCriterionLineItemLines.dto.c2g__RelatedFieldLabel__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__Operator__c.label}</apex:facet>
+								<apex:outputText id="LIoperator" value="{!SelectionCriterionLineItemLines.dto.c2g__Operator__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__ValueFrom__c.label}</apex:facet>
+								<apex:outputText id="LIvalueFrom" value="{!SelectionCriterionLineItemLines.dto.c2g__ValueFrom__c}"/>
+							</apex:column>
+							
+							<apex:column styleClass="widthauto">
+								<apex:facet name="header">{!$ObjectType.c2g__codaSelectionCriterion__c.fields.c2g__ValueTo__c.label}</apex:facet>
+								<apex:outputText id="LIValueTo" value="{!SelectionCriterionLineItemLines.dto.c2g__ValueTo__c}"/>
+							</apex:column>
+                             
+                  		</apex:dataTable>
+                  </apex:pageBlockSection>
+                  
+            </apex:pageBlock>
+      </apex:form>
+</apex:page>

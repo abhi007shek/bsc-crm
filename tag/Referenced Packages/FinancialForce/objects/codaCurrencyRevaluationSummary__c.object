@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>BankAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Bank Account</label>
+        <referenceTo>codaBankAccount__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CurrencyRevaluation__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Currency Revaluation</label>
+        <referenceTo>codaCurrencyRevaluation__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>CurrencyRevaluationSummaries</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Dimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DualValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dual Value</label>
+        <summarizedField>codaCurrencyRevaluationLineItem__c.DualValue__c</summarizedField>
+        <summaryForeignKey>codaCurrencyRevaluationLineItem__c.CurrencyRevaluationSummary__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>GeneralLedgerAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>General Ledger Account</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>HashCode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>GeneralLedgerAccount__c &amp; &apos;#&apos; &amp; Dimension1__c &amp; &apos;#&apos; &amp; Dimension2__c &amp; &apos;#&apos; &amp; Dimension3__c &amp; &apos;#&apos; &amp; Dimension4__c &amp; &apos;#&apos; &amp; Account__c &amp; &apos;#&apos; &amp; Product__c &amp; &apos;#&apos; &amp; BankAccount__c &amp; &apos;#&apos; &amp; TaxCode1__c &amp; &apos;#&apos; &amp; TaxCode2__c &amp; &apos;#&apos; &amp; TaxCode3__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>HashCode</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HomeValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Home Value</label>
+        <summarizedField>codaCurrencyRevaluationLineItem__c.HomeValue__c</summarizedField>
+        <summaryForeignKey>codaCurrencyRevaluationLineItem__c.CurrencyRevaluationSummary__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Posted</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code 1</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code 2</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries (Tax Code 2)</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries1</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code 3</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Currency Revaluation Summaries (Tax Code 3)</relationshipLabel>
+        <relationshipName>Currency_Revaluation_Summaries2</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Currency Revaluation Summary</label>
+    <nameField>
+        <displayFormat>CRS{000000}</displayFormat>
+        <label>Currency Revaluation Summary Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Currency Revaluation Summaries</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

@@ -1,0 +1,12 @@
+<apex:page action="{!doAction}" standardController="Special_Event__c" extensions="InCompanyCourseTransferController">
+
+<apex:sectionHeader title="In Company Transfer" subtitle="{!Special_Event__c.Name}" />
+
+<apex:outputPanel rendered="{!transferSuccess}">
+<h3 style="font-size:200px">Transfer completed succesfully</h3>
+</apex:outputPanel>
+
+<div class="ptBreadcrumb">&nbsp;«&nbsp;<a href="/{!Special_Event__c.Id}">Back to BSC Event: {!Special_Event__c.Name}</a></div>
+<apex:pageMessages />
+
+</apex:page>

@@ -1,0 +1,339 @@
+<!-- codajournalnew -->
+<apex:page standardController="c2g__codaJournal__c" extensions="c2g.CODAJournalController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript">
+	</script>
+	
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/codajournal.js')}" type="text/javascript"></script>
+
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<style>
+	.extracollapsed
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	
+	.extraexpanded
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	
+	.newlinebutton
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});
+	}
+	
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	
+	.pbInfo
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbInfoIcon.gif')});
+	}
+	</style>
+
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+		<div id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></div>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageJournalNewJournal}" subtitle="{!$Label.codaPageJournalNewNew}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1033')}"/>
+		<!-- Back to Journals -->
+		<div class="goBreadcrumb">
+		&nbsp;&#171;<a href="{!URLFOR($Action.codaJournal__c.Tab,$ObjectType.codaJournal__c)}">{!$Label.codaPageJournalNewBackToList}</a>
+		</div>
+		<!-- Journal Detail -->
+		<apex:pageBlock title="{!$Label.codaPageJournalNewJournalDetail}" id="journalBlock" mode="edit">
+			<!-- Buttons -->
+			<apex:pageBlockButtons >
+				<!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageJournalNewSave}" id="save_h" action="{!save}" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPageJournalNewSaveNew}" id="save_new_h" action="{!saveAndNew}" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaSaveAndPostButton}" id="save_post_h" action="{!saveAndPost}" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPageJournalNewCancel}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/>
+				<apex:commandButton value="{!$Label.codaPageJournalNewReversing}" id="reversing_h" action="{!gotoReverse}" styleclass="hiddensubmit"/>
+				<!-- Normal Buttons -->
+				<apex:commandButton value="{!$Label.codaPageJournalNewSave2}" id="save" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.save_h}').click()};return false;" rendered="{!!viewstate.IsCancelling}"/>
+				<apex:commandButton value="{!$Label.codaPageJournalNewSaveNew2}" id="save_new" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.save_new_h}').click()};return false" rendered="{!!viewstate.IsCancelling}"/>
+				<apex:commandButton value="{!$Label.codaSaveAndPostButton}" id="save_post" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.save_post_h}').click()};return false;" rendered="{!viewstate.IsCancelling}"/> 				
+				<apex:commandButton value="{!$Label.codaPageJournalNewCancel}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+				<apex:commandButton id="validate" value="{!$Label.codaPageJournalNewValidate}" action="{!validateJournal}" reRender="currency,errorPanel,messagePanel,dtLineItems,debits,credits,total" onclick="CODA.indicatorOn('{!$Label.codaPageJournalNewValidating}')" oncomplete="CODA.indicatorOff();"/>
+				<apex:commandButton value="{!$Label.codaPageJournalNewReversing2}" id="reversing" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.reversing_h}').click()};return false;" rendered="{!!viewstate.IsCancelling}"/> 
+				<script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaPageJournalNewProcessing}"
+                    CODA2GoButtons.initButtons([
+                        '{!$Component.save}',
+                        '{!$Component.save_new}',
+                        '{!$Component.save_post}',
+                        '{!$Component.cancel}',
+                        '{!$Component.validate}',
+                        '{!$Component.reversing}']);
+				</script>
+			</apex:pageBlockButtons>
+			<!-- Messages -->		
+			<apex:include pageName="c2g__codamulticompanymodewarning"  rendered="{!viewstate.reportingModeMessage}"/> 
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+					<!-- apex:messages /-->
+				 	<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+						<apex:outputText value="{!errorMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+				<apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!viewstate.showGeneralMessages}">
+					<apex:repeat value="{!viewstate.generalMessages}" var="generalMessage" rendered="{!viewstate.showGeneralMessages}">
+						<apex:outputText value="{!generalMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+			<!-- Journal Detail -->
+			<div class="headerdetails">
+				<apex:pageBlockSection id="journalDetail" title="{!$Label.codaPageJournalNewJournalDetail2}" columns="1">
+					<apex:panelGrid width="800px" columns="2" border="0">
+					<apex:panelGrid width="100%" columns="2" border="0" columnClasses="labelCol first, dataCol first">
+						<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__JournalDate__c.label}" for="date" />
+						<apex:outputPanel layout="block" styleClass="requiredInput">
+							<apex:inputField id="journalDate" value="{!viewstate.journal.dto.c2g__JournalDate__c}" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:actionFunction name="onChangeJournalDate" action="{!updateJournalDate}" reRender="errorPanel,messagePanel,journalDetail,period" oncomplete="CODA.resumeQueueProcessing();"/>
+							<script>
+								CODA.addToFocusEvent("{!$Component.journalDate}");
+								CODA.addQueuedOnBlurEvent(null, "{!$Component.journalDate}", "{!$Label.codaPageJournalNewRetrievingPeriod}", onChangeJournalDate,true);
+							</script>
+						
+						<apex:outputField id="cancel_journalDate" value="{!viewstate.journal.dto.c2g__JournalDate__c}" rendered="{!viewstate.IsCancelling}"/>
+							
+						</apex:outputPanel>
+										
+						<apex:outputLabel value="{!$Label.codaPageJournalNewJournalCurrency}" for="currency" rendered="{!!viewstate.IsCancelling}"/>
+						<apex:inputField id="currency" value="{!viewstate.journal.dto.c2g__JournalCurrency__c}" required="true" rendered="{!!viewstate.IsCancelling}"/> 
+						
+						<apex:outputLabel value="{!$Label.codaPageJournalNewJournalCurrency}" for="currency_cancel" rendered="{!viewstate.IsCancelling}"/>
+						<apex:outputField id="currency_cancel" value="{!viewstate.journal.dto.c2g__JournalCurrency__c}" rendered="{!viewstate.IsCancelling}"/>
+						
+						<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__Reference__c.label}" for="reference"/>
+						<apex:inputField id="reference" value="{!viewstate.journal.dto.c2g__Reference__c}" />
+
+						<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__OriginalJournal__c.label}" for="originaljournal" rendered="{!viewstate.IsCancelling}"/>
+						<apex:outputField id="originaljournal" value="{!viewstate.journal.dto.c2g__OriginalJournal__c}" rendered="{!viewstate.IsCancelling}" />
+
+						<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__Period__c.label}" for="period"/>
+						<apex:inputField value="{!viewstate.journal.dto.c2g__Period__c}" id="period"/>
+						
+					</apex:panelGrid>
+					
+					<apex:panelGrid width="100%" columns="2" border="0" columnClasses="labelCol first, dataCol  first ">
+							<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__Debits__c.label}"/>
+							<apex:outputText id="debits" value="{!viewstate.journal.Debits}" styleClass="widthstandard alignright goblock"/>
+							<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__Credits__c.label}"/>
+							<apex:outputText id="credits" value="{!viewstate.journal.Credits}" styleClass="widthstandard alignright goblock"/>
+							<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__Total__c.label}"/>
+							<apex:outputText id="total" value="{!viewstate.journal.Total}" styleClass="widthstandard alignright goblock"/>
+					</apex:panelGrid>
+					</apex:panelGrid>
+					<apex:panelGrid width="800px" columns="2" border="0" columnClasses="labelCol first, dataCol first">
+						<apex:outputLabel value="{!$ObjectType.c2g__codaJournal__c.fields.c2g__JournalDescription__c.label}" for="description"/>
+						<apex:OutputPanel >
+							<apex:inputText id="description" value="{!viewstate.journal.dto.c2g__JournalDescription__c}" style="width:650px;" maxlength="255"/>
+							<script>
+								var elm1 = document.getElementById("{!$Component.reference}");
+								CODA.addLoadEvent(function()
+								{
+									if(document.getElementById("datePicker"))
+									{
+										document.getElementById('datePicker').style.display="none";
+										document.getElementById('datePicker').style.visibility="hidden";
+										elm1.focus();
+										elm1.select();
+										setTimeout("document.getElementById('datePicker').style.left='-300px';document.getElementById('datePicker').style.visibility='visible';CODA.hideIE6iframes();",1);
+									}
+								});
+							</script>
+						</apex:OutputPanel>
+					</apex:panelGrid>
+						
+				</apex:pageBlockSection>
+			</div>
+			<!-- Journal Line Items -->
+			<apex:pageBlockSection title="{!$Label.codaPageJournalNewJournalLineItems}" id="lineItemSection" columns="1">
+				<apex:inputHidden value="{!viewstate.CurrentLineNumber}" id="currentLineNumber"/>
+				<apex:dataTable id="dtLineItems" value="{!viewstate.journal.lineItems}" var="lineItem" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+					
+					<!--  line number -->
+					<apex:column styleClass="widthlinenumbers" id="linecolumn">
+						<apex:facet name="header">&nbsp;</apex:facet>
+						<apex:outputPanel styleClass="holder">
+							<apex:outputField value="{!lineItem.dto.c2g__LineNumber__c}"/>
+						</apex:outputPanel>
+					</apex:column>
+					
+					<!--  validate button -->
+					<apex:column styleClass="widthicon alignright" rendered="{!!viewstate.IsCancelling}">
+						<apex:facet name="header">&nbsp;</apex:facet>
+						<apex:commandLink action="{!lineItem.validate}" reRender="valueError,errorPanel,messagePanel,glaDiv,accountPanel,LineDescriptionDiv,Dim1Div,Dim2Div,Dim3Div,Dim4Div,value,debits,credits,total" onclick="CODA.indicatorOn('{!$Label.codaPageJournalNewValidatingLine}')" oncomplete="CODA.indicatorOff()">
+							<apex:image value="{!URLFOR($Resource.c2g__coda2go, 'coda2go/web/images/validate.gif')}" width="16" height="16" title="{!$Label.codaPageJournalValidateLine}"/>
+						</apex:commandLink>
+					</apex:column>
+
+					<!--  remove button	-->				
+					<apex:column styleClass="widthicon alignright" rendered="{!!viewstate.IsCancelling}">
+						<apex:facet name="header">&nbsp;</apex:facet>
+						<apex:commandLink action="{!lineItem.remove}" immediate="false" reRender="errorPanel,dtLineItems,debits,credits,total" onclick="CODA.indicatorOn('{!$Label.codaPageJournalNewRemovingLine}')" oncomplete="CODA.indicatorOff();">
+							<apex:image value="{!URLFOR($Resource.c2g__coda2go, 'coda2go/web/images/delete.gif')}" width="16" height="16" title="{!$Label.codaPageJournalNewRemoveLine}"/>
+							<apex:param name="lnum" value="{!lineItem.LineNumber}"/>
+						</apex:commandLink>
+					</apex:column>
+
+					<!--  line type -->
+					<apex:column >
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__LineType__c.label}</apex:facet>
+						<apex:outputPanel id="linetypeDiv">
+							<nobr>
+	 							<apex:outputField id="linetype" value="{!lineItem.dto.c2g__LineType__c}"/>
+	 						</nobr>
+						</apex:outputPanel>
+					</apex:column>
+					<!-- line item -->
+					<apex:column styleClass="widthauto">					  
+						<apex:facet name="header">{!$Label.codaLineItem}</apex:facet>
+						<apex:outputPanel id="accountPanel" layout="block">
+							<apex:inputField id="account" value="{!lineItem.dto.c2g__Account__c}" rendered="{!lineItem.IsAccountLine}"/>
+							<apex:outputField id="account_cancel" value="{!lineItem.dto.c2g__Account__c}" rendered="{!lineItem.IsCancellingAccountLine}"/>
+							<apex:inputField id="bank" value="{!lineItem.dto.c2g__BankAccount__c}" rendered="{!lineItem.IsBankAccountLine}"/>
+							<apex:outputField id="bank_cancel" value="{!lineItem.dto.c2g__BankAccount__c}" rendered="{!lineItem.IsCancellingBankAccountLine}" />
+							<apex:inputField id="product" value="{!lineItem.dto.c2g__Product__c}" rendered="{!lineItem.IsProductLine}"/>
+							<apex:outputField id="product_cancel" value="{!lineItem.dto.c2g__Product__c}" rendered="{!lineItem.IsCancellingProductLine}"/>
+							<apex:inputField id="taxcode" value="{!lineItem.dto.c2g__TaxCode__c}" rendered="{!lineItem.IsTaxCodeLine}"/>
+							<apex:outputField id="taxcode_cancel" value="{!lineItem.dto.c2g__TaxCode__c}" rendered="{!lineItem.IsCancellingTaxCodeLine}" />
+							<apex:inputField id="destcompany" value="{!lineItem.dto.c2g__DestinationCompany__c}" rendered="{!lineItem.IsIntercompanyLine}"/>
+							<apex:outputField id="destcompany_cancel" value="{!lineItem.dto.c2g__DestinationCompany__c}" rendered="{!lineItem.IsCancellingIntercompanyLine}" />
+						</apex:outputPanel>
+					</apex:column>
+					
+					<!--  GLA -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__GeneralLedgerAccount__c.label}</apex:facet>
+						<apex:outputPanel id="glaDiv" layout="block">
+							<apex:inputField id="gla" value="{!lineItem.dto.c2g__GeneralLedgerAccount__c}" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="gla_cancel" value="{!lineItem.dto.c2g__GeneralLedgerAccount__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+
+					<!--  Amount -->
+					<apex:column styleClass="widthauto alignright">
+						<apex:facet name="header">{!$Label.codaPageJournalNewAmount}</apex:facet>
+						<apex:inputText id="value" value="{!lineItem.Value}" required="true" styleClass="alignright" rendered="{!!viewstate.IsCancelling}"/>
+						<apex:outputText id="value_cancel" value="{!lineItem.Value}" styleClass="alignright" rendered="{!viewstate.IsCancelling}"/>
+						<apex:outputPanel id="valueError">
+							<apex:message for="value" styleClass="errorMsg"/>
+						</apex:outputPanel>
+					</apex:column>
+					
+					<!--  Line description -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__LineDescription__c.label}</apex:facet>
+						<apex:outputPanel id="LineDescriptionDiv" layout="block">
+							<apex:inputField value="{!lineItem.dto.c2g__LineDescription__c}" style="width:200px" id="lineDescription" styleclass="analysisdata" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="lineDescription_cancel" style="width:200px"  value="{!lineItem.dto.c2g__LineDescription__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+
+					<!--  dimension 1 -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Dimension1__c.label}</apex:facet>
+						<apex:outputPanel id="Dim1Div" layout="block">
+							<apex:inputField value="{!lineItem.dto.c2g__Dimension1__c}" id="lineDim1" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="lineDim1_cancel" value="{!lineItem.dto.c2g__Dimension1__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+
+					<!--  dimension 2 -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Dimension2__c.label}</apex:facet>
+						<apex:outputPanel id="Dim2Div" layout="block">
+							<apex:inputField value="{!lineItem.dto.c2g__Dimension2__c}" id="lineDim2" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="lineDim2_cancel" value="{!lineItem.dto.c2g__Dimension2__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+
+					<!--  dimension 3 -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Dimension3__c.label}</apex:facet>
+						<apex:outputPanel id="Dim3Div" layout="block">
+							<apex:inputField value="{!lineItem.dto.c2g__Dimension3__c}" id="lineDim3" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="lineDim3_cancel" value="{!lineItem.dto.c2g__Dimension3__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+
+					<!--  dimension 4 -->
+					<apex:column styleClass="widthauto">
+						<apex:facet name="header">{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Dimension4__c.label}</apex:facet>
+						<apex:outputPanel id="Dim4Div" layout="block">
+							<apex:inputField value="{!lineItem.dto.c2g__Dimension4__c}" id="lineDim4" rendered="{!!viewstate.IsCancelling}"/>
+							<apex:outputField id="lineDim4_cancel" value="{!lineItem.dto.c2g__Dimension4__c}" rendered="{!viewstate.IsCancelling}"/>
+						</apex:outputPanel>
+					</apex:column>
+				</apex:dataTable>
+				
+				</apex:pageBlockSection>
+			<!-- Journal New Line -->
+			<div class="headerdetails">
+				<apex:pageBlockSection id="newlineblock" title="{!$Label.codaPageJournalNewNewLine}" rendered="{!!viewstate.IsCancelling}">
+					<apex:panelGrid id="newLinePanel" width="600px" columns="2" border="0" >
+						<!--  line type -->
+						<apex:outputPanel >
+							<apex:outputPanel >
+								<apex:outputLabel value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__LineType__c.label}  " for="linetype" styleclass="labelCol"/>
+								<apex:selectList id="newline_type" value="{!viewstate.SelectLineType}" multiselect="false" size="1" onChange="CODA.showNewlineItem('{!$Component.newline_type}')">
+									<apex:selectOptions value="{!viewstate.lineTypes}"/>
+								</apex:selectList>
+							</apex:outputPanel>
+						</apex:outputPanel>
+					
+						<!--  line item -->
+						<apex:outputPanel id="pickerpanel">
+							<script>
+								CODA.showNewlineItem('{!$Component.newline_type}')
+							</script>
+							<apex:outputPanel id="newlineAccountPanel">
+								<apex:outputLabel id="newline_accountlabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Account__c.label} " for="newline_account" styleclass="labelCol"/>
+								<apex:inputField id="newline_account" value="{!viewstate.lookup.dto.c2g__Account__c}"/>
+							</apex:outputPanel>
+							
+							<apex:outputPanel id="newlineBankPanel" style="display:none">
+								<apex:outputLabel id="newline_banklabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__BankAccount__c.label} " for="newline_bankaccount"  styleclass="labelCol"/>
+								<apex:inputField id="newline_bank" value="{!viewstate.lookup.dto.c2g__BankAccount__c}" />
+							</apex:outputPanel>
+							
+							<apex:outputPanel id="newlineGLAPanel" style="display:none">
+								<apex:outputLabel id="newline_glalabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__GeneralLedgerAccount__c.label} " for="newline_generalledgeraccount"  styleclass="labelCol"/>
+								<apex:inputField id="newline_gla" value="{!viewstate.lookup.dto.c2g__GeneralLedgerAccount__c}"/>
+							</apex:outputPanel>
+							
+							<apex:outputPanel id="newlineProductPanel" style="display:none">
+								<apex:outputLabel id="newline_productlabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__Product__c.label} " for="newline_product"  styleclass="labelCol"/>
+								<apex:inputField id="newline_product" value="{!viewstate.lookup.dto.c2g__Product__c}" />
+							</apex:outputPanel>
+							
+							<apex:outputPanel id="newlineTaxCodePanel" style="display:none">
+								<apex:outputLabel id="newline_taxcodelabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__TaxCode__c.label} " for="newline_taxcode"  styleclass="labelCol"/>
+								<apex:inputField id="newline_taxcode" value="{!viewstate.lookup.dto.c2g__TaxCode__c}" />
+						    </apex:outputPanel>
+
+							<apex:outputPanel id="newlineIntercompanyPanel" style="display:none">
+								<apex:outputLabel id="newline_intercompanylabel" value="{!$ObjectType.c2g__codaJournalLineItem__c.fields.c2g__DestinationCompany__c.label} " for="newline_intercompany"  styleclass="labelCol"/>
+								<apex:inputField id="newline_intercompany" value="{!viewstate.lookup.dto.c2g__Company__c}" />
+						    </apex:outputPanel>
+						</apex:outputPanel>
+						
+						<!--  new line button -->
+						<apex:outputPanel id="newlineButtonPanel" style="text-align:left">
+							<apex:commandLink id="newLine" styleClass="newlinebutton" accesskey="n" onclick="if(CODA2GoButtons.saved){return false;};CODA.indicatorOn('{!$Label.codaPageJournalNewAddingLine}')" oncomplete="CODA.indicatorOff();CODA.setFocus('{!$Component.journalBlock.lineItemSection.dtLineItems}','{!$Component.journalBlock.lineItemSection.dtLineItems.gla}')" action="{!addLineItem}" reRender="errorPanel,journalDetail,period,dtLineItems,debits,credits,total,pickerpanel" rendered="{!!viewstate.IsCancelling}">
+							{!$Label.codaPageJournalNewUNUEwLine}
+							</apex:commandLink>
+						</apex:outputPanel>
+					</apex:panelGrid>
+				</apex:pageBlockSection>
+			</div>
+
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

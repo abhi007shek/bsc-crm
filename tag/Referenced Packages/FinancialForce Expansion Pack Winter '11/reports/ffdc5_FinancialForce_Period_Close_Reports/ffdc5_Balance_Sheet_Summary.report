@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>c2g__codaTransaction__c.c2g__OwnerCompany__c</field>
+    </columns>
+    <columns>
+        <field>FK_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>c2g__codaTransactionLineItem__c.c2g__HomeValue__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Balance sheet summary for Company Financial Dashboard</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$c2g__codaGeneralLedgerAccount__c.c2g__BalanceSheet2__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>FK_$c2g__codaGeneralLedgerAccount__c.c2g__BalanceSheet3__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Balance Sheet Summary</name>
+    <reportType>CustomEntityCustomEntity$c2g__codaTransaction__c$c2g__codaTransactionLineItem__c@c2g__codaTransactionLineItem__c.c2g__GeneralLedgerAccount__c</reportType>
+    <scope>organization</scope>
+    <showDetails>false</showDetails>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaTransaction__c.c2g__TransactionDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>The line items on the payable invoice, such as product, unit price, quantity and line total.</description>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>false</enableReports>
+    <fields>
+        <fullName>DateFrom__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Date From</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>DateTo__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Date To</label>
+        <required>false</required>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Dimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>EditTaxValue__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Edit Tax Value</label>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>32</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>InputVATCode__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Input VAT Code</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items (Input VAT Code)</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItemsInput</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>LineDescription__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Line Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>LineNumber__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Line Number</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NetValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>UnitPrice__c * Quantity__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Net Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerCompany__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <referenceTo>codaCompany__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>Purchase_Invoice_Line_Items</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Product__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The product name.</description>
+        <externalId>false</externalId>
+        <label>Product</label>
+        <referenceTo>Product2</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PurchaseInvoice__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The auto-generated payable invoice number.</description>
+        <externalId>false</externalId>
+        <label>Payable Invoice Number</label>
+        <referenceTo>codaPurchaseInvoice__c</referenceTo>
+        <relationshipLabel>Payable Invoice Line Items</relationshipLabel>
+        <relationshipName>PurchaseInvoiceLineItems</relationshipName>
+        <relationshipOrder>0</relationshipOrder>
+        <type>MasterDetail</type>
+        <writeRequiresMasterRead>false</writeRequiresMasterRead>
+    </fields>
+    <fields>
+        <fullName>Quantity__c</fullName>
+        <defaultValue>1</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The quantity of product bought.</description>
+        <externalId>false</externalId>
+        <label>Quantity</label>
+        <precision>10</precision>
+        <required>true</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxRate1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Rate</label>
+        <precision>7</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxRateTotal__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TaxRate1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax Rate Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>3</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxValue1__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>TaxValueTotal__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>TaxValue1__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax Value Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UnitPrice__c</fullName>
+        <defaultValue>0</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The unit price for this product.</description>
+        <externalId>false</externalId>
+        <label>Unit Price</label>
+        <precision>16</precision>
+        <required>true</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <label>Payable Invoice Line Item</label>
+    <nameField>
+        <displayFormat>{0}</displayFormat>
+        <label>Payable Invoice Line Item ID</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Payable Invoice Line Items</pluralLabel>
+    <searchLayouts/>
+    <sharingModel>ControlledByParent</sharingModel>
+</CustomObject>

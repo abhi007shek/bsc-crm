@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;iframe style=&quot;width: 100%; height: 20px;&quot; src=&quot;/apex/c2g__codacurrentcompanydisplay&quot; name=&quot;Frame1&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>
