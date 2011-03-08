@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>codaUpgradeBatchApex</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeBatchApex</shortDescription>
+        <value>Batch Apex</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeClear</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeClear</shortDescription>
+        <value>Empty Payment Detail/Temp table</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeCopyFromTemporal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeCopyFromTemporal</shortDescription>
+        <value>Copy from temporary table</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeCopyToTemporal</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeCopyToTemporal</shortDescription>
+        <value>Copy to temporary table</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeErrorInCopyingFrom</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeErrorInCopyingFrom</shortDescription>
+        <value>Apparently last copy procedure failed and left some garbage data on the table that is now deleted. Please click Copy from Temporal again.</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeErrorInCopyingTo</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeErrorInCopyingTo</shortDescription>
+        <value>Apparently last copy procedure failed and left some garbage data on the table that is now deleted. Please click Copy to Temporal again.</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeNumberRecordsIsDiferent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeNumberRecordsIsDiferent</shortDescription>
+        <value>Due to the number of record is different on each table, this information is being removed.</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeNumberRecordsIsDiferentClickAgain</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeNumberRecordsIsDiferentClickAgain</shortDescription>
+        <value>Due to the number of record is different on each table, this information is being removed. You must click the button again.</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeNumberRegistersToCopy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeNumberRegistersToCopy</shortDescription>
+        <value>Copying {0} records...</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeNumberRegistersToDelete</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeNumberRegistersToDelete</shortDescription>
+        <value>Deleting {0} records...</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradePaymentNotCompleted</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeStatusCompleted</shortDescription>
+        <value>There are payments in progress.</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradePopUpErrorInCopying</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradePopUpErrorInCopying</shortDescription>
+        <value>Temporal table not empty, deleting table...</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeProcedure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeProcedure</shortDescription>
+        <value>Upgrade Tool</value>
+    </labels>
+    <labels>
+        <fullName>codaUpgradeProcessing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>codaUpgradeProcessing</shortDescription>
+        <value>Processing</value>
+    </labels>
+</CustomLabels>

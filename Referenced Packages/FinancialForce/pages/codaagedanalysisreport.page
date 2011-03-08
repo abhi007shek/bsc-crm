@@ -1,0 +1,203 @@
+<!-- codaagedanalysisreport -->
+<apex:page controller="c2g.CODAAgedAnalysisController" sidebar="false">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/codareport.css')}"/>
+	<link rel='stylesheet' type='text/css' media="print" href="{!URLFOR($Resource.coda2go,'coda2go/web/css/codareportprint.css')}" />
+	<style>
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	.pbInfo
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbInfoIcon.gif')});
+		display:none;
+	}
+	</style> 
+	<apex:form >
+		<div id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></div>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageAgedAnalysisReportAgedAnalysis}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1042')}"/>
+		
+		<!-- Printable Headers -->
+		<div class="codareporttitle">{!$ObjectType.codaAgedAnalysisDef__c.fields.Name.label}:&nbsp;{!viewstate.agedDef.name}</div>
+		<div class="codareporttitle">{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__AgedAnalysisCurrency__c.label}:&nbsp;{!viewstate.agedDef.agedAnalysisCurrency}</div>
+		<div class="codareporttitle">{!$ObjectType.codaTransactionLineItem__c.fields.GeneralLedgerAccount__c.label} {!$Label.codaPageAgedAnalysisReportFilter}&nbsp;{!viewstate.agedDef.GeneralLedgerAccount.Name}</div>
+		<div class="codareporttitle">{!$Label.codaCurrency} {!$Label.codaPageAgedAnalysisReportFilter2}&nbsp;<apex:outputField value="{!viewstate.agedDef.dto.c2g__AccountCurrency__c}"/></div>
+		<div class="codareporttitle">{!$Label.codaPageAgedAnalysisReportDate} {!viewstate.reportDate}</div>
+		
+		
+		<!-- Messages -->
+		<apex:outputPanel id="messagePanel" layout="block">
+			<apex:outputPanel id="errorMessagePanel" layout="block" styleClass="pbError" rendered="{!!viewstate.errorMessages.empty}">
+				<apex:messages />
+				<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage">
+					<apex:outputText value="{!errorMessage}"/><br/>
+				</apex:repeat>
+			</apex:outputPanel>
+			<apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!!viewstate.generalMessages.empty}">
+				<apex:repeat value="{!viewstate.generalMessages}" var="generalMessage">
+					<apex:outputText value="{!generalMessage}"/><br/>
+				</apex:repeat>
+			</apex:outputPanel>
+		</apex:outputPanel>
+		
+		<!-- Screen Headers and Buttons -->
+		<DIV class="reportinfoholder">
+			<H2>{!$ObjectType.codaAgedAnalysisDef__c.fields.Name.label}:</H2>
+			<DIV class="reportinfo">{!viewstate.agedDef.name}</DIV>
+			<div class="reportclear"></div>
+		</DIV>
+		<DIV class="reportinfoholder">
+			<H2>{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__AgedAnalysisCurrency__c.label}:</H2>
+			<DIV class="reportinfo">{!viewstate.agedDef.agedAnalysisCurrency}</DIV>
+			<div class="reportclear"></div>
+			<H2>{!$ObjectType.codaTransactionLineItem__c.fields.GeneralLedgerAccount__c.label} {!$Label.codaPageAgedAnalysisReportFilter3}</H2>
+			<DIV class="reportinfo">
+				<apex:outputField value="{!viewstate.agedDef.dto.c2g__GeneralLedgerAccount__c}"/>
+			</DIV>
+			<div class="reportclear"></div>
+			<H2>{!$Label.codaCurrency} {!$Label.codaPageAgedAnalysisReportFilter4}</H2>
+			<DIV class="reportinfo">
+				<apex:outputLabel value="{!viewstate.currencyFilter}"/>
+			</DIV>
+			<div class="reportclear"></div>
+			<H2>{!$Label.codaPageAgedAnalysisReportReportDate}</H2>
+			<DIV class="reportinfo">{!viewstate.reportDate}</DIV>
+			<div class="reportclear"></div>
+			<!-- Buttons -->
+			<div class="reportActions">
+				<apex:commandButton value="{!$Label.codaPageAgedAnalysisReportBackToSelect}" action="{!gotoSelection}"/>
+				<input type="button" class="btn" value="{!$Label.codaPageAgedAnalysisReportPrintReport}" onclick="print();"/>
+			</div>
+		</DIV>
+		
+		<!-- Report Detail -->
+		<apex:outputPanel id="report" layout="block" styleClass="pbBody">
+		<div class="pbSubheader secondaryPalette"><h3>{!$Label.codaPageAgedAnalysisReportGeneratedRep}</h3></div>
+		<div class="pbSubbody">
+		<table border="0" cellpadding="3" cellspacing="0" border="0" class="codareport">
+			<thead>
+				<tr>
+					<td class="{!viewstate.table.style.name}">
+						<apex:commandLink value="{!$ObjectType.Account.fields.Name.label}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Name"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Name',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Name',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.reportingCode}">
+						<apex:commandLink value="{!$ObjectType.Account.fields.c2g__CODAReportingCode__c.label}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData2}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="ReportingCode"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='ReportingCode',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='ReportingCode',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.currency}">
+						<apex:commandLink value="{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__AgedAnalysisCurrency__c.label}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData3}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Currency"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Currency',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Currency',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.unmatchedCash}">
+						<apex:commandLink value="{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__UnmatchedCash__c.label}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData4}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="UnmatchedCash"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='UnmatchedCash',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='UnmatchedCash',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column1}">
+						<apex:commandLink value="{!viewstate.agedDef.column1Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData5}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column1"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column1',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column1',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column2}">
+						<apex:commandLink value="{!viewstate.agedDef.column2Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData6}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column2"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column2',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column2',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column3}">
+						<apex:commandLink value="{!viewstate.agedDef.column3Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData7}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column3"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column3',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column3',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column4}">
+						<apex:commandLink value="{!viewstate.agedDef.column4Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData8}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column4"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column4',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column4',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column5}">
+						<apex:commandLink value="{!viewstate.agedDef.column5Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData9}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column5"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column5',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column5',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column6}">
+						<apex:commandLink value="{!viewstate.agedDef.column6Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData10}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column6"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column6',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column6',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column7}">
+						<apex:commandLink value="{!viewstate.agedDef.column7Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData11}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column7"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column7',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column7',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column8}">
+						<apex:commandLink value="{!viewstate.agedDef.column8Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData12}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column8"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column8',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column8',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column9}">
+						<apex:commandLink value="{!viewstate.agedDef.column9Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData13}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column9"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column9',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column9',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.column10}">
+						<apex:commandLink value="{!viewstate.agedDef.column10Name}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData14}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="Column10"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column10',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='Column10',viewstate.sortDir=='desc')}"/>
+					</td>
+					<td class="{!viewstate.table.style.totalOutstanding}">
+						<apex:commandLink value="{!$ObjectType.c2g__codaAgedAnalysisDef__c.fields.c2g__TotalOutstanding__c.label}" action="{!sortTable}" onclick="CODA.indicatorOn('{!$Label.codaPageAgedAnalysisReportSortingData15}')" oncomplete="CODA.indicatorOff()" reRender="report">
+							<apex:param name="col" value="TotalOutstanding"/>
+						</apex:commandLink>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_asc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='TotalOutstanding',viewstate.sortDir=='asc')}"/>
+						<apex:image styleClass="absmiddle" value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/images/sort_desc_arrow.gif')}" rendered="{!AND(viewstate.sortCol=='TotalOutstanding',viewstate.sortDir=='desc')}"/>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+			<apex:repeat value="{!viewstate.table.rows}" var="row">
+				<tr class="{!row.style}">
+				<apex:repeat value="{!row.cells}" var="cell">
+					<td class="{!cell.style}" colSpan="{!cell.colSpan}">{!cell.value}&nbsp;</td>
+				</apex:repeat>
+				</tr>
+			</apex:repeat>
+			</tbody>
+		</table>
+		</div>
+		</apex:outputPanel>
+	</apex:form>
+</apex:page>

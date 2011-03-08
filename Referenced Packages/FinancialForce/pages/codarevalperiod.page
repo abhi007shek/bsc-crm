@@ -1,0 +1,158 @@
+<apex:page controller="c2g.CODACurrencyRevalController" tabStyle="c2g__codaCurrencyRevaluation__c">
+	
+	<script src="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<script>
+        CODA.documentFunctionTimer("keyup", CODA.executeQueue, 1500);
+        CODA.documentFunctionTimer("click", CODA.executeQueue, 1500); 
+    </script>
+	
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/base/base.css')}"/>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/wizard_steps/wizard_steps.css')}"/>
+	<script src="{!URLFOR($Resource.c2g__front,'front/base/frameworks/jquery-1.4.2.min.js')}" type="text/javascript"></script>
+	<script src="{!URLFOR($Resource.c2g__front,'front/base/base.js')}" type="text/javascript"></script>
+	<script src="{!URLFOR($Resource.c2g__front,'front/components/wizard_steps/wizard_steps.js')}" type="text/javascript"></script>
+	  
+	<apex:sectionHeader title="{!$Label.codaRevalWizardTitle}" subtitle="{!$Label.codaRevalWizardStep2Title}"/>
+	
+	<div class="wizardSteps">
+		<ul class="steps steps6">
+			<li class="firstChild on on_current">
+				<div>
+					<span class="step">1</span>
+					<span class="title">{!$Label.codaRevalWizardStep1Title}</span>
+				</div>
+			</li>
+			<li class="current"> 
+				<div>
+					<span class="step">2</span>
+					<span class="title">{!$Label.codaRevalWizardStep2Title}</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span class="step">3</span>
+					<span class="title">{!$Label.codaRevalWizardStep3Title}</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span class="step">4</span>
+					<span class="title">{!$Label.codaRevalWizardStep4Title}</span>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span class="step">5</span>
+					<span class="title">{!$Label.codaRevalWizardStep5Title}</span>
+				</div>
+			</li>
+			<li class="lastChild">
+				<div>
+					<span class="step">6</span>
+					<span class="title">{!$Label.codaRevalWizardStep6Title}</span>
+				</div> 
+			</li>
+		</ul>
+	</div>
+	
+	<apex:form >
+		<div id="indicator"><img src="{!URLFOR($Resource.c2g__coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></div>
+		<apex:pageBlock mode="edit">
+			
+			<div class="informationArea hasRequiredLegend">
+				<h3>{!$Label.codaRevalWizardStep2Information}</h3>
+				<span class="requiredLegend">
+					<span class="requiredExampleOuter">
+						<span class="requiredExample">&nbsp;</span>
+					</span>
+					<span class="requiredText"> = {!$Label.codaRevalWizardRequiredInformation}</span>
+				</span>
+			</div>
+				
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="errorArea" rendered="{!viewstate.showErrorMessages}">
+			    	<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+			        	<h3><apex:outputText value="{!errorMessage}"/></h3>
+			        </apex:repeat>
+			    </apex:outputPanel>
+			</apex:outputPanel> 
+			 
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem rendered="{!ViewState.isIncomeStatement}">
+					<apex:outputPanel styleClass="fieldLevelHelp">
+						<apex:outputLabel value="{!$Label.codaRevalWizardPeriodFrom}" for="fromPeriod"  />
+						<img src="/s.gif" alt="" class="helpIcon" title="{!$Label.codaRevalWizardPeriodFromHelp}">
+					</apex:outputPanel>
+					
+					<apex:outputPanel layout="block" styleClass="requiredInput">
+						<apex:outputPanel layout="block" styleClass="requiredBlock"/>
+						<apex:inputField value="{!ViewState.FromPeriod.dto.c2g__Period__c}" id="fromPeriod" />
+					</apex:outputPanel>
+			
+				</apex:pageBlockSectionItem>
+				     
+				<apex:pageBlockSectionItem >
+					
+					<apex:outputPanel styleClass="fieldLevelHelp">
+						<apex:outputLabel value="{!$Label.codaRevalWizardPeriodTo}" for="toPeriod"/>
+						<img src="/s.gif" alt="" class="helpIcon" title="{!$Label.codaRevalWizardPeriodToHelp}">
+					</apex:outputPanel>
+					
+					<apex:outputPanel layout="block">
+						
+						
+						<apex:outputPanel layout="block" styleClass="requiredInput">
+							<apex:outputPanel layout="block" styleClass="requiredBlock"/>
+							<apex:inputField value="{!ViewState.toPeriod.dto.c2g__Period__c}" id="toPeriod" />
+						</apex:outputPanel>
+						
+						
+						<apex:actionFunction name="onChangeToPeriod" action="{!ViewState.defaultPostingPeriod}" oncomplete="CODA.resumeQueueProcessing();" reRender="postingPeriod,reversalPeriod,messagePanel"/>
+						<script type="text/javascript">
+							CODA.addQueuedOnBlurEvent(null, "{!$Component.toPeriod}", "Defaulting Posting Period", onChangeToPeriod, true);
+						</script> 
+					</apex:outputPanel> 
+				</apex:pageBlockSectionItem>    
+				           
+				<apex:pageBlockSectionItem >
+					
+					<apex:outputPanel styleClass="fieldLevelHelp">
+						<apex:outputLabel value="{!$Label.codaRevalWizardPostingPeriod}" for="postingPeriod" /> 
+						<img src="/s.gif" alt="" class="helpIcon" title="{!$Label.codaRevalWizardPostingPeriodHelp}">
+					</apex:outputPanel>
+					   
+					<apex:outputPanel layout="block">
+					 	<apex:outputPanel layout="block" styleClass="requiredInput" style="min-height:19px;line-height:19px;">
+							<apex:outputLabel value="{!ViewState.PostingPeriodName}" id="postingPeriod"/>
+						</apex:outputPanel>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputPanel styleClass="fieldLevelHelp">
+						<apex:outputLabel value="{!$Label.codaRevalWizardReversalPeriod}" for="reversalPeriod"/>
+						<img src="/s.gif" alt="" class="helpIcon" title="{!$Label.codaRevalWizardReversalPeriodHelp}">
+					</apex:outputPanel>
+					
+					
+					
+					<apex:outputPanel layout="block" styleClass="requiredInput">
+						<apex:outputPanel layout="block" styleClass="requiredBlock"/>
+						<apex:inputField value="{!ViewState.reversalPeriod.dto.c2g__Period__c}" id="reversalPeriod" />
+					</apex:outputPanel>	
+					
+					
+					
+				</apex:pageBlockSectionItem>
+				
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton value="Previous" action="{!previousPage}" />
+				<apex:commandButton value="Next" action="{!nextPage}"/> 
+			</apex:pageBlockButtons>
+			
+		
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

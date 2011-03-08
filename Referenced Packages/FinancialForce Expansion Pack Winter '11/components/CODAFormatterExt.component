@@ -1,0 +1,8 @@
+<apex:component controller="ffxp.CODAFormatterExtController" access="global">
+    <apex:attribute name="date" type="Date" description="A date value" assignTo="{!date}" access="global"/>
+    <apex:attribute name="number" type="String" description="A number value" assignTo="{!number}" access="global"/>
+    <apex:attribute name="currency" type="String" description="Currency name" assignTo="{!currency}" access="global"/>
+    <apex:outputField value="{!Lookup.c2g__LookupDate__c}" rendered="{!Lookup.c2g__LookupDate__c!=null}"/>
+    <apex:outputField value="{!Lookup.c2g__LookupNumber__c}" rendered="{!Lookup.c2g__LookupNumber__c!=null}"/>
+    <apex:outputField value="{!Lookup.c2g__LookupNumber3__c}" rendered="{!Lookup.c2g__LookupNumber3__c!=null}"/>
+</apex:component>

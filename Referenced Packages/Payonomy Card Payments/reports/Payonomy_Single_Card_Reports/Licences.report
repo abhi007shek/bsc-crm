@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Expires__c</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Next_Check__c</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Product__c</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Signature__c</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Valid_Until__c</field>
+    </columns>
+    <columns>
+        <field>Licence__c.Version__c</field>
+    </columns>
+    <format>Tabular</format>
+    <name>Licences</name>
+    <reportType>CustomEntity$Licence__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>Licence__c.Expires__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

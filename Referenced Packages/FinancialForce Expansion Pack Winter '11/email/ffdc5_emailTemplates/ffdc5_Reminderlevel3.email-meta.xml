@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>18.0</apiVersion>
+    <available>true</available>
+    <description>Sample final reminder template based on the data retrieved from unpaid or partially paid Sales Invoices. Includes company address information and details from the invoice such as the account, outstanding value, and due date.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Reminder level 3</name>
+    <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>c2g</namespace>
+    </packageVersions>
+    <style>none</style>
+    <subject>Final reminder</subject>
+    <type>visualforce</type>
+</EmailTemplate>

@@ -1,0 +1,21 @@
+<apex:component controller="ffxp.CODAStatementsTableController" access="global">
+	<apex:attribute name="statementInfo" type="c2g__codaMassEmailAccount__c" description="Statements detail" assignTo="{!statementInfo}"/>
+
+        <apex:dataTable value="{!statementTableInfo}" var="line" border="1" cellpadding="3">
+            <apex:column style="text-align:left" headervalue="Document Type" value="{!line.docType}"/>
+            <apex:column style="text-align:left" headervalue="Document Number" value="{!line.docNumber}"/>
+            <apex:column style="text-align:center" headervalue="Due Date"><c2g:CODAFormatterController date="{!line.dueDate}"/></apex:column>
+            <apex:column style="text-align:center" headervalue="Currency" value="{!line.docCurrency}"/>
+            <apex:column style="text-align:right" headervalue="Debit"><c2g:CODAFormatterController number="{!line.debitAmount}" currency="{!line.docCurrency}"/></apex:column>
+            <apex:column style="text-align:right" headervalue="Credit"><c2g:CODAFormatterController number="{!line.creditAmount}" currency="{!line.docCurrency}"/></apex:column>
+            <apex:column style="text-align:right" headervalue="Balance"><c2g:CODAFormatterController number="{!line.runningTotal}" currency="{!line.docCurrency}"/></apex:column>
+        </apex:dataTable>
+		<br/>
+		<br/>
+		<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<td><b>BALANCE OUTSTANDING:&nbsp;&nbsp;&nbsp;<apex:outputText value="{!totalCurrency}"/>&nbsp;<c2g:CODAFormatterController number="{!balanceTotal}" currency="{!totalCurrency}"/></b></td>
+		</tr>
+		</table>
+ 
+</apex:component>
