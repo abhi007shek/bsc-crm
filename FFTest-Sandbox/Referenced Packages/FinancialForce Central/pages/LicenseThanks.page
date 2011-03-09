@@ -1,7 +1,0 @@
-<apex:page sidebar="false" showHeader="false" >
-	<apex:pageBlock >
-		<apex:outputText title="Thankyou">
-			Thank you for your license inquiry. We will be in touch with you soon.
-		</apex:outputText>
-	</apex:pageBlock>
-</apex:page>
