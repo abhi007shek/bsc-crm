@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>16.0</apiVersion>
+    <available>true</available>
+    <description>Sample remittance template based on data retrieved from the Payment Media tables. Includes company address information and details from the payment such as the payment date, currency, and value.</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>Remittances</name>
+    <packageVersions>
+        <majorNumber>5</majorNumber>
+        <minorNumber>0</minorNumber>
+        <namespace>c2g</namespace>
+    </packageVersions>
+    <style>none</style>
+    <subject>Remittance</subject>
+    <type>visualforce</type>
+</EmailTemplate>

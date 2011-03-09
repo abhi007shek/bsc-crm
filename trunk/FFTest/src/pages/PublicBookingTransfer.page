@@ -1,0 +1,11 @@
+<apex:page tabStyle="Special_Event_Booking__c" controller="PublicBookingTransferController" action="{!doTransfer}">
+<apex:sectionHeader title="Transfer Booking" subtitle="{!record.Name}" />
+
+<apex:outputPanel rendered="{!transferSuccess}">
+    <h3 style="font-size:200px">Transfer completed succesfully</h3>
+</apex:outputPanel>
+
+<div class="ptBreadcrumb">&nbsp;«&nbsp;<a href="/{!record.Id}">Back to BSC Event Booking: {!record.Name}</a></div>
+<apex:pageMessages />
+
+</apex:page>

@@ -1,0 +1,32 @@
+<apex:component controller="c2g.CODADynamicFieldController">
+	<apex:attribute name="m_fieldInfo" 
+		description="Field Info" 
+        type="c2g.CODADynamicFieldInfo" 
+        required="true" 
+        assignTo="{!DynamicFieldInfo}"/>
+	<apex:attribute name="m_mode" 
+        description="Field Mode" 
+        type="String" 
+        required="true" 
+        assignTo="{!Mode}"/>
+	<apex:attribute name="m_objectc" 
+        description="Object" 
+        type="String" 
+        required="true"
+        assignTo="{!ObjectC}"/>
+
+	<apex:inputText id="showTextInput" rendered="{!m_fieldInfo.showText&&!(m_fieldInfo.forReading&&!m_fieldInfo.forWriting||(mode=='VIEW'))}" value="{!m_fieldInfo.value}" />
+    <apex:outputText id="showTextOutput" rendered="{!m_fieldInfo.showText&&(m_fieldInfo.forReading&&!m_fieldInfo.forWriting||(mode=='VIEW'))}" value="{!m_fieldInfo.value}" />
+
+    <apex:selectList id="showLookUpPicklist" rendered="{!m_fieldInfo.showLookUpPicklist}" value="{!m_fieldInfo.value}" multiselect="false" size="1" disabled="{!(m_fieldInfo.forReading&&!m_fieldInfo.forWriting||(mode=='VIEW'))}">
+        <apex:selectOptions value="{!picklistLookUpValues}"/>
+    </apex:selectList>
+    <apex:inputCheckbox id="showCheckbox" rendered="{!m_fieldInfo.showCheckbox}" value="{!m_fieldInfo.value}" disabled="{!(m_fieldInfo.forReading&&!m_fieldInfo.forWriting||(mode=='VIEW'))}"/>
+    <apex:selectList id="showPicklist" rendered="{!m_fieldInfo.showPicklist}" value="{!m_fieldInfo.value}" multiselect="{!m_fieldInfo.MultiPicklist}" size="{!m_fieldInfo.PicklistSize}" disabled="{!(m_fieldInfo.forReading&&!m_fieldInfo.forWriting||(mode=='VIEW'))}">
+        <apex:selectOptions value="{!PicklistValues}"/>
+    </apex:selectList>
+    <apex:inputField id="showDateWriting" rendered="{!m_fieldInfo.showDateWriting}" value="{!m_fieldInfo.date.dto.c2g__LookupDate__c}"/> 
+    <apex:outputField id="showDateReading" rendered="{!m_fieldInfo.showDateReading}" value="{!m_fieldInfo.date.dto.c2g__LookupDate__c}"/>
+    <apex:inputField id="showDateTimeWriting" rendered="{!m_fieldInfo.showDateTimeWriting}" value="{!m_fieldInfo.date.dto.c2g__LookupDateTime__c}"/> 
+    <apex:outputField id="showDateTimeReading" rendered="{!m_fieldInfo.showDateTimeReading}" value="{!m_fieldInfo.date.dto.c2g__LookupDateTime__c}"/>
+</apex:component>

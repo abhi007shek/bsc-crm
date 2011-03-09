@@ -1,0 +1,130 @@
+<!-- CODAProcessIntegrationRule -->
+<apex:page Controller="c2g.CODAProcessIntegrationRuleController">
+    <script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+    <script>
+        CODA.documentFunctionTimer("keyup", CODA.executeQueue, 1500);
+        CODA.documentFunctionTimer("click", CODA.executeQueue, 1500);
+    </script>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <style>
+        .extracollapsed
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extracollapsed_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded_h 
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .newlinebutton 
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});
+        }
+        .pbError
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+        }
+        .informationerrorblock
+        {
+			background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});
+        }
+    </style>
+    
+    <apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+        <DIV id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></DIV>
+
+        <!-- Header -->
+        <apex:sectionHeader title="{!$Label.codaProcessIntegrationRuleTitle}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1061')}"/>
+
+        <!-- Process Integration Rule Details -->
+        <apex:pageBlock title="{!$Label.codaProcessIntegrationRuleDetails}"  id="processIntegrationRuleBlock" mode="edit">
+
+            <!-- Buttons -->
+            <apex:pageBlockButtons >  
+                <!-- Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaProcessIntegrationRuleRunButton}" id="run_h" action="{!run}" onClick="javascript:alert('{!$Label.codaProcessIntegrationRuleAlert}')" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaProcessIntegrationRuleCancelButton}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender="messagePanel"/>
+                <!--  End of Hidden Buttons-->
+                <apex:commandButton value="{!$Label.codaProcessIntegrationRuleRunButton}" id="run" onclick="if(!CODA.queing()){document.getElementById('{!$Component.run_h}').click()};return false;" />
+				<apex:commandButton value="{!$Label.codaProcessIntegrationRuleCancelButton}" id="cancel" rerender="messagePanel" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+                <script>
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaProcessing}";
+                    var run = document.getElementById("{!$Component.run}");
+                    var cancel = document.getElementById("{!$Component.cancel}");
+                    CODA2GoButtons.initButtons([run.id,cancel.id]);
+                </script>
+            </apex:pageBlockButtons>
+
+            <!-- Messages -->
+            <apex:include pageName="c2g__codamulticompanymodewarning" rendered="{!viewstate.reportingModeMessage}"/> 
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                    <!--apex:messages/-->
+                    <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <apex:outputText value="{!errorMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <!-- IntRule Detail -->
+            <apex:pageBlockSection id="objects" title="{!$Label.codaProcessIntegrationRuleCreation}" columns="2">
+            	<!-- Integration Rule -->
+            	<apex:pageBlockSectionItem id="integrationRuleSection">
+            		<apex:outputLabel for="integrationRuleField" value="{!$Label.codaProcessIntegrationSourceObjectLabel}"/>
+            		<apex:outputPanel >
+	            		<apex:inputField id="integrationRuleField" value="{!viewstate.integrationRuleLookup.dto.c2g__HeaderIntegrationRule__c}"/>
+						<apex:actionFunction name="onChangeIntegrationRule" action="{!viewstate.processIntegrationRule.updateFields}" oncomplete="CODA.resumeQueueProcessing();" reRender="messagePanel,objectsUpdate,selectionCriteriaBlockSection,selectionCriteriaOutputPanel,run_h,objects"/>
+	                    <script>
+	                        CODA.addQueuedOnBlurEvent(null, "{!$Component.integrationRuleField}", "{!$Label.codaProcessIntegrationRuleUpdatingFields}", onChangeIntegrationRule,true);
+	                    </script>
+					</apex:outputPanel>
+            	</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+            
+            <!-- Selection Criteria -->
+			<apex:outputPanel id="selectionCriteriaOutputPanel">
+			    <apex:pageBlockSection id="selectionCriteriaBlockSection" title="{!$Label.codaRunIntegrationRuleSelectionCriteriaTitle}" rendered="{!selectionCriteriaAvailable}" collapsible="false" columns="3">
+				    <apex:dataTable id="dtSelectionCriterias" value="{!viewState.processIntegrationRule.SelectionCriteriaList}" var="selectionCriteria" rowClasses="odd,even" styleClass="list" headerClass="listheader" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+					    <apex:column >
+		                    <apex:facet name="header"/>
+		                    <apex:outputText id="lineNumber" value="{!selectionCriteria.lineNumber}"/>
+		                </apex:column>
+				    	<apex:column >
+		                    <apex:facet name="header">{!$Label.codaRunIntegrationRuleSourceField}</apex:facet>
+		                    <apex:selectList id="selectionCriteriaField" value="{!selectionCriteria.selectionCriteria}" multiselect="false" size="1">
+								<apex:selectOptions value="{!viewState.processIntegrationRule.sourceObjFields}"/>
+		                    </apex:selectList>
+		                    <apex:actionFunction name="onChangeSelectionCriteria{!selectionCriteria.lineNumber}" action="{!selectionCriteria.updateSelectionCriteriaValueField}" oncomplete="CODA.resumeQueueProcessing();" reRender="messagePanel,value,operatorField"/>				
+							<script>
+								CODA.addQueuedOnBlurEvent("onChangeSelectionCriteria{!selectionCriteria.lineNumber}", "{!$Component.selectionCriteriaField}", "{!$Label.codaRunIntegrationRuleUpdatingValue}", onChangeSelectionCriteria{!selectionCriteria.lineNumber},true);
+							</script>
+		                </apex:column>
+		                <apex:column >
+		                    <apex:facet name="header">{!$Label.codaProcessIntegrationRuleOperator}</apex:facet>
+							<apex:selectList id="operatorField" value="{!selectionCriteria.operator}" multiselect="false" size="1">
+								<apex:selectOptions value="{!selectionCriteria.fillOperator}"/>
+		                    </apex:selectList>
+		                </apex:column>
+		                <apex:column >
+		                    <apex:facet name="header">{!$Label.codaRunIntegrationRuleValue}</apex:facet>
+							<c:CODADynamicField id="value" m_fieldinfo="{!selectionCriteria.DynamicFieldInfoController.DynamicFieldInfo}" m_mode="EDIT" m_objectc="{!viewstate.controller.integrationRule.sourceObject}"/>
+							<!-- viewstate.fieldInfoView.DynamicFieldController.DynamicFieldInfo -->
+		                </apex:column>
+		                <apex:column >
+		                    <apex:facet name="header"/>
+		                    <apex:outputText id="andOperator" value="{!selectionCriteria.dataBaseOperator}"/>
+		                </apex:column>
+				    </apex:dataTable>
+				</apex:pageBlockSection>
+			</apex:outputPanel>
+	    </apex:pageBlock>
+    </apex:form>
+</apex:page>
