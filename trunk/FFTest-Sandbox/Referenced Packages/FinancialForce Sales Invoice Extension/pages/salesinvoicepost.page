@@ -1,8 +1,0 @@
-<apex:page standardController="c2g__codaInvoice__c" extensions="ffbilling.SalesInvoiceController" action="{!post}">
-    <apex:sectionHeader title="{!$ObjectType.c2g__codaInvoice__c.Label}" subtitle="{!c2g__codaInvoice__c.Name}"/>
-    <apex:pagemessages />
-    <apex:form >
-    <apex:commandButton action="{!cancel}" value="{!$Label.Cancel}"/>
-    <apex:outputLabel value="{!c2g__codaInvoice__c.c2g__InvoiceStatus__c}" rendered="false"/>    
-    </apex:form>
-</apex:page>
