@@ -1,0 +1,71 @@
+<apex:page controller="ffqs.CODAQuickStartReuseController" sidebar="false" tabStyle="QuickStart__tab">
+    <apex:stylesheet value="{!URLFOR($Resource.ffqs__ffwizard,'codaext/styles/launchpad.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.ffqs__FinancialForce_Wizard,'styles/wizard.css')}" />
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/prototype.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/scriptaculous.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/effects.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/wizard.js')}" type="text/javascript"></script>
+    <div class="wizard" id="wizard">
+        <div class="header">
+            <apex:outputPanel id="createheader" rendered="{!ViewState.IsReuse}">
+                <h2>{!$Label.codaextsavedcomtemplate}</h2>
+            </apex:outputPanel>         
+            <apex:outputPanel id="cloneheader" rendered="{!ViewState.IsClone}">
+                <h2>{!$Label.codaextcomplcomtemplate}</h2>
+            </apex:outputPanel>
+        </div>
+        <div class="form">
+            <apex:form >
+                <div class="information">
+                    <apex:outputPanel id="createinfo" rendered="{!ViewState.IsReuse}">
+                        <h3>{!$Label.codaextselecttemplate}</h3>
+                    </apex:outputPanel>
+                    <apex:outputPanel id="cloneinfo" rendered="{!ViewState.IsClone}">
+                        <h3>{!$Label.codaextclonetemplateinfo}</h3>
+                    </apex:outputPanel> 
+                </div>
+                
+                <apex:outputPanel id="messagePanel" layout="block">
+                    <apex:outputPanel id="errorPanel" layout="block" styleClass="error" rendered="{!viewstate.showErrorMessages}">
+                        <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                            <h3><apex:outputText value="{!errorMessage}"/></h3>
+                        </apex:repeat>
+                    </apex:outputPanel>
+                </apex:outputPanel>
+                
+                
+                
+                <div class="left">
+                    <div class="row">
+                        <div class="title">Please select :</div>
+                        <div class="field chkradio">
+                            <apex:selectRadio value="{!viewstate.id}" layout="pageDirection" style="margin-top:-3px;" styleClass="largerLabel">
+                                <apex:selectOptions value="{!viewstate.documentOptions}"/>
+                            </apex:selectRadio>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right">
+                    <div class="row">
+                        <div class="field">
+                            
+                            <!-- Hidden Buttons -->  
+                            <apex:commandButton value="{!$Label.codaextusetemplate}" action="{!useTemplate}" id="usetemplate_h" styleclass="hiddensubmit"/>     
+                            <apex:commandButton value="{!$Label.codaextclonetemplate}" action="{!useTemplate}" id="clonetemplate_h" styleclass="hiddensubmit"/>     
+                            
+                            <!-- End of Hidden Buttons -->
+                            <apex:outputPanel id="createButton" rendered="{!ViewState.IsReuse}">
+                                <apex:commandButton value="{!$Label.codaextusetemplate}" id="usetemplate" onclick="document.getElementById('{!$Component.usetemplate_h}').click();return false;" rerender=""/>                  
+                            </apex:outputPanel> 
+                                
+                            <apex:outputPanel id="cloneButton" rendered="{!ViewState.IsClone}">
+                                <apex:commandButton value="{!$Label.codaextclonetemplate}" id="clonetemplate" onclick="document.getElementById('{!$Component.clonetemplate_h}').click();return false;" rerender=""/>                    
+                            </apex:outputPanel> 
+                        </div>
+                    </div>
+                </div>
+            </apex:form> 
+        </div>
+    </div> 
+  </apex:page>

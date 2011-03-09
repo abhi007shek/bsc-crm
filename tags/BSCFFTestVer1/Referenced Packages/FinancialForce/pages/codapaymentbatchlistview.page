@@ -1,0 +1,58 @@
+<!-- codapaymentbatchlistview -->
+<apex:page controller="c2g.CODAPaymentBatchController" tabStyle="c2g__codaPayment__c">
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/ffdcTable/ffdcTable.css')}"/>
+    <style type="text/css">.ffdcTable thead tr{font-size:1em;}.hiddensubmit{display:none}</style>
+    <!-- Header -->
+    <apex:sectionHeader title="" subtitle="{!$Label.codaPaymentBatchListViewPagePaymentBatches}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1076')}"/>
+    <!-- Back to Payment -->
+    <div class="goBreadcrumb">
+        &nbsp;&#171;<a href="{!URLPayment}">{!LabelPaymentBatchListViewPageBackToPayment}</a>
+    </div>
+    <apex:form id="theForm">
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <!-- Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaQuickPaymentDiscardButton}" id="discard_h" action="{!discard}" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentReSubmitButton}" id="reSubmit_h" action="{!reSubmit}" styleclass="hiddensubmit"/>
+                <!-- End of Hidden Buttons -->
+   				<apex:commandButton value="{!$Label.codaQuickPaymentDiscardButton}" id="discard" onclick="document.getElementById('{!$Component.discard_h}').click();return false;" rerender=""/>
+   				<apex:commandButton value="{!$Label.codaQuickPaymentReSubmitButton}" id="reSubmit" onclick="document.getElementById('{!$Component.reSubmit_h}').click();return false;" rerender=""/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!PaymentBatchRecords}" var="payBatch" styleClass="ffdcTable">
+                <apex:facet name="footer">
+                    <apex:outputPanel layout="block">
+                        <div class="paginator" style="text-align:left;padding-left:5px;">
+                            <span class="pages">
+                                {!$Label.codaPaymentBatchListViewPagePage}&nbsp;<span class="page">{!pageNumber}</span>&nbsp;{!$Label.codaPaymentBatchListViewPageOf}&nbsp;<span class="page">{!numberOfPages}</span>
+                            </span>
+                            <apex:outputPanel styleClass="prevNextLinks">
+                                <apex:outputPanel styleClass="prevNext" rendered="{!hasPrevious}">
+                                    <apex:commandLink id="previous" action="{!previous}"><img class="prev" src="/s.gif">{!$Label.codaPaymentBatchListViewPagePrevious}</apex:commandLink>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel styleClass="prevNext" rendered="{!!hasPrevious}">
+                                    <img class="prevoff" src="/s.gif">{!$Label.codaPaymentBatchListViewPagePrevious}
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel styleClass="prevNext" rendered="{!hasNext}">
+                                    <apex:commandLink id="next" action="{!next}">{!$Label.codaPaymentBatchListViewPageNext}<img class="next" src="/s.gif"></apex:commandLink>
+                                </apex:outputPanel>
+                                
+                                <apex:outputPanel styleClass="prevNext" rendered="{!!hasNext}">
+                                    {!$Label.codaPaymentBatchListViewPageNext}<img class="nextoff" src="/s.gif">
+                                </apex:outputPanel>
+                            </apex:outputPanel>
+                        </div>
+                    </apex:outputPanel>
+                </apex:facet>
+                <apex:column >
+                    <a href="{!payBatch.URLLines}">{!$Label.codaPaymentBatchListViewPageDetails}</a><br/>
+                </apex:column>
+                <apex:column value="{!payBatch.PaymentBatch.Name}"/>
+                <apex:column value="{!payBatch.PaymentBatch.c2g__Account__c}"/>
+                <apex:column value="{!payBatch.PaymentBatch.PaymentSaveBatch__r.c2g__PaymentValue__c}" headerClass="alignRight" styleClass="alignRight"/>
+                <apex:column value="{!payBatch.PaymentBatch.c2g__ErrorDescription__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

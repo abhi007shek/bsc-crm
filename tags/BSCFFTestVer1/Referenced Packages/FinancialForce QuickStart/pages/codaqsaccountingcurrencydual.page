@@ -1,0 +1,158 @@
+<!-- This page will be the step 6 -->
+<apex:page controller="ffqs.CODAQSAccountingCurrencyDualController" sidebar="false" tabStyle="QuickStart__tab">
+  	<apex:stylesheet value="{!URLFOR($Resource.ffqs__FinancialForce_Wizard,'styles/wizard.css')}" />
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/prototype.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/scriptaculous.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/effects.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/wizard.js')}" type="text/javascript"></script>
+    
+    <div class="wizard" id="wizard">
+        <div class="header">
+            <h2>{!$Label.codawzacccurdualtitle}</h2>
+        </div>
+        
+        <div class="form">
+        <apex:form >
+            <div class="stepsWrapper">
+	            <ul class="steps steps10">
+	                <li class="on firstChild">
+	                    <div><span class="step">1</span><span class="title"> {!$Label.codaextcompanydetails}</span></div>
+	                </li>
+	                <li class="on">
+	                    <div><span class="step">2</span><span class="title"> {!$Label.codaexttaxregime}</span></div>
+	                </li>
+	                <li class="on">
+	                    <div><span class="step">3</span><span class="title"> {!$Label.codaexttaxdetails}</span></div>
+	                </li>
+	                <li class="on on_current">
+	                    <div><span class="step">4</span><span class="title"> {!$Label.codaextuseraccess}</span></div>
+	                </li>
+	                <li class="current">
+	                    <div><span class="step">5</span><span class="title"> {!$Label.codawzacccurrsetup}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">6</span><span class="title"> {!$Label.codawzfinancialcalendar}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">7</span><span class="title"> {!$Label.codawzchartofacc}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">8</span><span class="title"> {!$Label.codaextaccountsreceivableanalysis}</span></div>
+	                </li>
+	                <li>
+	                    <div><span class="step">9</span><span class="title"> {!$Label.codaextcreatecompany}</span></div>
+	                </li>
+	                <li class="lastChild">
+	                    <div><span class="step">10</span><span class="title"> {!$Label.codaextactivatecompany}</span></div>
+	                </li>
+	            </ul>
+	        </div>
+	        
+            <div class="information">
+                <h3>
+	                {!$Label.codawzacccurdualinformation1} 
+	                <span class="conceptualHelp"><span class="text">{!$Label.codawzacccurdualinformation2}</span>
+	                <span class="conceptualHelpPopup">
+	                <span class="title">{!$Label.codawzacccurdualinformation3}</span>
+	                <span>{!$Label.codawzacccurdualinformation4}</span></span>
+	                </span>
+	                
+	                {!$Label.codawzacccurdualinformation5}
+                </h3>
+            </div>
+            
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="error" rendered="{!viewstate.showErrorMessages}">
+                    <!--apex:messages/-->
+                    <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <h3><apex:outputText value="{!errorMessage}"/></h3>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+            <div class="left">
+                <div class="row">
+                    <div class="title">
+                        <apex:outputLabel for="homeCurrency">{!$Label.codawzacccurdualhomecur}</apex:outputLabel>
+                    </div>
+                    <div class="field fieldText">
+                        <apex:outputText id="homeCurrency" value="{!ViewState.homeCurrency}"/>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="title">
+                        <apex:outputLabel for="currencyCode">{!$Label.codawzacccurdualcurcode}</apex:outputLabel>
+                    </div>
+                    <div class="field hasIcon">
+                        <div class="req">{!$Label.codawzacccurrequired}</div>
+                        <apex:selectList id="currencyCode" value="{!ViewState.dualcurrencyCode}" multiselect="false" onChange="document.getElementById('{!$Component.Update_h}').click();return false;" size="1">
+                            <apex:selectOptions value="{!ViewState.currencyCodes}"/> 
+                        </apex:selectList>
+                        <apex:commandButton value="Update" id="Update_h" action="{!ViewState.currencyUpdated}" styleclass="hiddensubmit"/>  
+                        <div class="help" title="">
+                            <p>{!$Label.codawzacccurdualcurcodehelp}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="title">
+                         <apex:outputLabel for="decimalPlaces">{!$Label.codawzacccurdualdecimalplaces}</apex:outputLabel>
+                    </div>
+                    <div class="field hasIcon">
+                        <div class="req">{!$Label.codawzacccurrequired}</div>
+                        <apex:inputText id="decimalPlaces" value="{!ViewState.dualdecimalPlaces}"/>
+                        <div class="help" title="">
+                            <p>{!$Label.codawzacccurdualdecimalplaceshelp}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="title">
+                        <apex:outputLabel for="exchangeRateIn">{!$Label.codawzacccurdualexchangerate}</apex:outputLabel>
+                    </div>
+                    <div class="field hasIcon">
+                        <div class="req">{!$Label.codawzacccurrequired}</div>
+                        <apex:inputText id="exchangeRateIn" value="{!ViewState.dualexchangeRate}"/>
+                        <div class="help" title="">
+                            <p>{!$Label.codawzacccurdualexchangeratehelp}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="title">
+                        <apex:outputLabel for="exchangeRateDate">{!$Label.codawzacccurdualexchangeratedate}</apex:outputLabel>
+                    </div>
+                    <div class="field hasIcon">
+                        <div class="req">{!$Label.codawzacccurrequired}</div>
+                        <apex:inputField id="exchangeRateDate" value="{!ViewState.DualExchangeRateDate.dto.c2g__LookupDate__c}"/>
+                        <div class="help" title="">
+                            <p>{!$Label.codawzacccurdualexchangeratedatehelp}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right">
+                <div class="row">
+                    <div class="title"></div>
+                    <div class="field">
+                        <!-- Hidden Buttons -->  
+                        <apex:commandButton value="{!$Label.codaextnext}" action="{!nextPage}" id="next_h" styleclass="hiddensubmit"/>      
+                        <apex:commandButton value="{!$Label.codaextprevious}" action="{!previousPage}" id="previous_h" styleclass="hiddensubmit"/>      
+                        <apex:commandButton value="{!$Label.codaextsaveprogress}" action="{!saveProgress}" id="save_h" styleclass="hiddensubmit"/>      
+                        <!-- End of Hidden Buttons -->
+                        
+                        <apex:commandButton value="{!$Label.codaextnext}" id="next" onclick="document.getElementById('{!$Component.next_h}').click();return false;" rerender=""/>
+                        <apex:commandButton value="{!$Label.codaextprevious}" id="previous" onclick="document.getElementById('{!$Component.previous_h}').click();return false;" rerender="" styleClass="btnLeft"/>                   
+                        <apex:commandButton value="{!$Label.codaextsaveprogress}" id="saveProgress" onclick="document.getElementById('{!$Component.save_h}').click();return false;" rerender="" styleClass="btnSave btnRight"/>                   
+                    </div>
+                </div>
+            </div>
+        </apex:form>
+        </div>
+    </div>
+</apex:page>
