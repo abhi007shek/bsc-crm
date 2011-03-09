@@ -1,7 +1,0 @@
-<apex:page action="{!doAction}" standardController="Opportunity" extensions="SubscriptionfromOpportunityController">
-
-<apex:sectionHeader title="" subtitle="{!Opportunity.Name}" />
-
-<apex:pageMessages />
-
-</apex:page>
