@@ -1,0 +1,61 @@
+<apex:page standardController="Special_Event_Trainer__c">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <script src="http://maps.google.com/maps?file=api&v=2&key=ABQIAAAA7j_Q-rshuWkc8HyFI4V2HxQYPm-xtd00hTQOC0OXpAMO40FHAxT29dNBGfxqMPq5zwdeiDSHEPL89A" type="text/javascript"></script>
+    <script type="text/javascript">
+    var geocoder, location1, location2, gDir;
+    function initialize() {
+    geocoder = new GClientGeocoder();
+    gDir = new GDirections();
+    showLocation();
+    GEvent.addListener(gDir, "load", function() {
+            var drivingDistanceMiles = gDir.getDistance().meters / 1609.344;
+            var drivingDistanceKilometers = gDir.getDistance().meters / 1000;
+    
+    document.getElementById('tableResult').rows[0].cells[0].innerHTML = '<strong>Address 1: </strong>' 
+    + location1.address + ' (' + location1.lat + ':' + location1.lon + ')<br /><strong>Address 2: </strong>' 
+    + location2.address + ' (' + location2.lat + ':' + location2.lon + ')<br /><strong>Driving Distance: </strong>' 
+    + drivingDistanceMiles + ' miles (or ' + drivingDistanceKilometers + ' kilometers)';
+        
+            });
+            
+        }
+ 
+    function showLocation() {
+
+    geocoder.getLocations('{!Special_Event_Trainer__c.Postcode_1__c}', function (response) {
+            if (!response || response.Status.code != 200)
+            {
+                alert("Sorry, we were unable to geocode the first address");
+            }
+            else
+            {
+                location1 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
+                geocoder.getLocations('{!Special_Event_Trainer__c.Postcode_2__c}', function (response) {
+                    if (!response || response.Status.code != 200)
+                    {
+                        alert("Sorry, we were unable to geocode the second address");
+                    }
+                    else
+                    {
+                    location2 = {lat: response.Placemark[0].Point.coordinates[1], lon: response.Placemark[0].Point.coordinates[0], address: response.Placemark[0].address};
+                        gDir.load('from: ' + location1.address + ' to: ' + location2.address);
+                    }
+                });
+            }
+        });
+    }
+    </script>
+</head>
+ <body onload="initialize()">
+    <table id="tableResult">
+        <tr>
+            <td class="labelCol">
+                
+            </td>
+        </tr>
+        </table>
+ <p id="results"></p>
+</body>
+</html>
+</apex:page>

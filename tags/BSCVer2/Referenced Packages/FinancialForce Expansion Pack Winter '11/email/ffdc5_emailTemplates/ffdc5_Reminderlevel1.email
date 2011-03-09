@@ -1,0 +1,25 @@
+<messaging:emailTemplate subject="Payment due" recipientType="Contact" relatedToType="c2g__codaInvoice__c">
+    <messaging:htmlEmailBody >
+        <p align="center">
+            <img src="{!relatedTo.c2g__OwnerCompany__r.c2g__LogoURL__c}"/><br/>
+            <small><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Street__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__City__c}"/>,&nbsp;<apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__StateProvince__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__ZipPostCode__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Country__c}"/><br/>
+            <apex:outputText value="Phone: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Phone__c}"/><apex:outputText value=" Fax: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Fax__c}"/><br/><br/></small>
+        </p>
+        <p>
+            <c:CODAFormatterExt date="{!TODAY()}"/>
+            <br/><br/>
+            <apex:outputField value="{!relatedTo.c2g__Account__r.Name}"/>
+            <br/><br/>
+            Dear Sir
+            <br/><br/>
+ We write to inform you that we have not yet received payment of invoice&nbsp;<apex:outputField value="{!relatedTo.Name}"/>&nbsp;for&nbsp;<apex:outputField value="{!relatedTo.c2g__OutstandingValue__c}"/>&nbsp;due on&nbsp;<apex:outputField value="{!relatedTo.c2g__DueDate__c}"/>.<br/><br/>
+ If you have any questions about this invoice please do not hesitate to contact us. If you have already sent your payment, then please disregard this email and accept our thanks.<br/><br/>
+ We appreciate doing business with you and anticipate hearing from you soon.<br/><br/>
+ Yours faithfully<br/><br/>
+{!$User.FirstName} {!$User.LastName}
+        </p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

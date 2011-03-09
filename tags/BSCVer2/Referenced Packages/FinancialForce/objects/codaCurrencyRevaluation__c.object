@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <customHelp>codaCurrencyRevaluationHelp</customHelp>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <enableActivities>false</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Analysis__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Analysis</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Detail Level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Summary Level</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>CancellationReason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Cancellation Reason</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>Dimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DimensionalAnalysis__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimensional Analysis On Lines</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Copy from Source</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Enter Dimensions</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>DiscardReason__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Discard Reason</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DocumentCurrency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Document Currency</label>
+        <referenceTo>codaAccountingCurrency__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DocumentDescription__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Document Description</label>
+        <required>false</required>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DocumentReference__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Document Reference</label>
+        <length>80</length>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DualExchangeRate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dual Exchange Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>9</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>DualValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dual Value</label>
+        <summarizedField>codaCurrencyRevaluationSummary__c.DualValue__c</summarizedField>
+        <summaryForeignKey>codaCurrencyRevaluationSummary__c.CurrencyRevaluation__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>ErrorText__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Error Text</label>
+        <length>32000</length>
+        <type>LongTextArea</type>
+        <visibleLines>3</visibleLines>
+    </fields>
+    <fields>
+        <fullName>HomeExchangeRate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Home Exchange Rate</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>9</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>HomeValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Home Value</label>
+        <summarizedField>codaCurrencyRevaluationSummary__c.HomeValue__c</summarizedField>
+        <summaryForeignKey>codaCurrencyRevaluationSummary__c.CurrencyRevaluation__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>OwnerCompany__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <referenceTo>codaCompany__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PeriodFrom__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Period From</label>
+        <referenceTo>codaPeriod__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PeriodTo__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Period To</label>
+        <referenceTo>codaPeriod__c</referenceTo>
+        <relationshipLabel>Currency Revaluations (Period To)</relationshipLabel>
+        <relationshipName>CurrencyRevaluations1</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PostingPeriod__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Posting Period</label>
+        <referenceTo>codaPeriod__c</referenceTo>
+        <relationshipLabel>Currency Revaluations (Posting Period)</relationshipLabel>
+        <relationshipName>CurrencyRevaluations2</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>RevaluationType__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Revaluation Type</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Balance Sheet</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Income Statement</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>ReversalPeriod__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Reversal Period</label>
+        <referenceTo>codaPeriod__c</referenceTo>
+        <relationshipLabel>Currency Revaluations (Reversal Period)</relationshipLabel>
+        <relationshipName>CurrencyRevaluations3</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Status__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Generating</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Generation Error</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Posting</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Posting Error</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discarded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelling</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancelled</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Cancellation Error</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>UnrealizedGainsLossesGLA__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unrealized Gains/Losses GLA</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Currency Revaluations</relationshipLabel>
+        <relationshipName>CurrencyRevaluations</relationshipName>
+        <type>Lookup</type>
+    </fields>
+    <label>Currency Revaluation</label>
+    <listViews>
+        <fullName>All</fullName>
+        <filterScope>Everything</filterScope>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>CRV{000000}</displayFormat>
+        <label>Currency Revaluation Name</label>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Currency Revaluations</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>RevaluationType__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DocumentCurrency__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>HomeExchangeRate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DualExchangeRate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PostingPeriod__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>ReversalPeriod__c</customTabListAdditionalFields>
+    </searchLayouts>
+    <sharingModel>ReadWrite</sharingModel>
+    <webLinks>
+        <fullName>Cancel</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Cancel</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)}
+
+// call the webservice to prompt the user to enter cancel reason
+var result = sforce.apex.execute(&quot;c2g.CODACurrencyRevaluationWebService&quot;, &quot;canCancelCurrReval&quot;, {currencyRevaluationId:&quot;{!codaCurrencyRevaluation__c.Id}&quot;} );
+// convert result to text promptText
+var resulttext = result.toString();
+var rtnval = resulttext.split(&quot;&gt;&gt;&quot;);
+
+// get the success status and output the messages from the web service
+var success=rtnval[0];
+var promptMesg=rtnval[1];
+var cancelReasonVar=&quot;&quot;;
+
+// if its failed, throw the message as an exception
+if(success == &quot;false&quot;)
+{
+if(rtnval[2]== null || rtnval[2].length == 0)
+{
+alert(rtnval[1]);
+}
+else
+{
+// contruct an error
+var err = new Error();
+err.name = &quot;canDiscardCurrReval failed&quot;;
+err.message = rtnval[2];
+throw err;
+}
+
+}
+else
+{
+cancelReasonVar= prompt(promptMesg); 
+
+var result = sforce.apex.execute(&quot;c2g.CODACurrencyRevaluationWebService&quot;, &quot;cancelCurrencyRevaluation&quot;, {currencyRevaluationId:&quot;{!codaCurrencyRevaluation__c.Id}&quot;,cancelReason:cancelReasonVar} );
+
+// convert result to text and split it into success&gt;&gt;messagetext
+var resulttext = result.toString();
+var rtnval = resulttext.split(&quot;&gt;&gt;&quot;);
+
+// get the success status and output the messages from the web service
+success=rtnval[0];
+
+// concat the remaining elements in the return value to construct the message
+msg = &quot;&quot;;
+for (i=1; i&lt;rtnval.length; i++)
+msg += rtnval[i];
+alert(msg);
+
+if (success == &quot;true&quot;)
+{
+window.location.reload(true);
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Discard</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Discard</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)}
+
+// call the webservice to prompt the user to enter discard reason
+var result = sforce.apex.execute(&quot;c2g.CODACurrencyRevaluationWebService&quot;, &quot;canDiscardCurrReval&quot;, {currencyRevaluationId:&quot;{!codaCurrencyRevaluation__c.Id}&quot;} );
+// convert result to text promptText
+var resulttext = result.toString();
+var rtnval = resulttext.split(&quot;&gt;&gt;&quot;);
+
+// get the success status and output the messages from the web service
+var success=rtnval[0];
+var promptMesg=rtnval[1];
+var discardReasonVar=&quot;&quot;;
+
+// if its failed, throw the message as an exception
+if(success == &quot;false&quot;)
+{
+	if(rtnval[2]== null || rtnval[2].length == 0)
+	{
+		alert(rtnval[1]);
+	}
+	else
+	{
+               // contruct an error
+		var err = new Error();
+		err.name = &quot;canDiscardCurrReval failed&quot;;
+		err.message = rtnval[2];
+		throw err;		
+	}
+
+}
+else
+{
+discardReasonVar = prompt(promptMesg);
+result = sforce.apex.execute(&quot;c2g.CODACurrencyRevaluationWebService&quot;, &quot;discardCurrencyRevaluation&quot;,{currencyRevaluationId:&quot;{!codaCurrencyRevaluation__c.Id}&quot;,discardReason:discardReasonVar});
+
+// convert result to text and split it into success&gt;&gt;messagetext
+var currtext = result.toString();
+var retval = currtext .split(&quot;&gt;&gt;&quot;);
+
+// get the success status and output the messages from the web service
+success=retval [0];
+
+// concat the remaining elements in the return value to construct the message
+msg = &quot;&quot;;
+for (i=1; i&lt;retval .length; i++)
+    msg += retval [i];
+alert(msg);
+
+if (success == &quot;true&quot;)
+{
+    window.location.reload(true);
+}
+}</url>
+    </webLinks>
+    <webLinks>
+        <fullName>Post</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <linkType>javascript</linkType>
+        <masterLabel>Post</masterLabel>
+        <openType>onClickJavaScript</openType>
+        <protected>false</protected>
+        <url>{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/connection.js&quot;)}
+{!REQUIRESCRIPT(&quot;/soap/ajax/15.0/apex.js&quot;)}
+
+var result = sforce.apex.execute(&quot;c2g.CODACurrencyRevaluationWebService&quot;, &quot;postCurrencyRevaluation&quot;,{currencyRevaluationId:&quot;{!codaCurrencyRevaluation__c.Id}&quot;});
+
+// convert result to text and split it into success&gt;&gt;messagetext
+var resulttext = result.toString();
+var rtnval = resulttext.split(&quot;&gt;&gt;&quot;);
+
+// get the success status and output the messages from the web service
+success=rtnval[0];
+
+// concat the remaining elements in the return value to construct the message
+msg = &quot;&quot;;
+for (i=1; i&lt;rtnval.length; i++)
+msg += rtnval[i];
+alert(msg);
+
+if (success == &quot;true&quot;)
+{
+window.location.reload(true);
+}</url>
+    </webLinks>
+</CustomObject>

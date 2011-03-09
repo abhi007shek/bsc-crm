@@ -1,0 +1,854 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>Accept</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Clone</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Delete</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Edit</actionName>
+        <content>codainvoiceedit</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>List</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>New</actionName>
+        <content>codainvoicenew</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>Tab</actionName>
+        <type>Default</type>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <content>codainvoiceview</content>
+        <type>Visualforce</type>
+    </actionOverrides>
+    <customHelp>codaInvoiceHelp</customHelp>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <deprecated>false</deprecated>
+    <description>Holds information that applies to the whole invoice such as customer account and due date. These details appear on the invoice header.</description>
+    <enableActivities>true</enableActivities>
+    <enableEnhancedLookup>true</enableEnhancedLookup>
+    <enableFeeds>false</enableFeeds>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <fields>
+        <fullName>Account__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The customer account.</description>
+        <externalId>false</externalId>
+        <label>Account</label>
+        <referenceTo>Account</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>CustomerReference__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The customer reference.</description>
+        <externalId>false</externalId>
+        <label>Customer Reference</label>
+        <length>24</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Dimension1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 1</label>
+        <referenceTo>codaDimension1__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 2</label>
+        <referenceTo>codaDimension2__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 3</label>
+        <referenceTo>codaDimension3__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Dimension4__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Dimension 4</label>
+        <referenceTo>codaDimension4__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>DiscardReason__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The reason this Invoice was discarded.</description>
+        <externalId>false</externalId>
+        <label>Discard Reason</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>DueDate__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The date the invoice is due for payment.</description>
+        <externalId>false</externalId>
+        <label>Due Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>ExternalId__c</fullName>
+        <caseSensitive>false</caseSensitive>
+        <deprecated>false</deprecated>
+        <externalId>true</externalId>
+        <label>External Id</label>
+        <length>32</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>true</unique>
+    </fields>
+    <fields>
+        <fullName>FirstDueDate__c</fullName>
+        <defaultValue>TODAY()</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The date the invoice is due for the first payment.</description>
+        <externalId>false</externalId>
+        <label>First Due Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>GeneralLedgerAccount__c</fullName>
+        <deprecated>false</deprecated>
+        <description>GLA used for Income Schedule</description>
+        <externalId>false</externalId>
+        <label>General Ledger Account</label>
+        <referenceTo>codaGeneralLedgerAccount__c</referenceTo>
+        <relationshipLabel>Sales Invoices</relationshipLabel>
+        <relationshipName>SalesInvoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IncomeScheduleGroup__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Group</label>
+        <referenceTo>codaGroupingReference__c</referenceTo>
+        <relationshipLabel>Sales Invoices (Income Schedule Group)</relationshipLabel>
+        <relationshipName>SalesInvoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>IncomeSchedule__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Income Schedule</label>
+        <referenceTo>codaIncomeScheduleDefinition__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>Interval__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Payment schedule interval</description>
+        <externalId>false</externalId>
+        <label>Interval</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Daily</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Weekly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Monthly</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Quarterly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Yearly</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceCurrency__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Invoice Currency</label>
+        <referenceTo>codaAccountingCurrency__c</referenceTo>
+        <relationshipLabel>Sales Invoices</relationshipLabel>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceDate__c</fullName>
+        <defaultValue>Today()</defaultValue>
+        <deprecated>false</deprecated>
+        <description>The date the sales invoice was created.</description>
+        <externalId>false</externalId>
+        <label>Invoice Date</label>
+        <required>true</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceDescription__c</fullName>
+        <deprecated>false</deprecated>
+        <description>A description of the invoice.</description>
+        <externalId>false</externalId>
+        <label>Invoice Description</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>TextArea</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceGroup__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Invoice Group</label>
+        <referenceTo>codaGroupingReference__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The current status of the invoice.</description>
+        <externalId>false</externalId>
+        <label>Invoice Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>In Progress</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Complete</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Discarded</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>InvoiceTotal__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The total value of all the items on the invoice, including the tax.</description>
+        <externalId>false</externalId>
+        <formula>NetTotal__c +  TaxTotal__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Invoice Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NetTotal__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The total value of items on the invoice, before tax.</description>
+        <externalId>false</externalId>
+        <label>Net Total</label>
+        <summarizedField>codaInvoiceLineItem__c.NetValue__c</summarizedField>
+        <summaryForeignKey>codaInvoiceLineItem__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>NumberOfPayments__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Payment schedule number of payments</description>
+        <externalId>false</externalId>
+        <label>Number of Payments</label>
+        <precision>2</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>NumberofJournals__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Number of Journals</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Opportunity__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The opportunity to which this invoice is related.</description>
+        <externalId>false</externalId>
+        <label>Opportunity</label>
+        <referenceTo>Opportunity</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>OutstandingValue__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Transaction__r.DocumentOutstandingTotal__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Outstanding Value</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>OwnerCompany__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Company</label>
+        <referenceTo>codaCompany__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PaymentSchedule__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Payment Schedule</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Payment Schedule</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PaymentStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>if( NOT( ISPICKVAL( InvoiceStatus__c, &apos;Complete&apos; ) ),
+&apos;Not Applicable&apos;,
+if( Transaction__r.DocumentOutstandingTotal__c == 0,&apos;Paid&apos;,
+if( Transaction__r.DocumentTotal__c == Transaction__r.DocumentOutstandingTotal__c, &apos;Unpaid&apos;,
+&apos;Part Paid&apos; ) ) )</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Payment Status</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PeriodInterval__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Period Interval</label>
+        <precision>12</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Period__c</fullName>
+        <deprecated>false</deprecated>
+        <description>Financial period</description>
+        <externalId>false</externalId>
+        <label>Period</label>
+        <referenceTo>codaPeriod__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>PrintStatus__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Print Status</label>
+        <picklist>
+            <picklistValues>
+                <fullName>Not Printed</fullName>
+                <default>true</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Printed</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText1AllowEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 1 Allow Edit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText1Heading__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 1 Heading</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText1TextDefinitionName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 1 Text Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText1Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 1 Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PrintedText2AllowEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 2 Allow Edit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText2Heading__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 2 Heading</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText2TextDefinitionName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 2 Text Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText2Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 2 Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PrintedText3AllowEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 3 Allow Edit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText3Heading__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 3 Heading</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText3TextDefinitionName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 3 Text Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText3Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 3 Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PrintedText4AllowEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 4 Allow Edit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText4Heading__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 4 Heading</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText4TextDefinitionName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 4 Text Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText4Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 4 Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>PrintedText5AllowEdit__c</fullName>
+        <defaultValue>false</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 5 Allow Edit</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>PrintedText5Heading__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 5 Heading</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText5TextDefinitionName__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 5 Text Definition Name</label>
+        <length>80</length>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>PrintedText5Text__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Printed Text 5 Text</label>
+        <length>32000</length>
+        <trackHistory>false</trackHistory>
+        <type>LongTextArea</type>
+        <visibleLines>6</visibleLines>
+    </fields>
+    <fields>
+        <fullName>ShippingMethod__c</fullName>
+        <deprecated>false</deprecated>
+        <description>The method of delivery.</description>
+        <externalId>false</externalId>
+        <label>Shipping Method</label>
+        <picklist>
+            <picklistValues>
+                <fullName>FedEx</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Mail</fullName>
+                <default>false</default>
+            </picklistValues>
+            <picklistValues>
+                <fullName>Van</fullName>
+                <default>false</default>
+            </picklistValues>
+            <sorted>false</sorted>
+        </picklist>
+        <trackHistory>false</trackHistory>
+        <type>Picklist</type>
+    </fields>
+    <fields>
+        <fullName>StartDate__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Start Date</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Date</type>
+    </fields>
+    <fields>
+        <fullName>Tax1Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax 1 Total</label>
+        <summarizedField>codaInvoiceLineItem__c.TaxValue1__c</summarizedField>
+        <summaryForeignKey>codaInvoiceLineItem__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Tax2Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax 2 Total</label>
+        <summarizedField>codaInvoiceLineItem__c.TaxValue2__c</summarizedField>
+        <summaryForeignKey>codaInvoiceLineItem__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>Tax3Total__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax 3 Total</label>
+        <summarizedField>codaInvoiceLineItem__c.TaxValue3__c</summarizedField>
+        <summaryForeignKey>codaInvoiceLineItem__c.Invoice__c</summaryForeignKey>
+        <summaryOperation>sum</summaryOperation>
+        <trackHistory>false</trackHistory>
+        <type>Summary</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode1__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Sales Invoices (Tax Code)</relationshipLabel>
+        <relationshipName>InvoicesTaxCode</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode2__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code 2</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Sales Invoices (Tax Code 2)</relationshipLabel>
+        <relationshipName>InvoicesTaxCode2</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxCode3__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Tax Code 3</label>
+        <referenceTo>codaTaxCode__c</referenceTo>
+        <relationshipLabel>Sales Invoices (Tax Code 3)</relationshipLabel>
+        <relationshipName>InvoicesTaxCode3</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>TaxTotal__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Tax1Total__c  +  Tax2Total__c  +  Tax3Total__c</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Tax Total</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>2</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Transaction__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Transaction</label>
+        <referenceTo>codaTransaction__c</referenceTo>
+        <relationshipName>Invoices</relationshipName>
+        <trackHistory>false</trackHistory>
+        <type>Lookup</type>
+    </fields>
+    <fields>
+        <fullName>UnitOfWork__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Unit of Work</label>
+        <precision>18</precision>
+        <required>false</required>
+        <scale>0</scale>
+        <trackHistory>false</trackHistory>
+        <type>Number</type>
+        <unique>false</unique>
+    </fields>
+    <fields>
+        <fullName>Usepartperiods__c</fullName>
+        <defaultValue>true</defaultValue>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <label>Use Part Periods</label>
+        <trackHistory>false</trackHistory>
+        <type>Checkbox</type>
+    </fields>
+    <fields>
+        <fullName>Year__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>Period__r.YearName__r.Name</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Year</label>
+        <required>false</required>
+        <trackHistory>false</trackHistory>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <label>Sales Invoice</label>
+    <listViews>
+        <fullName>All</fullName>
+        <columns>NAME</columns>
+        <columns>Account__c</columns>
+        <columns>InvoiceDate__c</columns>
+        <columns>Period__c</columns>
+        <columns>DueDate__c</columns>
+        <columns>InvoiceCurrency__c</columns>
+        <columns>InvoiceTotal__c</columns>
+        <columns>PrintStatus__c</columns>
+        <columns>InvoiceStatus__c</columns>
+        <columns>OutstandingValue__c</columns>
+        <columns>OwnerCompany__c</columns>
+        <columns>ExternalId__c</columns>
+        <columns>CustomerReference__c</columns>
+        <columns>PaymentStatus__c</columns>
+        <filterScope>Everything</filterScope>
+        <filters>
+            <field>NAME</field>
+            <operation>contains</operation>
+        </filters>
+        <label>All</label>
+    </listViews>
+    <nameField>
+        <displayFormat>SIN{000000}</displayFormat>
+        <label>Invoice Number</label>
+        <trackHistory>false</trackHistory>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Sales Invoices</pluralLabel>
+    <searchLayouts>
+        <customTabListAdditionalFields>Account__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>InvoiceDate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>Period__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>DueDate__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>InvoiceCurrency__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>InvoiceTotal__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>PrintStatus__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>InvoiceStatus__c</customTabListAdditionalFields>
+        <customTabListAdditionalFields>OwnerCompany__c</customTabListAdditionalFields>
+        <listViewButtons>Post</listViewButtons>
+        <lookupDialogsAdditionalFields>Account__c</lookupDialogsAdditionalFields>
+        <lookupPhoneDialogsAdditionalFields>Account__c</lookupPhoneDialogsAdditionalFields>
+        <searchFilterFields>Account__c</searchFilterFields>
+        <searchResultsAdditionalFields>Account__c</searchResultsAdditionalFields>
+    </searchLayouts>
+    <sharingModel>Private</sharingModel>
+</CustomObject>

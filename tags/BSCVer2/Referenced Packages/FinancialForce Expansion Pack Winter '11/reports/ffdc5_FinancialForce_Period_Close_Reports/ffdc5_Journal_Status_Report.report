@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__OwnerCompany__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__JournalDate__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__Period__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__Reference__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__JournalCurrency__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__Total__c</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_NAME</field>
+    </columns>
+    <columns>
+        <field>CUST_CREATED_DATE</field>
+    </columns>
+    <columns>
+        <field>c2g__codaJournal__c.c2g__DiscardReason__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Journal Status Report</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>c2g__codaJournal__c.c2g__JournalStatus__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Journal Status Report</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>CustomEntity$c2g__codaJournal__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaJournal__c.c2g__JournalDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__BankAccount__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__BankAccountNumber__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__StatementDate__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__OpeningBalance__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__ClosingBalance__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__BankAccountCurrency__c</field>
+    </columns>
+    <columns>
+        <field>c2g__codaBankReconciliation__c.c2g__ReconciliationStatus__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Show me details of my bank reconciliations</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>c2g__codaBankReconciliation__c.c2g__OwnerCompany__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>c2g__codaBankReconciliation__c.c2g__BankAccount__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>CUST_NAME</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Bank Reconciliation Report</name>
+    <reportType>CustomEntity$c2g__codaBankReconciliation__c$c2g__codaBankReconciliationLineItem__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaBankReconciliation__c.c2g__StatementDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
