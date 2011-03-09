@@ -46,6 +46,10 @@
                 <behavior>Edit</behavior>
                 <field>Send_Statements__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Correspondence_Name__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
