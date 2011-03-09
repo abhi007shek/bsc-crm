@@ -68,7 +68,9 @@ private class TestBscEvent {
 				Stage__c = 'Anything but Provisional',
 				StartDate__c = Date.today(),
 				EndDate__c = Date.today().addDays(5));
+
 			insert specialEvent;
+
 			c2g__codaDimension4__c dim4 = new c2g__codaDimension4__c();
 			try
 			{
@@ -85,7 +87,7 @@ private class TestBscEvent {
     static testMethod void testExistingProduct() {
         InsertAccount();
         InsertOpportunity();
- 		
+ 		RecordType recType = [Select r.Id From RecordType r where r.sObjectType = 'Special_Event__c' and r.name = 'In-Company Event' and isactive=true][0];
 		// Test with an existing product
 		// Creating a Special Event Booking
 		// Update the status of the event to Confirmed to see if the 
@@ -100,13 +102,16 @@ private class TestBscEvent {
 			Opportunity__c = opportunity.Id,
 			Name = 'Test Event',
 			product__c = productExist.id,
-			Type__c = 'In-Company Training',
+			//Type__c = 'In-Company Training',
+			RecordTypeId = recType.Id,
 			Status__c = 'Allocating',
 			Stage__c = 'Provisional',
 			StartDate__c = Date.today(),
 			EndDate__c = Date.today().addDays(5),
 			CurrencyIsoCode = curr.isocode);
+	
 		insert specialEvent;
+
 		c2g__codaDimension4__c dim4 = new c2g__codaDimension4__c();
 		try
 		{
@@ -122,21 +127,113 @@ private class TestBscEvent {
 		Special_Event_Booking__c specialEventBooking = new Special_Event_Booking__c(
 		company__c=acc.Id, opportunity__c=opportunity.Id, status__c='Provisional',
 		currencyisocode=curr.isocode,special_event__c=specialEvent.Id);
+		test.startTest();
 		insert specialEventBooking;
+		test.stopTest();
+		
 		// Now update the Event status to confirmed to fire the after update trigger
 		// Test when Status changes to Confirmed
 		specialEvent.Status__c = 'Confirmed';
 		specialEvent.Stage__c = 'Confirmed';
 		update specialEvent;
-		Special_Event_Booking__c seb = [Select id, status__c
+		
+		// The after update trigger should have fired
+		List<Special_Event_Booking__c> seb = [Select id, status__c
 		from Special_Event_Booking__c where id = :specialEventBooking.id];
-//		System.assertEquals(seb.status__c, specialEvent.Status__c);
+		for (Special_Event_Booking__c se:seb)
+		{
+			System.assertEquals('Confirmed', se.status__c);
+		}
+				
 		// Test when Status changes to Allocating
 		specialEvent.Status__c = 'Allocating';
 		specialEvent.Stage__c = 'Provisional';
 		update specialEvent;
-		seb = [Select id, status__c
+		// The after update trigger should have fired
+		List<Special_Event_Booking__c> seb1 = [Select id, status__c
 		from Special_Event_Booking__c where id = :specialEventBooking.id];
-//		System.assertEquals(seb.status__c, specialEvent.Status__c);
+		for (Special_Event_Booking__c s: seb1)
+		{
+			System.assertEquals('Provisional', s.status__c);	
+		}
+		
     }
+    
+    static testMethod void testAuditOutcome() {
+        InsertAccount();
+        InsertOpportunity();
+ 		RecordType recType = [Select r.Id From RecordType r where r.sObjectType = 'Special_Event__c' and r.name = 'Audit' and isactive=true][0];
+		// Test with an existing product
+		// Creating a Special Event Booking
+		// Update the status of the event to Confirmed to see if the 
+		// Special Event Booking are updated accordingly
+		Product2 productExist = [Select p.ProductCode, p.Name, p.Length__c, p.Id 
+		                    From Product2 p
+                            where length__c = 1
+                            limit 1 ][0];
+		
+        CurrencyType curr = [Select id, isocode From CurrencyType][0];
+		Special_Event__c specialEvent = new Special_Event__c(
+			Opportunity__c = opportunity.Id,
+			Name = 'Test Event 1',
+			product__c = productExist.id,
+			Type__c = 'Audit',
+			RecordTypeId = recType.Id,
+			Status__c = 'Allocating',
+			Stage__c = 'Provisional',
+			StartDate__c = Date.today(),
+			EndDate__c = Date.today().addDays(5),
+			CurrencyIsoCode = curr.isocode);
+	
+		insert specialEvent;
+
+		c2g__codaDimension4__c dim4 = new c2g__codaDimension4__c();
+		try
+		{
+			 dim4 = [Select d.id, d.name From c2g__codaDimension4__c d Where d.name = :specialEvent.Name][0];
+		}
+		catch(Exception e)
+		{
+			system.debug('Cannnot locate the dimension record');
+		}
+		// Test to see if the trigger has fired properly
+		System.assertEquals(specialEvent.Dimension_4__r.Name, dim4.id);
+		Account acc = [Select id From Account Where active__c = true][0];
+		
+		Special_Event_Booking__c specialEventBooking = new Special_Event_Booking__c(
+		company__c=acc.Id, opportunity__c=opportunity.Id, status__c='Provisional',
+		currencyisocode=curr.isocode,special_event__c=specialEvent.Id);
+		test.startTest();
+		insert specialEventBooking;
+		test.stopTest();
+		
+		// Now update the Event status to confirmed to fire the after update trigger
+		// Test when Status changes to Confirmed
+		specialEvent.Status__c = 'Confirmed';
+		specialEvent.Stage__c = 'Confirmed';
+		update specialEvent;
+		
+		// The after update trigger should have fired
+		List<Special_Event_Booking__c> seb = [Select id, status__c
+		from Special_Event_Booking__c where id = :specialEventBooking.id];
+		for (Special_Event_Booking__c se:seb)
+		{
+			// Checking whether the trigger has fired properly
+			System.assertEquals('Confirmed', se.status__c);
+		}
+				
+		// Test when Status changes to Allocating
+		specialEvent.Status__c = 'Allocating';
+		specialEvent.Stage__c = 'Provisional';
+		update specialEvent;
+		// The after update trigger should have fired
+		List<Special_Event_Booking__c> seb1 = [Select id, status__c
+		from Special_Event_Booking__c where id = :specialEventBooking.id];
+		for (Special_Event_Booking__c s: seb1)
+		{
+			// Checking whether the trigger has fired properly
+			System.assertEquals('Provisional', s.status__c);	
+		}
+		
+    }    
 }
