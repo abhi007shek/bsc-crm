@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <fullName>Country_Code__c</fullName>
+        <deprecated>false</deprecated>
+        <externalId>false</externalId>
+        <formula>CASE(Country,
+&quot;USA&quot;, &quot;US&quot;,
+&quot;Canada&quot;, &quot;CA&quot;,
+&quot;France&quot;, &quot;FR&quot;,
+&quot;UK&quot;, &quot;GB&quot;,
+&quot;Australia&quot;, &quot;AU&quot;,
+&quot;Spain&quot;, &quot;ES&quot;,
+&quot;Portugal&quot;, &quot;PT&quot;,
+&quot;Italy&quot;, &quot;IT&quot;,
+&quot;Germany&quot;, &quot;DE&quot;,
+&quot;Sweden&quot;, &quot;SE&quot;,
+&quot;Norway&quot;, &quot;NO&quot;,
+&quot;Austria&quot;, &quot;AT&quot;,
+&quot;Belgium&quot;,&quot;BE&quot;,
+&quot;Denmark&quot;,&quot;DK&quot;,
+&quot;Finland&quot;,&quot;FI&quot;,
+&quot;Greece&quot;,&quot;GR&quot;,
+&quot;Ireland&quot;,&quot;IE&quot;,
+&quot;Netherlands&quot;,&quot;NL&quot;,
+&quot;New Zealand&quot;,&quot;NZ&quot;,
+&quot;Norway&quot;,&quot;NO&quot;,
+&quot;Poland&quot;,&quot;PO&quot;,
+&quot;Switzerland&quot;,&quot;CH&quot;,
+&quot;England:Wales:Scotland:United Kingdom&quot;,&quot;GB&quot;,
+&quot;GB&quot;)</formula>
+        <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+        <label>Country Code</label>
+        <required>false</required>
+        <type>Text</type>
+        <unique>false</unique>
+    </fields>
+    <webLinks>
+        <fullName>Credit_Card_Payment</fullName>
+        <availability>online</availability>
+        <displayType>button</displayType>
+        <height>600</height>
+        <linkType>url</linkType>
+        <masterLabel>Credit Card Payment</masterLabel>
+        <openType>sidebar</openType>
+        <protected>false</protected>
+        <url>/apex/PAYCP1__Make_Single_Payment?objectId={!Lead.Id}</url>
+    </webLinks>
+</CustomObject>

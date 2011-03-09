@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>c2g__codaPurchaseInvoice__c.c2g__Account__c</field>
+    </columns>
+    <columns>
+        <field>CUST_NAME</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>c2g__codaPurchaseInvoice__c.c2g__InvoiceTotal__c</field>
+    </columns>
+    <currency>USD</currency>
+    <description>Projected cash outflows for Cash Management Dashboard</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>c2g__codaPurchaseInvoice__c.c2g__Period__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Forecast Payments</name>
+    <reportType>CustomEntityCustomEntity$c2g__codaPurchaseInvoice__c$c2g__codaPurchaseInvoiceExpenseLineItem__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <timeFrameFilter>
+        <dateColumn>c2g__codaPurchaseInvoice__c.c2g__DueDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

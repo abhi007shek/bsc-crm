@@ -1,0 +1,50 @@
+<!-- codajournalreverse -->
+<apex:page standardController="c2g__codaJournal__c" extensions="c2g.CODAJournalController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<style>
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	</style>
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+		<div id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></div>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageJournalReverseJournalReverse}" subtitle="{!$Label.codaPageJournalReverseNew}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1046')}"/>
+		<!-- Journal Status -->
+		<apex:pageBlock mode="edit">
+			<apex:pageBlockButtons >
+				<!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageJournalReverseReverse}" action="{!reverse}" id="reverse_h" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPageJournalReverseCancel}" action="{!reversingCancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/>
+				<!-- End of Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageJournalReverseReverse2}" id="reverse" onclick="document.getElementById('{!$Component.reverse_h}').click();return false;" rerender=""/>
+				<apex:commandButton value="{!$Label.codaPageJournalReverseCancel}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+				<script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaPageJournalReverseProcessing}"
+	                var reverse = document.getElementById("{!$Component.reverse}");
+	                var cancel = document.getElementById("{!$Component.cancel}");
+	                CODA2GoButtons.initButtons([reverse.id,cancel.id]);
+				</script>
+			</apex:pageBlockButtons>
+			<!-- Messages -->
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+				 	<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+						<apex:outputText value="{!errorMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+			<apex:pageBlockSection columns="1">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.codaPageJournalReverseReversalPeriod}" for="reversalPeriod"/>
+					<apex:outputPanel id="reversalPeriodPanel" styleClass="holder">
+						<apex:inputField id="reversalPeriod" value="{!viewstate.journal.reversalPeriod.dto.c2g__Period__c}" required="true"/>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

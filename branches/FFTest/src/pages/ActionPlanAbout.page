@@ -1,0 +1,101 @@
+<apex:page controller="ActionPlanAboutController">
+
+<apex:sectionHeader title="Action Plans Setup"></apex:sectionHeader>
+
+<apex:pageBlock title="About">
+
+<table>
+<tr>
+<td>
+<p>Action Plans encapsulate best practices into reusable task templates.  
+Action Plans support Accounts, Contacts, Opportunities and Leads.
+Templates can include 50 independent or dependent tasks, and tasks can be
+assigned to a particular individual in the template or assigned to the user 
+who creates a plan from the template.  You can create Action Plans either 
+one by one or in a group of up to 20 at a time.</p>
+</td>
+<td>
+<object width="480" height="385"><param name="movie" value="http://www.youtube.com/v/tqFB2vaZ998&hl=en_US&fs=1&"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/tqFB2vaZ998&hl=en_US&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="480" height="385"></embed></object>
+</td>
+</tr>
+</table>
+  
+</apex:pageBlock>
+
+<apex:pageBlock title="Getting Started">
+
+<p>Getting started is easy.  For each object, you need to add a button to the 
+list view, add a button to the detail page, and add the Action Plan related 
+list to the page layout.  For Accounts, follow these steps:</p>
+
+<ol>
+<li>Navigate to Setup > Customize > Accounts > Search Layouts.</li>
+<li>Click on "Edit" near "Accounts List View".</li>
+<li>Move the "Create Account Action Plans" button from "Available Buttons" to "Selected Buttons".</li>
+<li>Click "Save".</li>
+<li>Navigate to Setup > Customize > Accounts > Page Layouts.</li>
+<li>Click Edit near the first Account page layout to want to enable for action plans.</li>
+<li>Add the "Create Account Action Plan" to the "Custom Buttons" section.</li>
+<li>Add the "Action Plans" related list to the "Related Lists" section.  Customize the content of the related list to your liking.</li>
+<li>Save your changes.</li>
+<li>Repeat for other page layouts.</li>
+</ol>
+
+<p>Repeat these steps for the other objects Action Plans supports: Contacts, Leads and Opportunities.</p>
+
+
+  
+</apex:pageBlock>
+
+<apex:pageBlock title="Create a Template">
+
+<p>Now you're ready to create your first template.  Navigate to the Action Plans tab and click on the "Templates" sub tab.  Click on the "New Action Plan Template" button.</p>
+
+<p>The template screen looks like this:</p>
+
+<p><apex:image url="{!URLFOR($Resource.ActionPlans_General, 'resourceBundle/ActionPlanTemplate-Detail.png')}"  /></p>
+
+<ol>
+<li>Name - Template Name.</li>
+<li>Description - An explanation of how the template should be used.</li>
+<li>Skip weekends - Allows you to automatically reschedule a task that would fall on 
+a Saturday or a Sunday to either a Monday or Friday.  When checked, a drop down box
+appears allowing you to select the day.</li>
+<li>Action - Click "remove" to eliminate a step in a template.</li>
+<li>Subject - What the task is to do.</li>
+<li>Task Dependency - The task that must be marked complete before this task is created.</li>
+<li>Days - Controls task due dates.  For non-dependent tasks, this the number of days from plan start date.  
+For dependent tasks, this is the number of days from when the dependent task was closed.</li> 
+<li>Assigned To - Looks up to user.  Leave blank if you want to assign to the user who creates a plan from the template.</li>
+<li>Category - What type of activity.</li>
+<li>Priority - Low, medium or high.</li>
+<li>Email - Send a standard New Task email when checked.</li>
+<li>Reminder - Set a task reminder when checked.</li>
+<li>Comments - Comments supporting a task.</li>
+<li>Add New Task - Adds an additional row to the tasks grid.</li>
+<li>Save - Saves the template.</li>
+</ol>
+  
+</apex:pageBlock>
+
+<apex:pageBlock title="Create Action Plans for Several Leads">
+
+<p>Step 1: Navigate to a leads list view.  Select the leads you want to create Action Plans for.  Click on the "Create Lead Action Plans" button.</p>
+
+<p><apex:image url="{!URLFOR($Resource.ActionPlans_General, 'resourceBundle/leads1.png')}"  /></p>
+
+<p>Step 2: Select the template you want to use by clicking on it.</p>
+
+<p><apex:image url="{!URLFOR($Resource.ActionPlans_General, 'resourceBundle/leads2.png')}"  /></p>
+
+<p>Step 3: Enter the information specific to this plan.  Note that the leads you selected earlier are visible and that the "Assign To" has been completed using the current user.</p>
+
+<p><apex:image url="{!URLFOR($Resource.ActionPlans_General, 'resourceBundle/leads3.png')}"  /></p>
+
+<p>Step 4: Verify the Action Plan and the tasks.  Note that the Action Plan is now in the correct related list and that this lead has two open activities.  The third activity in the template is dependent and will be created only when it's predecessor is complete.</p>
+
+<p><apex:image url="{!URLFOR($Resource.ActionPlans_General, 'resourceBundle/leads4.png')}"  /></p>
+
+
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,44 @@
+<!-- codacreditnotediscard -->
+<apex:page standardController="c2g__codaCreditNote__c" extensions="c2g.CODACreditNoteController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<style>
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	</style>
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageCreditNoteDiscardCreditNoteDis}" subtitle="{!viewstate.creditNote.Dto.Name}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1022')}"/>
+		<!-- CreditNote Status -->
+		<apex:pageBlock title="{!$Label.codaPageCreditNoteDiscardCreditNoteSta}">
+			<apex:pageBlockButtons >
+				<!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageCreditNoteDiscardDiscard}" action="{!discard}" id="discard_h" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPageCreditNoteDiscardCancel}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/>
+				<!-- End of Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageCreditNoteDiscardDiscard2}" id="discard" onclick="document.getElementById('{!$Component.discard_h}').click();return false;" rerender=""/>				
+				<apex:commandButton value="{!$Label.codaPageCreditNoteDiscardCancel}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+				<script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaPageCreditNoteDiscardProcessing}"
+	                var discard = document.getElementById("{!$Component.discard}");
+	                var cancel = document.getElementById("{!$Component.cancel}");	                
+	                CODA2GoButtons.initButtons([discard.id,cancel.id]);
+				</script>
+			</apex:pageBlockButtons>
+			<!-- Messages -->
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+					<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+						<apex:outputText value="{!errorMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+			<apex:pageBlockSection >
+				<apex:inputField value="{!viewstate.creditNote.Dto.c2g__DiscardReason__c}" required="true" style="width:90%;height:60px;"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

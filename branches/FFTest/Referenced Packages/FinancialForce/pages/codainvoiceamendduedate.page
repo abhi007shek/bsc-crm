@@ -1,0 +1,434 @@
+<!-- codainvoiceamendduedate -->
+<apex:page standardController="c2g__codaInvoice__c" extensions="c2g.CODAInvoiceController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	<style>
+	.extracollapsed
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	.extraexpanded
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	.extracollapsed_h
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	.extraexpanded_h
+	{
+		BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+	}
+	.pbError
+	{
+		background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+	}
+	</style>
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaPageInvoiceAmendDocument}" subtitle="{!viewstate.invoice.Dto.Name}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1027')}"/>
+		<!-- Invoice Status -->
+		<apex:pageBlock title="{!$Label.codaPageInvoiceAmendInvoiceStatus}">
+			<apex:pageBlockButtons >
+				<!-- Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageInvoiceAmendSave}" action="{!amendDueDate}" id="save_h" styleclass="hiddensubmit"/>
+				<apex:commandButton value="{!$Label.codaPageInvoiceAmendCancel}" action="{!cancel}" id="cancel_h" styleclass="hiddensubmit" immediate="true" reRender=""/>
+				<!-- End of Hidden Buttons -->
+				<apex:commandButton value="{!$Label.codaPageInvoiceAmendSave2}" id="save" onclick="document.getElementById('{!$Component.save_h}').click();return;" rerender=""/>				
+				<apex:commandButton value="{!$Label.codaPageInvoiceAmendCancel}" id="cancel" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.cancel_h}').click()};return false;"/>
+				<script>
+					var CODA2GoButtons = new CODA2GoPage();
+					var CODA2GoBtnSaveValue = "{!$Label.codaPageInvoiceAmendProcessing}";
+	                var discard = document.getElementById("{!$Component.save}");
+	                var cancel = document.getElementById("{!$Component.cancel}");
+	                CODA2GoButtons.initButtons([discard.id,cancel.id]);          
+	               
+				</script>
+			</apex:pageBlockButtons>
+			<!-- Messages -->
+			<apex:outputPanel id="messagePanel" layout="block">
+				<apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+					<apex:messages />
+					<apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+						<apex:outputText value="{!errorMessage}"/><br/>
+					</apex:repeat>
+				</apex:outputPanel>
+				<apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!viewstate.showGeneralMessages}">
+						<apex:repeat value="{!viewstate.generalMessages}" var="generalMessage" rendered="{!viewstate.showGeneralMessages}">
+							<apex:outputText value="{!generalMessage}"/><br/>
+						</apex:repeat>
+				</apex:outputPanel>
+			</apex:outputPanel>
+			<!-- Account Detail -->
+			<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendAccountDetail}">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__Account__c.label}"/>
+					<apex:outputPanel styleClass="holder">
+						<apex:outputField value="{!viewstate.invoice.dto.c2g__Account__c}"/>
+						<a href="#" onclick="CODA.toggleHeaderExpand(this,'myex');return false;" title="{!$Label.codaPageInvoiceAmendToggleAnalysisarea}">
+							<img src="/s.gif" width="16" height="16" class="extracollapsed_h" title="{!$Label.codaPageInvoiceAmendToggleAnalysisarea2}"/>
+						</a>
+						<DIV id="myex" class="headerexpander">
+							<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendAnalysis}" collapsible="false" columns="1">
+								<apex:outputField value="{!viewstate.invoice.dto.c2g__Dimension1__c}"/>
+								<apex:outputField value="{!viewstate.invoice.dto.c2g__Dimension2__c}"/>
+								<apex:outputField value="{!viewstate.invoice.dto.c2g__Dimension3__c}"/>
+								<apex:outputField value="{!viewstate.invoice.dto.c2g__Dimension4__c}"/>
+							</apex:pageBlockSection>
+						</DIV>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.isSalesAndUse}">&nbsp;</apex:pageBlockSectionItem>
+				<!-- Below pageBlockSectionItem rendered depending on Tax Method - Sales and Use Tax -->
+				<apex:pageBlockSectionItem rendered="{!viewstate.isSalesAndUse}">
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTaxCodes}"/>
+					<apex:outputPanel styleClass="holder">
+						<apex:outputPanel >
+							<apex:outputText value="{!viewstate.invoice.taxCodesAsString}"/>
+						</apex:outputPanel> 
+						<a href="#" onclick="CODA.toggleHeaderExpand(this,'myex1');return false;" title="{!$Label.codaPageInvoiceAmendToggleTaxCodesarea}"><img src="/s.gif" width="16" height="16" class="extracollapsed_h" title="{!$Label.codaPageInvoiceAmendToggleTaxCodesarea}"/></a>
+						<DIV id="myex1" class="headerexpander">
+							<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendTaxCodes2}" collapsible="false" columns="1">
+								<apex:panelGrid width="100%" columns="3" border="0" columnClasses="labelCol first, data2Col first,data2Col">
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__TaxCode1__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!viewstate.invoice.dto.c2g__TaxCode1__c}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!viewstate.invoice.TaxRate1}"/></apex:outputPanel>
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__TaxCode2__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!viewstate.invoice.dto.c2g__TaxCode2__c}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!viewstate.invoice.TaxRate2}"/></apex:outputPanel>
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__TaxCode3__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!viewstate.invoice.dto.c2g__TaxCode3__c}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!viewstate.invoice.TaxRate3}"/></apex:outputPanel>
+								</apex:panelGrid>
+							</apex:pageBlockSection>
+						</DIV>
+					</apex:outputPanel>					
+				</apex:pageBlockSectionItem>
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__Opportunity__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendBillingAddress}"/>
+					<apex:outputPanel >
+					<apex:outputText value="{!viewstate.invoice.billingAddress.fullAddress}"/>&nbsp;
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendShippingAddress}"/>
+					<apex:outputPanel >
+					<apex:outputText value="{!viewstate.invoice.shippingAddress.fullAddress}"/>&nbsp;
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.canPrint}">
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendInvoiceEmail}"/>
+					<apex:outputText value="{!viewstate.invoice.invoice.account.Dto.c2g__CODAInvoiceEmail__c}"/>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<!-- Payment Schedule -->
+			<apex:outputPanel id="paymentScheduleOutputPanel">
+				<apex:pageBlockSection id="paymentSchedulePageBlockSection" title="{!$Label.codaPageInvoiceAmendPaymentSchedule}" collapsible="true" columns="1">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__PaymentSchedule__c.label}" for="paymentSchedule"/>
+						<apex:outputPanel layout="block" id="scheduleTypeOutputPanel">
+							<apex:outputField id="paymentSchedule" value="{!viewstate.invoice.dto.c2g__PaymentSchedule__c}"/>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+					<apex:outputPanel id="paymentScheduleFieldsOutputPanel">
+						<apex:pageBlockSection id="paymentScheduleFieldsPageBlockSection" rendered="{!viewstate.showPaymentSchedule}">
+							<apex:outputField id="numberOfPayments" value="{!viewstate.invoice.dto.c2g__NumberOfPayments__c}" styleClass="widthsmall alignright"/>
+							<apex:outputField id="firstDueDate" value="{!viewstate.invoice.dto.c2g__FirstDueDate__c}"/>
+							<apex:outputField id="interval" value="{!viewstate.invoice.dto.c2g__Interval__c}"/>
+							<apex:pageBlockSectionItem />
+							<apex:dataTable id="dtPaymentSchedule" value="{!viewstate.invoice.installmentLineItems}" var="installmentLineItem" rowClasses="odd,even" headerClass="listheader" styleClass="list detailListnoPadding" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+								<apex:column styleClass="widthlinenumbers">
+									<apex:facet name="header">&nbsp;</apex:facet>
+									<apex:outputField id="lineNumber" value="{!installmentLineItem.dto.c2g__LineNumber__c}"/>
+								</apex:column>
+								<apex:column styleClass="widthauto">
+									<apex:facet name="header">
+										<apex:outputPanel layout="block">{!$ObjectType.c2g__codaInvoiceInstallmentLineItem__c.fields.c2g__DueDate__c.label}</apex:outputPanel>								
+									</apex:facet>
+									<apex:inputField id="dueDate" value="{!installmentLineItem.dto.c2g__DueDate__c}" rendered="{!installmentLineItem.canAmendDueDate}"/>
+									<apex:outputField id="dueDateView" value="{!installmentLineItem.dto.c2g__DueDate__c}" rendered="{!!installmentLineItem.canAmendDueDate}"/>
+								</apex:column>
+								<apex:column styleClass="alignright widthmedium">
+									<apex:facet name="header">
+										<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceInstallmentLineItem__c.fields.c2g__Amount__c.label}</apex:outputPanel>								
+									</apex:facet>
+									<apex:outputText id="amount" value="{!installmentLineItem.AmountWithSymbol}" styleClass="alignright"/>
+								</apex:column>
+							</apex:dataTable>
+						</apex:pageBlockSection>
+					</apex:outputPanel>
+				</apex:pageBlockSection>
+			</apex:outputPanel>
+			<!-- Invoice Detail -->
+			<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendInvoiceDetail}">
+				<apex:outputField id="invGroup" value="{!viewstate.invoice.dto.c2g__InvoiceGroup__c}"/>
+				<apex:outputText value=" "/>
+				<apex:outputField value="{!viewstate.invoice.dto.Name}"/>
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__Transaction__c}"/>
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__InvoiceDate__c}"/>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendCustomerReference}"/>
+					<apex:outputPanel >
+						<apex:inputField id="customerReference" value="{!viewstate.invoice.dto.c2g__CustomerReference__c}"/>&nbsp;
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__DueDate__c.label}" for="dueDate"/>	
+					<apex:outputPanel id="dueDateOutputPanelView">
+						<apex:inputField id="dueDate" value="{!viewstate.invoice.dto.c2g__DueDate__c}" required="{!!viewstate.showPaymentSchedule}" rendered="{!!viewstate.showPaymentSchedule}"/>
+						<apex:outputText id="paymentScheduleDueDate" value="{!$Label.codaPageInvoiceAmendPaymentSchedule2}" rendered="{!viewstate.showPaymentSchedule}"/>
+					</apex:outputPanel>	
+				</apex:pageBlockSectionItem>
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__ShippingMethod__c}"/>
+				<apex:pageBlockSectionItem id="currencyblock">
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendInvoiceCurrency}"/>
+					<apex:outputText value="{!viewstate.invoice.invoice.invoiceCurrency.name}"/>
+				</apex:pageBlockSectionItem>
+				<apex:inputField value="{!viewstate.invoice.dto.c2g__InvoiceDescription__c}"/>
+			</apex:pageBlockSection>
+			<!-- Invoice Line Items -->
+			<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendInvoiceLineItems}" columns="1">
+				<apex:dataTable id="dtLineItems" value="{!viewstate.invoice.lineItems}" var="lineItem" rowClasses="odd,even" styleClass="list" headerClass="listheader" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+					<apex:column styleClass="widthlinenumbers">
+						<apex:facet name="header">&nbsp;</apex:facet>
+						<apex:outputPanel styleclass="holder">
+							<nobr><apex:outputField value="{!lineItem.dto.c2g__LineNumber__c}"/><a href="#" onclick="CODA.toggleExtraArea('{!$Component.extra}','{!$Component.dtLineItems}',this);return false" title="{!$Label.codaPageInvoiceAmendToggleNotesandAnalysisarea}"><apex:image id="expandcollapse" value="/s.gif" width="16" height="16" styleClass="extracollapsed"/></a></nobr>
+							<apex:outputPanel layout="block" styleClass="extra" id="extra">
+								<apex:outputPanel layout="block" styleClass="headerdetailsview">
+									<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendNotesandAnalysis}" collapsible="false" columns="2">
+									<apex:panelGrid width="100%" columns="2" border="0" columnClasses="labelCol first, dataCol first">
+										<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Dimension1__c.label}"/>
+										<apex:outputField value="{!lineItem.dto.c2g__Dimension1__c}"/>
+										<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Dimension2__c.label}"/>
+										<apex:outputField value="{!lineItem.dto.c2g__Dimension2__c}"/>
+										<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Dimension3__c.label}"/>
+										<apex:outputField value="{!lineItem.dto.c2g__Dimension3__c}"/>
+										<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Dimension4__c.label}"/>
+										<apex:outputField value="{!lineItem.dto.c2g__Dimension4__c}"/>
+									</apex:panelGrid>
+									<apex:panelGrid width="100%" columns="2" border="0" columnClasses="labelCol first, dataCol first">
+										<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__LineDescription__c.label}"/>
+										<apex:inputField id="lineDescription" value="{!lineItem.dto.c2g__LineDescription__c}"/>
+									</apex:panelGrid>		
+									</apex:pageBlockSection>
+								</apex:outputPanel>
+							</apex:outputPanel>
+						</apex:outputPanel>
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Product__c.label}</apex:facet>
+						<apex:outputField value="{!lineItem.dto.c2g__Product__c}"/>
+					</apex:column>
+					<apex:column >
+						<apex:facet name="header">{!$ObjectType.product2.fields.ProductCode.label}</apex:facet>
+						<apex:outputText value="{!lineItem.ProductCode}"/>
+					</apex:column>
+					<apex:column styleClass="alignright widthsmall">
+						<apex:facet name="header">
+							<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__Quantity__c.label}</apex:outputPanel>
+						</apex:facet>
+						<apex:outputField value="{!lineItem.dto.c2g__Quantity__c}"/>
+					</apex:column>
+					<apex:column styleClass="alignright widthmedium">
+						<apex:facet name="header">
+							<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__UnitPrice__c.label}</apex:outputPanel>
+						</apex:facet>
+						<apex:outputText value="{!lineItem.UnitPrice}" styleClass="alignright"/>
+					</apex:column>
+					<!-- Below column rendered depending on Tax Method - Sales and Use Tax -->
+					<apex:column styleClass="widthsmall alignright" rendered="{!viewstate.isSalesAndUse}">
+						<apex:facet name="header"><apex:outputPanel layout="block" styleClass="alignright">{!$Label.codaPageInvoiceAmendTaxRate} &nbsp;&nbsp;&nbsp;&nbsp;</apex:outputPanel></apex:facet>
+						<apex:outputPanel styleClass="holder">
+							<nobr><apex:outputText value="{!lineItem.CompositeTaxRate}"/><a href="#" onclick="CODA.toggleExtraArea('{!$Component.extratax}','{!$Component.dtLineItems}',this);return false" title="{!$Label.codaPageInvoiceAmendToggleTaxRatesarea}"><apex:image id="expandcollapsetax" value="/s.gif" width="16" height="16" styleClass="extracollapsed"/></a></nobr>
+							<apex:outputPanel layout="block" styleClass="extra" id="extratax">
+							<apex:outputPanel layout="block" styleClass="headerdetails">
+								<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendTaxRates}" collapsible="false" columns="1">
+								<apex:panelGrid columns="4" border="0" rowClasses="labelheader,none,none,none" columnClasses="labelCol widthauto, widthauto, widthauto alignright, widthmedium alignright">
+									<apex:outputText value=" "/>
+									<apex:outputText value=" "/>
+									<apex:outputText value="{!$Label.codaPageInvoiceAmendTaxRate}"/>
+									<apex:outputText value="{!$Label.codaPageInvoiceAmendTaxValue}"/>
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxCode1__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!lineItem.dto.c2g__TaxCode1__c}" styleClass="analysisdata"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxRate1FromLine}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxValue1WithSymbol}"/></apex:outputPanel>
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxCode2__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!lineItem.dto.c2g__TaxCode2__c}" styleClass="analysisdata"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxRate2FromLine}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxValue2WithSymbol}"/></apex:outputPanel>
+									<apex:outputLabel value="{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxCode3__c.label}"/>
+									<apex:outputPanel ><apex:outputField value="{!lineItem.dto.c2g__TaxCode3__c}" styleClass="analysisdata"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxRate3FromLine}"/></apex:outputPanel>
+									<apex:outputPanel ><apex:outputText value="{!lineItem.TaxValue3WithSymbol}"/></apex:outputPanel>
+								</apex:panelGrid>
+								</apex:pageBlockSection>
+							</apex:outputPanel>
+						</apex:outputPanel>
+						</apex:outputPanel>
+					</apex:column>
+					<apex:column rendered="{!viewstate.isVAT}">
+						<apex:facet name="header">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxCode1__c.label}</apex:facet>
+						<apex:outputField value="{!lineItem.dto.c2g__TaxCode1__c}"/>
+					</apex:column>
+					<apex:column styleClass="alignright widthmedium" rendered="{!viewstate.isVAT}">
+						<apex:facet name="header">
+							<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxValue1__c.label}</apex:outputPanel>
+						</apex:facet>
+						<apex:outputText value="{!lineItem.TaxValue1}" styleClass="alignright"/>
+					</apex:column>
+					<apex:column styleClass="widthmedium alignright" rendered="{!viewstate.isSalesAndUse}">
+						<apex:facet name="header">
+							<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxValue1__c.label}</apex:outputPanel>
+						</apex:facet>
+						 <apex:outputText id="taxValueSUT" value="{!lineItem.TaxValueTotalWithSymbol}" styleClass="alignright" />
+					</apex:column>
+					<apex:column styleClass="alignright widthmedium">
+						<apex:facet name="header">
+							<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__NetValue__c.label}</apex:outputPanel>
+						</apex:facet>
+						<apex:outputText id="netValue" value="{!lineItem.NetValue}"/>
+					</apex:column>
+				</apex:dataTable>
+			</apex:pageBlockSection>
+			<!-- Summary -->
+			<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendSummary}" columns="2" collapsible="false">
+				<!-- Tax Summary -->
+				<apex:outputPanel layout="block" styleclass="taxsummaryarea">
+				<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendTaxSummary}" columns="1">
+					<apex:dataTable id="dtTaxSummary" value="{!viewstate.invoice.taxSummaryItems}" var="taxSummary" rowClasses="odd,even" headerClass="listheader" styleClass="list" border="0" onRowMouseOver="if (window.hiOn){hiOn(this);}" onRowMouseOut="if (window.hiOff){hiOff(this);}">
+						<apex:column styleClass="widthmed">
+							<apex:facet name="header">
+								<apex:outputPanel layout="block">{!viewstate.invoice.TaxSummaryTaxCodeHeading}</apex:outputPanel>
+							</apex:facet>
+							<apex:outputText value="{!taxSummary.TaxCode}"/>
+						</apex:column>
+						<!-- Below column rendered depending on Tax Method - Sales and Use Tax -->
+						<apex:column styleClass="widthmed alignright" headerclass="alignright" rendered="{!viewstate.isVat}">
+							<apex:facet name="header">
+								<apex:outputPanel layout="block">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxRate1__c.label}</apex:outputPanel>
+							</apex:facet>
+							<apex:outputText value="{!taxSummary.TaxRate}"/>
+						</apex:column>
+						<apex:column styleClass="widthmed alignright" rendered="{!viewstate.isVat}">
+							<apex:facet name="header">
+								<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__NetValue__c.label}</apex:outputPanel>
+							</apex:facet>
+							<apex:outputText value="{!taxSummary.NetValue}"/>
+						</apex:column>
+						<apex:column styleClass="widthmed alignright">
+							<apex:facet name="header">
+								<apex:outputPanel layout="block" styleClass="alignright">{!$ObjectType.c2g__codaInvoiceLineItem__c.fields.c2g__TaxValue1__c.label}</apex:outputPanel>
+							</apex:facet>
+							<apex:outputText value="{!taxSummary.TaxValue}"/>
+						</apex:column>
+					</apex:dataTable>
+				</apex:pageBlockSection>
+				</apex:outputPanel>
+				<apex:panelGrid columns="2" border="0" width="100%" styleClass="detailList" columnClasses="labelCol widthauto,dataCol alignright widthmedium">
+					<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__NetTotal__c.label}"/>
+					<apex:outputText id="netTotal" value="{!viewstate.invoice.NetTotal}"/>
+					<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__TaxTotal__c.label}"/>
+					<apex:outputText id="taxTotal" value="{!viewstate.invoice.TaxTotal}"/>
+					<apex:outputLabel value="{!$ObjectType.c2g__codaInvoice__c.fields.c2g__InvoiceTotal__c.label}"/>
+					<apex:outputText id="invTotal" value="{!viewstate.invoice.InvoiceTotal}"/>
+				</apex:panelGrid>
+			</apex:pageBlockSection>
+			<!-- Invoice Status -->
+			<apex:pageBlockSection title="{!$Label.codaPageInvoiceAmendInvoiceStatus2}">
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__InvoiceStatus__c}"/>
+				<apex:outputField value="{!viewstate.invoice.dto.c2g__DiscardReason__c}"/>
+			</apex:pageBlockSection>
+			<!-- Starting Edit  -->
+			<apex:pageBlockSection columns="1" title="{!$Label.codaPageInvoiceAmendPrintedText}" id="printedTextBlock">
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText1Panel}"> 
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTextDefinition1Name}"/>
+					<apex:outputText id="textDefName1" value="{!viewState.invoice.dto.c2g__PrintedText1TextDefinitionName__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText1Panel}"> 
+					<apex:outputLabel id="heading1Label" value="{!$Label.codaPageInvoiceAmendHeading}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:outputText id="heading1" value="{!viewstate.invoice.dto.c2g__PrintedText1Heading__c}" />
+				</apex:pageBlockSectionItem>		
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText1Panel}">
+					<apex:outputLabel id="text1Label" value="{!$Label.codaPageInvoiceAmendText}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:repeat value="{!viewstate.invoice.textdefvalue1}" var="textvalue1">
+						<apex:outputText value="{!textvalue1}"/><br/>
+					</apex:repeat>	
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem />
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText2Panel}"> 
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTextDefinition2Name}"/>
+					<apex:outputText id="textDefName2" value="{!viewState.invoice.dto.c2g__PrintedText2TextDefinitionName__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText2Panel}"> 
+					<apex:outputLabel id="heading2Label" value="{!$Label.codaPageInvoiceAmendHeading2}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:outputText id="heading2" value="{!viewstate.invoice.dto.c2g__PrintedText2Heading__c}" />
+				</apex:pageBlockSectionItem>		
+					<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText2Panel}">
+						<apex:outputLabel id="text2Label" value="{!$Label.codaPageInvoiceAmendText2}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+						<apex:repeat value="{!viewstate.invoice.textdefvalue2}" var="textvalue2">
+							<apex:outputText value="{!textvalue2}"/><br/>
+						</apex:repeat>		
+					</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem />			
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText3Panel}"> 
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTextDefinition3Name}"/>
+					<apex:outputText id="textDefName3" value="{!viewState.invoice.dto.c2g__PrintedText3TextDefinitionName__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText3Panel}"> 
+					<apex:outputLabel id="heading3Label" value="{!$Label.codaPageInvoiceAmendHeading3}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:outputText id="heading3" value="{!viewstate.invoice.dto.c2g__PrintedText3Heading__c}" />
+				</apex:pageBlockSectionItem>		
+					<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText3Panel}">
+						<apex:outputLabel id="text3Label" value="{!$Label.codaPageInvoiceAmendText3}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+						<apex:repeat value="{!viewstate.invoice.textdefvalue3}" var="textvalue3">
+							<apex:outputText value="{!textvalue3}"/><br/>
+						</apex:repeat>	
+					</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem />
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText4Panel}"> 
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTextDefinition4Name}"/>
+					<apex:outputText id="textDefName4" value="{!viewState.invoice.dto.c2g__PrintedText4TextDefinitionName__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText4Panel}"> 
+					<apex:outputLabel id="heading4Label" value="{!$Label.codaPageInvoiceAmendHeading4}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:outputText id="heading4" value="{!viewstate.invoice.dto.c2g__PrintedText4Heading__c}" />
+				</apex:pageBlockSectionItem>		
+					<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText4Panel}">
+						<apex:outputLabel id="text4Label" value="{!$Label.codaPageInvoiceAmendText4}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+						<apex:repeat value="{!viewstate.invoice.textdefvalue4}" var="textvalue4">
+							<apex:outputText value="{!textvalue4}"/><br/>
+						</apex:repeat>	
+					</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem />
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText5Panel}"> 
+					<apex:outputLabel value="{!$Label.codaPageInvoiceAmendTextDefinition5Name}"/>
+					<apex:outputText id="textDefName5" value="{!viewState.invoice.dto.c2g__PrintedText5TextDefinitionName__c}" />
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText5Panel}"> 
+					<apex:outputLabel id="heading1Labe5" value="{!$Label.codaPageInvoiceAmendHeading5}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:outputText id="heading5" value="{!viewstate.invoice.dto.c2g__PrintedText5Heading__c}" />
+				</apex:pageBlockSectionItem>		
+				<apex:pageBlockSectionItem rendered="{!viewstate.invoice.showPrintedText5Panel}">
+					<apex:outputLabel id="text5Label" value="{!$Label.codaPageInvoiceAmendText5}" style="{!viewState.invoice.DisabledPrintedText1Style}"/>
+					<apex:repeat value="{!viewstate.invoice.textdefvalue5}" var="textvalue5">
+						<apex:outputText value="{!textvalue5}"/><br/>
+					</apex:repeat>	
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<!-- Ending Edit  -->
+			<script>
+				CODA.twistPageBlockSection("{!$Component.printedTextBlock}");
+			</script>
+		</apex:pageBlock>
+		<script>
+			CODA.setExpanderIconState('view');
+		</script>
+	</apex:form>
+	<!-- Notes and Attachments, Open Activities, Activity Histories -->    
+	<apex:relatedList list="NotesAndAttachments"/>    
+	<apex:relatedList list="OpenActivities"/>    
+	<apex:relatedList list="ActivityHistories"/>
+	<!-- Event Log -->
+	<apex:relatedList id="eventLogs" list="EventLogs__r" rendered="{!viewstate.invoice.showEventLog}"/>
+</apex:page>

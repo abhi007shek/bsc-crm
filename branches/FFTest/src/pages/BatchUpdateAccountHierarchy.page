@@ -1,0 +1,18 @@
+<apex:page >
+<head>
+<style>
+input.groovybutton { font-size:14px;
+width:150px; height:30px;
+border-style:ridge;
+border-color:#643200; }
+</style>
+  <h1><big>Batch Update of Account Hierarchy</big></h1>
+</head>  
+  <apex:Form >
+      <apex:pageBlock >
+              <center>
+                  <apex:commandButton styleclass="groovybutton" action="{!save}" value="Run Batch Process" id="theButton"/>
+              </center>
+      </apex:pageBlock>
+  </apex:Form>
+</apex:page>

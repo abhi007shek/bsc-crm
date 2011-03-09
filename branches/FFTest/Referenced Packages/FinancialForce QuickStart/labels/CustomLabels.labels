@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>codacompany2_3ContinueBtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompany2_3ContinueBtn</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>codacompany2_3information</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompany2_3information</shortDescription>
+        <value>The next step is to make this company your</value>
+    </labels>
+    <labels>
+        <fullName>codacompany2_3informationCurCny</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompany2_3informationCurCny</shortDescription>
+        <value>current company</value>
+    </labels>
+    <labels>
+        <fullName>codacompany2_3informationCurCnyHelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompany2_3informationCurCnyHelp</shortDescription>
+        <value>The company in which you are working.</value>
+    </labels>
+    <labels>
+        <fullName>codacompany2_3informationCurCnyPopup</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompany2_3informationCurCnyPopup</shortDescription>
+        <value>Current company</value>
+    </labels>
+    <labels>
+        <fullName>codacompanydetailshomeisocodeinvalid</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codacompanydetailshomeisocodeinvalid</shortDescription>
+        <value>The Home Currency must be a valid currency ISO code.</value>
+    </labels>
+    <labels>
+        <fullName>codaextaccountsreceivableanalysis</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextaccountsreceivableanalysis</shortDescription>
+        <value>Accounts Receivable Analysis</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivatecompany</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivatecompany</shortDescription>
+        <value>Activate Company</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivatecompany2_4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivatecompany2_4</shortDescription>
+        <value>Activate Company: Confirm (2/4)</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivatecompany3_4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivatecompany3_4</shortDescription>
+        <value>Activate Company: Continue (3/4)</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivatecompany4_4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivatecompany4_4</shortDescription>
+        <value>Activate Company: Create Company Data (4/4)</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivatecompanytitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivatecompany</shortDescription>
+        <value>Activate Company: Activate (1/4)</value>
+    </labels>
+    <labels>
+        <fullName>codaextactivateconfirm</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextactivateconfirm</shortDescription>
+        <value>Congratulations, your new company has been created, but you must activate it before it can be used.</value>
+    </labels>
+    <labels>
+        <fullName>codaextclonetemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextclonetemplate</shortDescription>
+        <value>Clone</value>
+    </labels>
+    <labels>
+        <fullName>codaextclonetemplateinfo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextclonetemplateinfo</shortDescription>
+        <value>Select a company to clone.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcomnamehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcomnamehelp</shortDescription>
+        <value>You can use up to 80 characters in your company name.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanyblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanyblank</shortDescription>
+        <value>The company name cannot be blank</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanydetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanydetails</shortDescription>
+        <value>Company Details</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanyexists</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanyexists</shortDescription>
+        <value>A company with this name already exists.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanylogo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanylogo</shortDescription>
+        <value>Company Logo</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanyname</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanyname</shortDescription>
+        <value>Company Name</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanysetup</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanysetup</shortDescription>
+        <value>Your new company, and its associated chart of accounts, financial calendar and accounting currencies, are now ready to use.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcompanysetup2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcompanysetup2</shortDescription>
+        <value>You can continue to customize and add to these company settings from within FinancialForce Accounting itself, for example to create tax codes and rates, create customer and vendor Accounts, or add accounting information to existing your Accounts. See the Data Setup browse sequence in the FinancialForce Help for more information and assistance.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcomplcomtemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcomplcomtemplate</shortDescription>
+        <value>Completed Companies</value>
+    </labels>
+    <labels>
+        <fullName>codaextconfirmcreate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextconfirmcreate</shortDescription>
+        <value>Please confirm your details.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcontactemail</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcontactemail</shortDescription>
+        <value>Contact Email</value>
+    </labels>
+    <labels>
+        <fullName>codaextcountry</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcountry</shortDescription>
+        <value>Country</value>
+    </labels>
+    <labels>
+        <fullName>codaextcountryhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcountryhelp</shortDescription>
+        <value>Two-digit Country Code for the European Union country in which this company operates.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcountyblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcountyblank</shortDescription>
+        <value>You must enter an EC Country Code for a VAT Company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcreatecompany</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcreatecompany</shortDescription>
+        <value>Create Company</value>
+    </labels>
+    <labels>
+        <fullName>codaextcurrencyblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcurrencyblank</shortDescription>
+        <value>The home currency cannot be blank</value>
+    </labels>
+    <labels>
+        <fullName>codaextcurrencyhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcurrencyhelp</shortDescription>
+        <value>The ISO code for this company&apos;s working (home) currency.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcurrencywriteoff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcurrencywriteoff</shortDescription>
+        <value>Currency Write-off</value>
+    </labels>
+    <labels>
+        <fullName>codaextcurrwriteofhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcurrwriteofhelp</shortDescription>
+        <value>This is the default general ledger account updated when a currency write-off is generated through the cash matching process.</value>
+    </labels>
+    <labels>
+        <fullName>codaextcwoisretained</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextcwoisretained</shortDescription>
+        <value>Currency Write-off cannot be of type Retained Earnings</value>
+    </labels>
+    <labels>
+        <fullName>codaextecblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextecblank</shortDescription>
+        <value>You must enter a EC Country Code for a VAT Company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextemailhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextemailhelp</shortDescription>
+        <value>This must be a valid email address in the form: jsmith@acme.com.</value>
+    </labels>
+    <labels>
+        <fullName>codaextemailnotproper</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextemailnotproper</shortDescription>
+        <value>Email address not in correct format</value>
+    </labels>
+    <labels>
+        <fullName>codaextentercompanydetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextentercompanydetails</shortDescription>
+        <value>Please provide us with some information about your new company here.  Required fields are highlighted with a red, vertical bar on this and all subsequent QuickStart pages. You can save the information you have already provided at any time by clicking the Save Progress button.</value>
+    </labels>
+    <labels>
+        <fullName>codaextentergladetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextentergladetails</shortDescription>
+        <value>If you imported a chart of accounts at Step 7, its general ledger accounts are available for selection here. However if you skipped Step 7, only those general ledger accounts that already exist in your organization are available.</value>
+    </labels>
+    <labels>
+        <fullName>codaextenterlogodetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextenterlogodetails</shortDescription>
+        <value>The final step before your new company is created is to upload your company logo to your organization&apos;s FinancialForce Documents folder. This logo will appear on all printed sales invoices and credit notes.</value>
+    </labels>
+    <labels>
+        <fullName>codaextentertaxdetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextentertaxdetails</shortDescription>
+        <value>Enter this company&apos;s tax details.</value>
+    </labels>
+    <labels>
+        <fullName>codaextentertaxregime</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextentertaxregime</shortDescription>
+        <value>Now, tell us the tax regime within which this company will operate.</value>
+    </labels>
+    <labels>
+        <fullName>codaextfax</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextfax</shortDescription>
+        <value>Fax</value>
+    </labels>
+    <labels>
+        <fullName>codaextfinalizeactivate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextfinalizeactivate</shortDescription>
+        <value>Confirm Activation</value>
+    </labels>
+    <labels>
+        <fullName>codaextisocode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextisocode</shortDescription>
+        <value>Home Currency</value>
+    </labels>
+    <labels>
+        <fullName>codaextlogonotproper</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextlogonotproper</shortDescription>
+        <value>The image file that you select must be in JPEG, GIF or PNG format.</value>
+    </labels>
+    <labels>
+        <fullName>codaextnext</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextnext</shortDescription>
+        <value>Next</value>
+    </labels>
+    <labels>
+        <fullName>codaextnofolder</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextnofolder</shortDescription>
+        <value>FinancialForce Document Folder does not exist</value>
+    </labels>
+    <labels>
+        <fullName>codaextnorecord</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextnorecord</shortDescription>
+        <value>Record Type does not exist</value>
+    </labels>
+    <labels>
+        <fullName>codaextphone</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextphone</shortDescription>
+        <value>Phone</value>
+    </labels>
+    <labels>
+        <fullName>codaextplsselecttemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextselecttemplate</shortDescription>
+        <value>You must select a company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextprevious</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextprevious</shortDescription>
+        <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>codaextquickstart</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextquickstart</shortDescription>
+        <value>Welcome to the Accounting QuickStart</value>
+    </labels>
+    <labels>
+        <fullName>codaextsavedcomtemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsavedcomtemplate</shortDescription>
+        <value>Incomplete Companies</value>
+    </labels>
+    <labels>
+        <fullName>codaextsaveprogress</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsaveprogress</shortDescription>
+        <value>Save Progress</value>
+    </labels>
+    <labels>
+        <fullName>codaextsdisretained</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsdisretained</shortDescription>
+        <value>Settlement Discount cannot be of type Retained Earnings</value>
+    </labels>
+    <labels>
+        <fullName>codaextselecttemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextselecttemplate</shortDescription>
+        <value>Select the company you want to continue creating.</value>
+    </labels>
+    <labels>
+        <fullName>codaextsetclonetem</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsetclonetem</shortDescription>
+        <value>Clone an existing company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextsetreusetem</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsetreusetem</shortDescription>
+        <value>Continue with previously saved company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextsettledishelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsettledishelp</shortDescription>
+        <value>This is the default general ledger account updated when a user posts a settlement discount to a customer&apos;s account.</value>
+    </labels>
+    <labels>
+        <fullName>codaextsettlementdiscount</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsettlementdiscount</shortDescription>
+        <value>Settlement Discount</value>
+    </labels>
+    <labels>
+        <fullName>codaextsetupcom</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsetupcom</shortDescription>
+        <value>Set up a new company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextsity</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextsity</shortDescription>
+        <value>City</value>
+    </labels>
+    <labels>
+        <fullName>codaextstateProvince</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextstateProvince</shortDescription>
+        <value>State/Province</value>
+    </labels>
+    <labels>
+        <fullName>codaextstreet</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextstreet</shortDescription>
+        <value>Street</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxcode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxcode</shortDescription>
+        <value>Tax Code</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxcodehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxcodehelp</shortDescription>
+        <value>If set, the selected default tax code is applied to each new account created in this company.</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxdetails</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxdetails</shortDescription>
+        <value>Tax Details</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxeccountrycode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxeccountrycode</shortDescription>
+        <value>EC Country Code</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxidentificationiumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxidentificationiumber</shortDescription>
+        <value>Taxpayer Identification Number</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxidhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxidhelp</shortDescription>
+        <value>The federal tax ID number or Employer Identification Number for this company.</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxmode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxmode</shortDescription>
+        <value>Tax Mode</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxmodeblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxmodeblank</shortDescription>
+        <value>Tax Mode must either be VAT or SUT</value>
+    </labels>
+    <labels>
+        <fullName>codaexttaxregime</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttaxregime</shortDescription>
+        <value>Tax Regime</value>
+    </labels>
+    <labels>
+        <fullName>codaexttocompleteactivate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaexttocompleteactivate</shortDescription>
+        <value>To complete the activation process, click Confirm Activation.</value>
+    </labels>
+    <labels>
+        <fullName>codaextuseraccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextuseraccess</shortDescription>
+        <value>User Access</value>
+    </labels>
+    <labels>
+        <fullName>codaextuseraccessquestion</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextuseraccessquestion</shortDescription>
+        <value>If you want to grant users access to the new company, select them here.</value>
+    </labels>
+    <labels>
+        <fullName>codaextusername</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextusername</shortDescription>
+        <value>User Name</value>
+    </labels>
+    <labels>
+        <fullName>codaextuserselect</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextuserselect</shortDescription>
+        <value>Select</value>
+    </labels>
+    <labels>
+        <fullName>codaextusetemplate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextusetemplate</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>codaextvathelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextvathelp</shortDescription>
+        <value>The VAT registration number for this company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextvatregblank</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextvatregblank</shortDescription>
+        <value>You must enter a VAT Registration Code for a VAT Company.</value>
+    </labels>
+    <labels>
+        <fullName>codaextvatregistrationnumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextvatregistrationnumber</shortDescription>
+        <value>VAT Registration Number</value>
+    </labels>
+    <labels>
+        <fullName>codaextwebsite</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwebsite</shortDescription>
+        <value>Website</value>
+    </labels>
+    <labels>
+        <fullName>codaextwhatdouwanttodo</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwhatdouwanttodo</shortDescription>
+        <value>What do you want to do?</value>
+    </labels>
+    <labels>
+        <fullName>codaextwhatsnext</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwhatsnext</shortDescription>
+        <value>What&apos;s Next?</value>
+    </labels>
+    <labels>
+        <fullName>codaextwoisretained</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwoisretained</shortDescription>
+        <value>Write-off cannot be of type Retained Earnings</value>
+    </labels>
+    <labels>
+        <fullName>codaextwriteoff</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwriteoff</shortDescription>
+        <value>Write-off</value>
+    </labels>
+    <labels>
+        <fullName>codaextwriteoffhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextwriteoffhelp</shortDescription>
+        <value>This is the default general ledger account updated when a user posts a write-off to a customer&apos;s account.</value>
+    </labels>
+    <labels>
+        <fullName>codaextzippostal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaextzippostal</shortDescription>
+        <value>Zip/Postal Code</value>
+    </labels>
+    <labels>
+        <fullName>codafcalendarperiodsmustbenumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codafcalendarperiodsmustbenumber</shortDescription>
+        <value>The trading periods value must be a number.</value>
+    </labels>
+    <labels>
+        <fullName>codaqscreatedatabtn</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaqscreatedatabtn</shortDescription>
+        <value>Create Company Data</value>
+    </labels>
+    <labels>
+        <fullName>codaqscreatedatainformation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codaqscreatedatainformation</shortDescription>
+        <value>The final step in activating your company is to create your company data, based on the information that you have already provided.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlexchangeratenumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlexchangeratenumber</shortDescription>
+        <value>Exchange Rate must be a number.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlvalidationcurrcode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlvalidationcurrcode</shortDescription>
+        <value>Currency Code is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlvalidationdecimalplaces</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlvalidationdecimalplaces</shortDescription>
+        <value>Decimal Places is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlvalidationexchrate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlvalidationexchrate</shortDescription>
+        <value>Exchange Rate is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlvalidationexchratedate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlvalidationexchratedate</shortDescription>
+        <value>Exchange Rate Date is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcntrlvalidationnumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcntrlvalidationnumber</shortDescription>
+        <value>Decimal Places must be a number.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcurcode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcurcode</shortDescription>
+        <value>Currency Code :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualcurcodehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualcurcodehelp</shortDescription>
+        <value>The ISO code of the currency. This can be the same as your home currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualdecimalplaces</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualdecimalplaces</shortDescription>
+        <value>Decimal Places :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualdecimalplaceshelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualdecimalplaceshelp</shortDescription>
+        <value>The number of decimal places to which values in this currency are expressed.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualexchangerate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualexchangerate</shortDescription>
+        <value>Exchange Rate :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualexchangeratedate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualexchangeratedate</shortDescription>
+        <value>Exchange Rate Date:</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualexchangeratedatehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualexchangeratedatehelp</shortDescription>
+        <value>First date the new rate can be used.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualexchangeratehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualexchangeratehelp</shortDescription>
+        <value>The exchange rate for this currency, relative to home currency. For example, your home currency is GBP and your dual currency is USD. If there are 1.60 US dollars to every British pound, you would enter 1.60 here.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualhomecur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualhomecur</shortDescription>
+        <value>Home Currency :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualinformation1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualinformation1</shortDescription>
+        <value>Next, you must designate your</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualinformation2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualinformation2</shortDescription>
+        <value>dual currency</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualinformation3</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualinformation3</shortDescription>
+        <value>What is your dual currency?</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualinformation4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualinformation4</shortDescription>
+        <value>The currency in which your corporate headquarters reports. Home and dual can be the same currency in some organizations. All documents and transactions must also balance in dual currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualinformation5</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualinformation5</shortDescription>
+        <value>and its initial exchange rate relative to home currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurdualtitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurdualtitle</shortDescription>
+        <value>Accounting Currency Setup: Dual (2/3)</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomecntrlvalidationnumber</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomecntrlvalidationnumber</shortDescription>
+        <value>Decimal Places should be a number.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomecorporatecur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomecorporatecur</shortDescription>
+        <value>Use Corporate Currency?</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomecorporatecurhelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomecorporatecurhelp</shortDescription>
+        <value>Use the currency already defined as your corporate currency in the underlying Salesforce CRM platform.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomectrlstep</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomectrlstep</shortDescription>
+        <value>(1/3)</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomecurhome</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomecurhome</shortDescription>
+        <value>Currency Code :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomecurhomehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomecurhomehelp</shortDescription>
+        <value>The ISO code of the currency. A new accounting currency must have a corresponding active currency in the underlying Salesforce CRM platform.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomedecimalplaces</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomedecimalplaces</shortDescription>
+        <value>Decimal Places :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomedecimalplaceshelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomedecimalplaceshelp</shortDescription>
+        <value>The number of decimal places to which values in this currency are expressed.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomeinformation1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomeinformation1</shortDescription>
+        <value>The first step in setting up your FinancialForce accounting currencies is to designate your</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomeinformation2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomeinformation2</shortDescription>
+        <value>home currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomeinformation3</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomeinformation3</shortDescription>
+        <value>What is your home currency?</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhomeinformation4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhomeinformation4</shortDescription>
+        <value>The main working and reporting currency of a FinancialForce company is its home currency. All documents and transactions must balance in home currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurhometitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurhometitle</shortDescription>
+        <value>Accounting Currency Setup: Home</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherctrlduplicatecur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherctrlduplicatecur</shortDescription>
+        <value>ERROR: Duplicate currency:</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherctrlselectcur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherctrlselectcur</shortDescription>
+        <value>ERROR: Please select a Currency. Row</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherctrlvaliddate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherctrlvaliddate</shortDescription>
+        <value>ERROR: Please introduce a valid Date. Row</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherctrlvaliddecimal</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherctrlvaliddecimal</shortDescription>
+        <value>ERROR: Please introduce a valid number of decimals. Row</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherctrlvalidexchrate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherctrlvalidexchrate</shortDescription>
+        <value>ERROR: Please introduce a valid Exchange Rate. Row</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurothercurrency</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurothercurrency</shortDescription>
+        <value>Currency</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherdate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherdate</shortDescription>
+        <value>Date</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherdecimalplaces</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherdecimalplaces</shortDescription>
+        <value>Decimal Places</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherdualcur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherdualcur</shortDescription>
+        <value>Dual Currency :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherexchrate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherexchrate</shortDescription>
+        <value>Exchange Rate</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherhomecur</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherhomecur</shortDescription>
+        <value>Home Currency :</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherinformation1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherinformation1</shortDescription>
+        <value>The final step in this process is to set up any other accounting currencies in which your organization conducts business. Remember, a new accounting currency must have a corresponding active currency in the underlying Salesforce CRM platform.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherinformation2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherinformation2</shortDescription>
+        <value>Example</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherinformation3</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherinformation3</shortDescription>
+        <value>Example</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurotherinformation4</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurotherinformation4</shortDescription>
+        <value>For example, you might have set a home currency of US dollars (USD) and a dual currency of euros (EUR), but you have some customers or vendors in the UK. In this case, you would set up pounds sterling (GBP) as an additional accounting currency.</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurothertitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurothertitle</shortDescription>
+        <value>Accounting Currency Setup: Other (3/3)</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurrequired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurrequired</shortDescription>
+        <value>Required:</value>
+    </labels>
+    <labels>
+        <fullName>codawzacccurrsetup</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzacccurrsetup</shortDescription>
+        <value>Accounting Currency Setup</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccoaindustries</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccoaindustries</shortDescription>
+        <value>Industries</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccoaindustry</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccoaindustry</shortDescription>
+        <value>Industry</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccoaname</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccoaname</shortDescription>
+        <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccoaother</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccoaother</shortDescription>
+        <value>Other</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccurrcode</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccurrcode</shortDescription>
+        <value>Currency Code :</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacccurrcodehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacccurrcodehelp</shortDescription>
+        <value>The currency used by these general ledger accounts. Must be an active currency within Salesforce CRM.</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccinformation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccinformation</shortDescription>
+        <value>Here is a preview of the standard chart of accounts template for your selected industry. Review and deselect any general ledger accounts that you don&apos;t want to use.</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccounts</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccounts</shortDescription>
+        <value>Preview Chart of Accounts</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccrequired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccrequired</shortDescription>
+        <value>Required:</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccskip</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccskip</shortDescription>
+        <value>Define Later</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccslctindinformation</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccslctindinformation</shortDescription>
+        <value>If you tell us the industry you are in, we&apos;ll load a customized Chart of Accounts for you to adapt to your company&apos;s needs.</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccslctindinformation2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccslctindinformation2</shortDescription>
+        <value>If you select &quot;Other&quot;, a generic chart of account is uploaded for you to customize. You can edit these settings on the Preview Chart of Accounts page, and then continue to manage your general ledger accounts within the FinancialForce Accounting application itself. If you click Define Later, you will need to create your chart of accounts from scratch within the application itself.</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccslctindselect</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccslctindselect</shortDescription>
+        <value>Please select :</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartaccslctindustry</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartaccslctindustry</shortDescription>
+        <value>Select Industry</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartacctip</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartacctip</shortDescription>
+        <value>Tip: You can continue to customize your chart of accounts from within the core application.</value>
+    </labels>
+    <labels>
+        <fullName>codawzchartofacc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzchartofacc</shortDescription>
+        <value>Chart of Accounts</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendar</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendar</shortDescription>
+        <value>Financial Calendar</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarinformation1</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarinformation1</shortDescription>
+        <value>Each company&apos;s financial year is divided into a defined number of accounting periods for auditing and reporting purposes.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarinformation2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarinformation2</shortDescription>
+        <value>You must set up your first financial year next.  Your financial years must be set up sequentially, for example 2010 before 2011.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod445</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod445</shortDescription>
+        <value>445</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod445desc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod445desc</shortDescription>
+        <value>4-4-5: Starting from the year start date, the first trading period lasts 4 weeks, the second for 4 weeks, and the third for 5 weeks. The cycle repeats for the next quarter and until the end of the year in the same pattern.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod454</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod454</shortDescription>
+        <value>454</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod454desc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod454desc</shortDescription>
+        <value>4-5-4: Starting from the year start date, the first trading period lasts 4 weeks, the second for 5 weeks, and the third for 4 weeks. The cycle repeats for the next quarter and until the end of the year in the same pattern.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod544</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod544</shortDescription>
+        <value>544</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethod544desc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethod544desc</shortDescription>
+        <value>5-4-4: Starting from the year start date, the first trading period lasts 5 weeks, the second for 4 weeks, and the third for 4 weeks. The cycle repeats for the next quarter and until the end of the year in the same pattern.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethodmonth</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethodmonth</shortDescription>
+        <value>Month</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethodmonthdesc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethodmonthdesc</shortDescription>
+        <value>Month: Specifies that the start of a period will fall on the same date of each month. If the 31st, 30th or 29th is selected, the period start for those months which do not contain the date will fall on the first day of the following month.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethodmonthend</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethodmonthend</shortDescription>
+        <value>Month End</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarmethodmonthenddesc</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarmethodmonthenddesc</shortDescription>
+        <value>Month End: Specifies that the end of a period will fall on the last day of the month. For example, consecutive periods would end on the 30th September and 31st October.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarnumperioderror</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarnumperioderror</shortDescription>
+        <value>You must have 1 to 90 trading periods.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarnumperiodmandatory</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarnumperiodmandatory</shortDescription>
+        <value>Number of Periods is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarnumperiods</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarnumperiods</shortDescription>
+        <value>How many trading periods do you want in your financial year?</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarnumperiodshelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarnumperiodshelp</shortDescription>
+        <value>You can have 1 to 90 trading periods.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarrequired</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarrequired</shortDescription>
+        <value>Required:</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarstartdate</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarstartdate</shortDescription>
+        <value>What is the start date for your first financial year?</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarstartdatehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarstartdatehelp</shortDescription>
+        <value>First day of the first period of this financial year.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendarstartdatemandatory</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendarstartdatemandatory</shortDescription>
+        <value>Start Date is mandatory.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendartitle</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendartitle</shortDescription>
+        <value>Financial Calendar Setup</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendartitle2</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendartitle2</shortDescription>
+        <value>How would you like to calculate the interval between end dates when you split a financial year into periods?</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendaryearname</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendaryearname</shortDescription>
+        <value>What is the name of your first financial year?</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendaryearnamehelp</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendaryearnamehelp</shortDescription>
+        <value>Name of this financial year, such as FY 2010-2011 or 2012. Avoid using the forward and back slash characters in the year name.</value>
+    </labels>
+    <labels>
+        <fullName>codawzfinancialcalendaryearnamemandatory</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>codawzfinancialcalendaryearnamemandatory</shortDescription>
+        <value>Year Name is mandatory.</value>
+    </labels>
+</CustomLabels>
