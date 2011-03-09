@@ -1,0 +1,7 @@
+<apex:page action="{!doAction}" standardController="Special_Event__c" extensions="InCompanyCancellationController">
+
+<apex:sectionHeader title="" subtitle="{!Special_Event__c.Name}" />
+
+<apex:pageMessages />
+
+</apex:page>

@@ -1,0 +1,22 @@
+<apex:page controller="LinkLineItemsController">
+
+<apex:form >
+<apex:sectionHeader title="Link credit note line items"/>
+
+<apex:pageBlock title="Select credit note" mode="detail">
+
+	<apex:pageBlockTable value="{!creditNoteList}" var="creditNote">
+		<apex:column >
+	      <apex:outputLink value="/apex/LinkLineItems?creditNote={!creditNote.Id}">Select</apex:outputLink>
+	   </apex:column>
+	   <apex:column value="{!creditNote.Name}"/>
+	   <apex:column value="{!creditNote.c2g__Account__c}"/>
+	   <apex:column value="{!creditNote.c2g__Invoice__c}"/>
+	   <apex:column value="{!creditNote.CreatedById}"/>
+	   <apex:column value="{!creditNote.CreatedDate}"/>
+	</apex:pageBlockTable> 
+
+</apex:pageBlock>
+
+</apex:form>
+</apex:page>

@@ -1,0 +1,8 @@
+<!--Apex Page: CustomPayFile -->
+<!--https://c.eu1.visual.force.com/apex/CustomPayFile-->
+<!--https://c.eu1.visual.force.com/apex/CustomPayFile?id=a1q20000000L6MK-->
+    
+    <apex:page standardController="c2g__codaPaymentMediaSummary__c" showHeader="false" contentType="text/csv#CustomPayFile.csv">
+    <!--PayeeName,BankSortCode,BankAccountNumber,PaymentValue-->
+    <apex:repeat value="{!c2g__codaPaymentMediaSummary__c}" var="Summary">"{!Summary.c2g__PayeeName__c}","{!Summary.c2g__BankSortCode__c}","{!Summary.c2g__BankAccountNumber__c}","{!-Summary.c2g__PaymentValue__c}"</apex:repeat>
+    </apex:page>

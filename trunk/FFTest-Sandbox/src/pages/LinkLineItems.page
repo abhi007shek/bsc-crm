@@ -1,0 +1,100 @@
+<apex:page controller="LinkLineItemsController" id="thePage">
+
+<apex:sectionHeader title="Link credit note line items"/>
+
+<apex:form id="theForm">
+
+	<script>
+	function selectCredit(lineItemId){
+	   	creditFieldName = document.getElementById('{!$Component.creditLiToLink}');
+	   	creditFieldName.value = lineItemId;
+	}
+	function unselect(){
+		creditFieldName = document.getElementById('{!$Component.creditLiToLink}');
+	   	creditFieldName.value = '';
+	}
+	function unlink(lineItemId){
+	   	creditFieldName = document.getElementById('{!$Component.creditLiToLink}');
+	   	invoiceFieldName = document.getElementById('{!$Component.invoiceLiToLink}');
+	   	creditFieldName.value = lineItemId;
+	   	invoiceFieldName.value = '';
+	}
+	function link(lineItemId, fieldName){
+		invoiceFieldName = document.getElementById('{!$Component.invoiceLiToLink}');
+	   	invoiceFieldName.value = lineItemId;
+	}
+	</script>
+
+	<apex:inputHidden id="invoiceLiToLink" value="{!invoiceLiToLink}" />
+	<apex:inputHidden id="creditLiToLink" value="{!creditLiToLink}" />
+
+	<apex:pageBlock title="Link line items" mode="detail">
+	
+	<apex:pageBlockButtons >
+	    <apex:commandButton action="{!back}" value="Cancel"/>
+	    <apex:commandButton action="{!finish}" value="Finish"/>
+	</apex:pageBlockButtons> 
+	
+	<apex:pageBlockSection columns="2">
+		<apex:pageBlockSectionItem >
+			<center><b>Credit note line items</b></center>
+		</apex:pageBlockSectionItem>
+		<apex:pageBlockSectionItem >
+			<center><b>Invoice line items</b></center>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+
+
+	<apex:pageBlockSection columns="2">
+		<apex:pageBlockSectionItem >
+			<apex:outputPanel id="creditNotePanel">
+				<apex:pageBlockTable value="{!creditNoteLineItems}" var="lineItem">
+				   <apex:column value="{!lineItem.c2g__Product__c}"/>
+				   <apex:column value="{!lineItem.c2g__Quantity__c}"/>
+				   <apex:column value="{!lineItem.c2g__UnitPrice__c}"/>
+				   <apex:column value="{!lineItem.c2g__NetValue__c}"/>
+				   <apex:column headerValue="Invoice line item" value="{!lineItem.Sales_Invoice_Line_Item__c}"/>
+				   <apex:column >
+
+				   	    <apex:commandButton onclick="selectCredit('{!lineItem.Id}')" 
+				   	    value="Select" id="selectBtn" rendered="{!AND(ISBLANK(creditLiToLink), ISBLANK(lineItem.Sales_Invoice_Line_Item__c))}" 
+				   	    rerender="creditNotePanel, invoicePanel"/>
+				   	    
+				   	    <apex:commandButton onclick="unlink('{!lineItem.Id}')" 
+				   	    action="{!linkItem}" value="UnLink" id="unLinkBtn" 
+				   	    rendered="{!NOT(ISBLANK(lineItem.Sales_Invoice_Line_Item__c))}" 
+				   	    rerender="creditNotePanel"/>
+				   	    
+				   	    <apex:commandButton onclick="unselect()" 
+				   	    value="Un-Select" id="unSelectBtn" rendered="{!NOT(ISBLANK(creditLiToLink))}" 
+				   	    rerender="creditNotePanel, invoicePanel"/>
+
+				   </apex:column>
+				</apex:pageBlockTable> 
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+
+		<apex:pageBlockSectionItem >
+			<apex:outputPanel id="invoicePanel">
+				<apex:pageBlockTable value="{!invoiceLineItems}" var="lineItem">
+				   <apex:column headerValue="Line item" value="{!lineItem.Name}"/>
+				   <apex:column value="{!lineItem.c2g__Product__c}"/>
+				   <apex:column value="{!lineItem.c2g__Quantity__c}"/>
+				   <apex:column value="{!lineItem.c2g__UnitPrice__c}"/>
+				   <apex:column value="{!lineItem.c2g__NetValue__c}"/>
+				   <apex:column headerValue="Event" value="{!lineItem.BEB__c}"/>
+				   <apex:column headerValue="Subscription" value="{!lineItem.SL__c}"/>
+				   <apex:column >
+				   	      <apex:commandButton onclick="link('{!lineItem.Id}','{!$Component.invoiceLiToLink}')" 
+				   	      action="{!linkItem}" value="Link this item" id="linkBtn"	
+				   	      disabled="{!ISBLANK(creditLiToLink)}"
+				   	      rerender="creditNotePanel, invoicePanel"/>
+				   </apex:column>
+				</apex:pageBlockTable> 
+			</apex:outputPanel>
+		</apex:pageBlockSectionItem>
+	</apex:pageBlockSection>
+</apex:pageBlock>
+
+</apex:form> 
+</apex:page>

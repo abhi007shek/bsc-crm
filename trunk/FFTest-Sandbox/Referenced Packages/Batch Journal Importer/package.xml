@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Batch Journal Importer</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <description>Batch imports (and posts) journals of type GLA, Account - Vendor and Account - Customer.</description>
+    <namespacePrefix>ffps_journalimp</namespacePrefix>
+    <types>
+        <members>ImportJournalsBatch</members>
+        <members>ImportJournalsHelper</members>
+        <members>ImportJournalsWebService</members>
+        <members>ImportJournalsWebServiceTest</members>
+        <name>ApexClass</name>
+    </types>
+    <types>
+        <members>JournalImportSettings__c.Cancel_Job_After_This_Many_Failures__c</members>
+        <members>JournalImportSettings__c.Journal_Import_Batch_Size__c</members>
+        <members>Stage_Journal_Line_Item__c.Account__c</members>
+        <members>Stage_Journal_Line_Item__c.Description__c</members>
+        <members>Stage_Journal_Line_Item__c.Dimension_1__c</members>
+        <members>Stage_Journal_Line_Item__c.Dimension_2__c</members>
+        <members>Stage_Journal_Line_Item__c.Dimension_3__c</members>
+        <members>Stage_Journal_Line_Item__c.Dimension_4__c</members>
+        <members>Stage_Journal_Line_Item__c.General_Ledger_Account__c</members>
+        <members>Stage_Journal_Line_Item__c.Line_Type__c</members>
+        <members>Stage_Journal_Line_Item__c.Stage_Journal__c</members>
+        <members>Stage_Journal_Line_Item__c.Value__c</members>
+        <members>Stage_Journal__c.Company__c</members>
+        <members>Stage_Journal__c.Currency_Name__c</members>
+        <members>Stage_Journal__c.Currency__c</members>
+        <members>Stage_Journal__c.Date__c</members>
+        <members>Stage_Journal__c.Description__c</members>
+        <members>Stage_Journal__c.Import_Error__c</members>
+        <members>Stage_Journal__c.Imported_Journal__c</members>
+        <members>Stage_Journal__c.Period_Name__c</members>
+        <members>Stage_Journal__c.Period__c</members>
+        <members>Stage_Journal__c.Processed__c</members>
+        <members>Stage_Journal__c.Reference__c</members>
+        <name>CustomField</name>
+    </types>
+    <types>
+        <members>JournalImportSettings__c</members>
+        <members>Stage_Journal_Line_Item__c</members>
+        <members>Stage_Journal__c</members>
+        <name>CustomObject</name>
+    </types>
+    <types>
+        <members>Stage_Journal_Line_Item__c-Stage Journal Line Item Layout</members>
+        <members>Stage_Journal__c-Stage Journal Layout</members>
+        <name>Layout</name>
+    </types>
+    <types>
+        <members>Stage_Journal_Line_Item__c.All</members>
+        <members>Stage_Journal__c.All</members>
+        <members>Stage_Journal__c.Import_Failures</members>
+        <members>Stage_Journal__c.Processed_Journals</members>
+        <members>Stage_Journal__c.Unprocessed_Journals</members>
+        <name>ListView</name>
+    </types>
+    <types>
+        <members>Stage_Journal__c.Import_All_Journals</members>
+        <name>WebLink</name>
+    </types>
+    <version>20.0</version>
+</Package>
