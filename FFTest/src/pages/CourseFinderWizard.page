@@ -1,0 +1,27 @@
+<!-- Created by Ben Mansfield 12 July 2010 -->
+<apex:page standardController="Opportunity" extensions="CourseFinderWizardController">
+
+<apex:sectionHeader title="CourseFinder" subtitle="{!record.Name}" />
+
+<apex:pageMessages />
+
+<apex:outputPanel rendered="{!enableBookings}">
+	<apex:form >
+		<c:CourseFinder opportunity="{!record}" bookingType="Booking" />
+	</apex:form>
+</apex:outputPanel>
+
+<apex:outputPanel rendered="{! !enableBookings}">
+	<apex:form >
+	<apex:pageBlock >
+		<apex:pageBlockButtons location="bottom">
+			<apex:commandButton action="{!backToOpp}" value="Back" />
+		</apex:pageBlockButtons>
+	
+		<p>Opportunity Stage must be 'Quote/Proposal' or higher with Public Course products added.</p>
+	</apex:pageBlock>
+	</apex:form>
+	
+</apex:outputPanel>
+
+</apex:page>

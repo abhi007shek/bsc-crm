@@ -1,0 +1,435 @@
+<apex:page standardcontroller="c2g__codaPayment__c" action="{!goToCheckNumberingScreen}" extensions="c2g.CODAQuickPaymentController">
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/base/base.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/DialogBox/DialogBox.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/ffdcTable/ffdcTable.css')}"/>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__front,'front/components/LoadingOverlay/LoadingOverlay.css')}"/>
+    <style type="text/css">
+        .extracollapsed{BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});}
+        .extraexpanded{BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});}
+        .extracollapsed_h{BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});}
+        .extraexpanded_h{BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});}
+        .newlinebutton{background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});}
+        .pbError{background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});}
+        .informationerrorblock{background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});}
+        .accountsToPay{margin-top:5px;}
+        .showTransactions{position:relative;padding-right:0px;}
+        .partSelected{ -moz-opacity: .50; filter: alpha(opacity = 50); opacity: .50; }
+        .numOfTransactionLines{display:none;}
+        .numOfTransactionLinesChecked{display:none;}
+    </style>
+    <script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.front,'front/base/frameworks/ext-core-3.1.0.js')}" type="text/javascript"></script>
+    <c:CODALocaleJS />
+    <script src="{!URLFOR($Resource.front,'front/utils/Numeric/Numeric.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.front,'front/components/DialogBox/DialogBox.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.front,'front/components/CalculateTotalsByCheckBox/CalculateTotalsByCheckBox.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.front,'front/components/LoadingOverlay/LoadingOverlay.js')}" type="text/javascript"></script>
+    
+    <apex:form onsubmit="ffdc.go.loadingOverlay.createLoadingOverlay('ffdcTableOverlay','{!$Label.codaQuickPaymentViewPaymentsRetrieving}...',1);if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+        <!-- Header -->
+        <apex:sectionHeader title="{!$Label.codaQuickPaymentViewPayments}" subtitle="{!viewstate.payment.dto.Name}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1076')}"/>
+        <!-- Back to Bulk Payment -->
+        <div class="goBreadcrumb">&nbsp;&#171;<a href="{!URLFOR($Action.codaPayment__c.Tab,$ObjectType.codaPayment__c)}">{!$Label.codaPaymentBackToList}</a></div>
+        <apex:pageBlock title="{!$Label.codaQuickPaymentViewPayments}" id="quickPaymentProcess" mode="edit">
+            <!-- Buttons -->
+            <apex:pageBlockButtons >
+                
+                <!-- Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaQuickPaymentSave}" id="save_h" action="{!save}" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentViewPay}" action="{!pay}" id="pay_h" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentDiscardView}" id="discard_h" action="{!gotoDiscard}" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentClearHistory}" id="clearHistory_h" action="{!clearHistory}" styleclass="hiddensubmit"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentReSubmitButton}" id="reSubmit_h" action="{!reSubmit}" styleclass="hiddensubmit"/>
+                <!-- End of Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaQuickPaymentSave}" id="save" onclick="if(!CODA.queing()){document.getElementById('{!$Component.save_h}').click()};return false;" rerender="" rendered="{!viewstate.payment.canSave}"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentViewPay}" id="pay" onclick="if(!CODA.queing()){document.getElementById('{!$Component.pay_h}').click()};return false;" rerender="" rendered="{!viewstate.payment.canPay}"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentDiscardView}" id="discard" onclick="if(!CODA.queing()){document.getElementById('{!$Component.discard_h}').click()};return false;" rerender="" rendered="{!viewstate.payment.canDiscard}"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentClearHistory}" id="clearHistory" onclick="if(!CODA.queing()){document.getElementById('{!$Component.clearHistory_h}').click()};return false;" rerender="" rendered="{!viewstate.payment.canClearHistory}"/>
+                <apex:commandButton value="{!$Label.codaQuickPaymentReSubmitButton}" id="reSubmit" onclick="if(!CODA.queing()){document.getElementById('{!$Component.reSubmit_h}').click()};return false;" rendered="{!viewstate.payment.canReSubmit}"/>
+                <script>
+                    
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaPaymentProcessing}"
+                    CODA2GoButtons.initButtons([
+                        '{!$Component.save}',
+                        '{!$Component.pay}',
+                        '{!$Component.discard}',
+                        '{!$Component.clearHistory}',
+                        '{!$Component.reSubmit}']);
+                </script>
+            </apex:pageBlockButtons>
+            
+            <!-- Messages -->       
+            <apex:include pageName="c2g__codamulticompanymodewarning" rendered="{!viewstate.reportingModeMessage}"/>
+            <apex:outputPanel id="PaymentBatchErrorMessagePanel" layout="block" styleClass="pbError" rendered="{!ShowPaymentBatchErrorMessages}">
+                <apex:outputPanel id="PaymentBatchErrorMessagePanelHeader" rendered="{!viewstate.payment.canReSubmit}">                   
+                    <apex:outputText value="{!$Label.codaQuickPaymentViewErrorPostMatch}"/>
+                    <a href="{!PaymentBatchHeaderWithError}">{!$Label.codaQuickPaymentViewMoreDetails}</a><br/> 
+                </apex:outputPanel>
+                <apex:outputPanel id="PaymentBatchWarningMessagePanel" rendered="{!showPostAndMatchWarningMessage}">                   
+                    <apex:outputText value="{!$Label.codaQuickPaymentViewTransactionsExcluded}"/>
+                    <a href="{!PaymentBatchDetailWithError}">{!$Label.codaQuickPaymentViewMoreDetails}</a><br/> 
+                </apex:outputPanel>
+            </apex:outputPanel>
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                    <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <apex:outputText value="{!errorMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel id="generalMessagePanel" layout="block" styleClass="pbInfo" rendered="{!viewstate.showGeneralMessages}">
+                    <apex:repeat value="{!viewstate.generalMessages}" var="generalMessage" rendered="{!viewstate.showGeneralMessages}">
+                        <apex:outputText value="{!generalMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel>
+            
+             <apex:outputPanel id="retrieveOrSaveErrorPanel" layout="block" styleClass="pbError" rendered="{!showRetrieveSaveErrorMessages}">                   
+                <apex:outputText value="{!retrieveSaveBatchError}"/>
+            </apex:outputPanel>
+            
+            <!-- Filter Section -->
+            <apex:pageBlockSection id="paymentFilterPageBlockSection" title="" columns="2">
+                <apex:facet name="header">
+                    <apex:outputPanel layout="block">
+                        <h3>{!$Label.codaQuickPaymentViewPaymentCriteria}</h3>
+                    </apex:outputPanel>
+                </apex:facet>
+                
+                <apex:outputField id="paymentTemplate" value="{!viewstate.Payment.dto.c2g__PaymentTemplate__c}"/>
+                
+                <apex:outputField id="paymentType" value="{!viewstate.payment.dto.c2g__PaymentTypes__c}"/>
+                
+                <apex:outputField id="bankAccount" value="{!viewstate.payment.dto.c2g__BankAccount__c}" />
+                
+                <apex:outputField id="paymentMedia" value="{!viewstate.payment.dto.c2g__PaymentMediaTypes__c}"/>
+                
+                <apex:pageBlockSectionItem id="currencyBlock">
+                    <apex:outputLabel value="{!$Label.codaPaymentCurrency}" for="selectCur"/>
+                    <apex:outputText id="currencyValue" value="{!viewstate.Payment.PaymentCurrency}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField id="paymentMethod" value="{!viewstate.payment.dto.c2g__PaymentMethod__c}"/>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel styleClass="holder" value="{!$Label.codaQuickPaymentViewSettlementDiscount}"/>
+                    <apex:outputPanel styleClass="holder">
+                        <apex:outputField id="settlentDiscount" value="{!viewstate.payment.dto.c2g__SettlementDiscountReceived__c}"/>
+                        <a href="#" onclick="CODA.toggleHeaderExpand(this,'myex');return false;" title="{!$Label.codaToggleAnalysisArea}">
+                            <img src="/s.gif" width="16" height="16" class="extracollapsed_h" title="{!$Label.codaToggleAnalysisArea}"/>
+                        </a>
+                        <DIV id="myex" class="headerexpander">
+                            <apex:pageBlockSection title="{!$Label.codaAnalysis}" id="SDRheaderDimensionBlock" collapsible="false" columns="1">
+                                <apex:outputField id="SDRdimension1" value="{!viewstate.payment.dto.c2g__SDRDimension1__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="SDRdimension2" value="{!viewstate.payment.dto.c2g__SDRDimension2__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="SDRdimension3" value="{!viewstate.payment.dto.c2g__SDRDimension3__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="SDRdimension4" value="{!viewstate.payment.dto.c2g__SDRDimension4__c}" styleclass="analysisdata"/>  
+                            </apex:pageBlockSection>
+                        </DIV>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:outputField id="paymentDate" value="{!viewstate.payment.dto.c2g__PaymentDate__c}"/>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$ObjectType.c2g__codaPayment__c.fields.c2g__CurrencyWriteOff__c.label}"/>
+                    <apex:outputPanel styleClass="holder">
+                        <apex:outputField id="currencyWriteOf" value="{!viewstate.payment.dto.c2g__CurrencyWriteOff__c}"/>
+                        <a href="#" onclick="CODA.toggleHeaderExpand(this,'myex2');return false;" title="{!$Label.codaToggleAnalysisArea}">
+                            <img src="/s.gif" width="16" height="16" class="extracollapsed_h" title="{!$Label.codaToggleAnalysisArea}"/>
+                        </a>
+                        <DIV id="myex2" class="headerexpander">
+                            <apex:pageBlockSection title="{!$Label.codaAnalysis}" id="CWOheaderDimensionBlock" collapsible="false" columns="1">
+                                <apex:outputField id="CWOdimension1" value="{!viewstate.payment.dto.c2g__CWODimension1__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="CWOdimension2" value="{!viewstate.payment.dto.c2g__CWODimension2__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="CWOdimension3" value="{!viewstate.payment.dto.c2g__CWODimension3__c}" styleclass="analysisdata"/>
+                                <apex:outputField id="CWOdimension4" value="{!viewstate.payment.dto.c2g__CWODimension4__c}" styleclass="analysisdata"/>  
+                            </apex:pageBlockSection>
+                        </DIV>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                
+                <apex:outputField id="dueDate" value="{!viewstate.payment.dto.c2g__DueDate__c}"/>
+                
+                <apex:outputField id="generalLedgerAccount" value="{!viewstate.Payment.dto.c2g__GeneralLedgerAccount__c}"/>
+            </apex:pageBlockSection>
+            
+            <!-- Details Section -->
+            
+            <apex:outputPanel layout="none">
+                <apex:outputPanel id="batchApexPanel" layout="block" rendered="{!!viewstate.BatchApexFinished}">
+                    <script type="text/javascript">
+                        Ext.onReady(function () {
+                            if(!Ext.get('dialogWrapper')){
+                                var content = [{
+                                    tag: 'div',
+                                    style: 'text-align:center',
+                                    cn: [{
+                                        tag: 'div',
+                                        cn: [{
+                                            tag: 'h3',
+                                            html: '{!$Label.codaQuickPaymentViewPaymentsRetrieved}',
+                                            style: 'display:block;margin:20px;'
+                                        }, {
+                                            tag: 'img',
+                                            src: '/img/loading.gif'
+                                        }, {
+                                            tag: 'h3',
+                                            html: '{!$Label.codaQuickPaymentViewClickOk}',
+                                            style: 'display:block;margin:20px'
+                                        }]
+                                    }, {
+                                        tag: 'div',
+                                        cn: [{
+                                            tag: 'a',
+                                            cls: 'btn',
+                                            id: 'myButton',
+                                            style: 'text-decoration:none;padding:3px 15px;color:#333333',
+                                            html: '{!$Label.codaQuickPaymentViewOk}',
+                                            href: '{!URLFOR($Action.codaPayment__c.Tab,$ObjectType.codaPayment__c)}'
+                                        }]
+                                    }]
+                                }];
+                                
+                                ffdc.go.dialogBox.createDialogBox({
+                                    dialogTitle: '{!$Label.codaQuickPaymentViewPaymentsRetrieving}',
+                                    dialogContent: content,
+                                    dialogWidth: 360,
+                                    dialogShowClose: false
+                                });
+                                
+                            }
+                        });
+                    </script>
+                    <apex:actionPoller action="{!viewstate.payment.checkBatchApexFinished}" oncomplete="if({!viewstate.BatchApexFinished}){closeDialogBox()};" enabled="{!!viewstate.payment.RetrievedStatus}" interval="5"/>
+                </apex:outputPanel>
+                <script type="text/javascript">
+                function closeDialogBox(){
+                    window.location = window.location;
+                }
+                </script>
+            </apex:outputPanel>
+            
+
+            <apex:pageBlockSection id="accountsToPaySection" rendered="{!!viewstate.payment.statusError}" columns="1" collapsible="false">
+                <apex:pageBlockSectionItem rendered="{!viewstate.BatchApexFinished}">
+                    <apex:outputPanel styleClass="accountsToPay" layout="block">
+                        <div id="ffdcTableOverlay" style="position:relative">
+                            <apex:outputPanel id="ffdcTableOuter" styleClass="ffdcTableOuter" layout="block">
+                                <div class="ffdcTableContents" style="height:330px">
+                                    <apex:dataTable id="dtAccountLineItemsNew" value="{!viewState.payment.paymentAccountLineItemsViewList}" var="lineItem" styleClass="ffdcTable" border="0" columnsWidth=",120,120,120,120,30">
+                                        <apex:column headerClass="alignLeft" styleClass="alignLeft" footerClass="alignLeft">
+                                            <apex:facet name="header">{!$ObjectType.c2g__codaPaymentAccountLineItem__c.fields.c2g__Account__c.label}</apex:facet>
+                                            <apex:outputPanel >
+                                            	<apex:outputText id="numOfLines" value="{!lineItem.numOfTransactionLines}" styleClass="numOfTransactionLines"/>
+                                            	<apex:outputText id="numOfCheckedLines" value="{!lineItem.numOfTransactionLinesChecked}" styleClass="numOfTransactionLinesChecked"/>
+                                                <a href="#" class="showTransactions" onclick="showAccountTransactions(this,'{!lineItem.AccountLineItem.Account.dto.Name}','{!lineItem.dto.c2g__Account__c}','{!lineItem.dto.Payment__c}');return false;">
+                                                    <img title="Show Transactions" onmouseover="this.className = 'showDetailsIconOn';" onmouseout="this.className = 'showDetailsIcon';" onfocus="this.className = 'showDetailsIconOn';" onblur="this.className = 'showDetailsIcon';" class="showDetailsIcon" alt="{!$Label.codaQuickPaymentViewShowTrans}" src="/s.gif"/>
+                                                </a>
+                                                <apex:outputField id="account_" value="{!lineItem.dto.c2g__Account__c}"/>                                                
+                                            </apex:outputPanel> 
+                                        </apex:column>
+                                        
+                                        
+                                        <apex:column headerClass="alignRight" styleClass="alignRight" footerClass="alignRight">
+                                            <apex:facet name="header">{!$Label.codaQuickPaymentAccountsViewOutstandingValue}</apex:facet>
+                                            <apex:outputPanel >
+	                                            <apex:outputText value="{!lineItem.grossValueWithAllTransactionsAsString}"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                        
+                                        <apex:column headerClass="alignRight" styleClass="alignRight" footerClass="alignRight">
+                                            <apex:facet name="header">{!$ObjectType.c2g__codaPaymentAccountLineItem__c.fields.c2g__GrossValue__c.label}</apex:facet>
+                                            <apex:outputPanel >
+                                                <apex:outputText value="{!lineItem.grossValueTotalAsString}" styleClass="calc1"/>
+                                                <apex:outputText value="{!lineItem.GrossValueWithAllTransactionsAsString}" styleClass="calc1Original" style="display:none"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                
+                                        <apex:column headerClass="alignRight" styleClass="alignRight" footerClass="alignRight">
+                                            <apex:facet name="header">{!$ObjectType.c2g__codaPaymentAccountLineItem__c.fields.c2g__Discount__c.label}</apex:facet>
+                                            <apex:outputPanel >
+                                                <apex:outputText value="{!lineItem.discountTotalAsString}" styleClass="calc2"/>
+                                                <apex:outputText value="{!lineItem.discountWithAllTransactionsAsString}" styleClass="calc2Original" style="display:none"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                  
+                                        <apex:column headerClass="alignRight" styleClass="alignRight" footerClass="alignRight">
+                                            <apex:facet name="header">{!$ObjectType.c2g__codaPaymentAccountLineItem__c.fields.c2g__PaymentValue__c.label}</apex:facet>
+                                            <apex:outputPanel >
+                                                <apex:outputText value="{!lineItem.paymentValueTotalAsString}" styleClass="calc3"/>
+                                                <apex:outputText value="{!lineItem.paymentValueWithAllTransactionsAsString}" styleClass="calc3Original" style="display:none"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                        
+                                        <apex:column headerClass="alignCenter" styleClass="alignCenter" footerClass="alignCenter" rendered="{!viewState.payment.retrievedSelectedStatus}">
+                                            <apex:facet name="header">
+                                                <input type="checkbox" id="lineChkBoxToggle" class="lineChkBoxToggle" checked="checked"/>
+                                            </apex:facet>
+                                            <apex:outputPanel id="checkBoxPanel">
+                                                <apex:inputCheckbox id="selected" value="{!lineItem.selected}" styleClass="lineChkBox"/>
+                                                <apex:inputCheckbox id="partSelected" value="{!lineItem.partialSelected}" styleClass="lineChkBoxPartial" style="display:none"/>
+                                                <apex:inputCheckbox id="ignoreSelected" value="{!lineItem.ignoreSelected}" styleClass="lineChkBoxIgnore" style="display:none"/>
+                                            </apex:outputPanel>
+                                        </apex:column>
+                                        <apex:column headerClass="alignCenter" styleClass="alignCenter" footerClass="alignCenter" rendered="{!!viewState.payment.retrievedSelectedStatus}">
+                                            <apex:facet name="header"/>
+                                            <apex:facet name="footer"/>
+                                        </apex:column>
+                                    
+                                    </apex:dataTable>
+                                </div>
+                
+                                <table cellspacing="0" cellpadding="0" border="0" class="ffdcTable ffdcTableBorderTop" style="position:relative">
+                                    <colgroup span="5">
+                                        <col width=""/>
+                                        <col width="120"/>
+                                        <col width="120"/>
+                                        <col width="120"/>
+                                        <col width="120"/>
+                                        <col width="30"/>
+                                    </colgroup>
+                                    <tfoot>
+                                        <tr>
+                                            <td class="alignLeft" colspan="1" rowspan="2" style="vertical-align:middle">
+                                                <div class="paginator">
+                                                    <span class="pages">
+                                                        {!$Label.codaQuickPaymentViewPage}&nbsp;<span class="page">{!viewState.payment.currentPageNumber}</span>&nbsp;{!$Label.codaQuickPaymentViewOf}&nbsp;<span class="page">{!viewState.payment.numberOfPages}</span>
+                                                    </span>
+                                                    
+                                                    <apex:outputPanel styleClass="prevNextLinks">
+                                                        <apex:outputPanel styleClass="prevNext" rendered="{!viewState.payment.hasPrevious}">
+                                                            <apex:commandLink id="previous" action="{!viewState.payment.previous}" oncomplete="if (CODA2GoButtons && CODA2GoButtons.disableSaveButtons && CODA2GoButtons.enableSaveButtons){CODA2GoButtons.enableSaveButtons();};ffdc.go.loadingOverlay.removeLoadingOverlay();" reRender="ffdcTableOuter"><img class="prev" src="/s.gif"/>{!$Label.codaQuickPaymentViewPrevious}</apex:commandLink>
+                                                        </apex:outputPanel>
+                                                        
+                                                        <apex:outputPanel styleClass="prevNext" rendered="{!!viewState.payment.hasPrevious}">
+                                                            <img class="prevoff" src="/s.gif"/>{!$Label.codaQuickPaymentViewPrevious}
+                                                        </apex:outputPanel>
+                                                        
+                                                        <apex:outputPanel styleClass="prevNext" rendered="{!viewState.payment.hasNext}">
+                                                            <apex:commandLink id="next" action="{!viewState.payment.forward}" oncomplete="if (CODA2GoButtons && CODA2GoButtons.disableSaveButtons && CODA2GoButtons.enableSaveButtons){CODA2GoButtons.enableSaveButtons();};ffdc.go.loadingOverlay.removeLoadingOverlay();" reRender="ffdcTableOuter">{!$Label.codaQuickPaymentViewNext}<img class="next" src="/s.gif"/></apex:commandLink>
+                                                        </apex:outputPanel>
+                                                        
+                                                        <apex:outputPanel styleClass="prevNext" rendered="{!!viewState.payment.hasNext}">
+                                                            {!$Label.codaQuickPaymentViewNext}<img class="nextoff" src="/s.gif"/>
+                                                        </apex:outputPanel>
+                                                    </apex:outputPanel>
+                                                </div>
+                                            </td>
+                                            <td class="alignRight"><span class="total">{!$Label.codaQuickPaymentViewPageTotal}</span></td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc1Total total" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc1Total total" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.grossValuePerPageAsString}</apex:outputPanel>
+                                            </td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc2Total total" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc2Total total" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.discountPerPageAsString}</apex:outputPanel>
+                                            </td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc3Total total" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc3Total total" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.paymentValuePerPageAsString}</apex:outputPanel>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="alignRight"><span class="total runningTotal">{!$Label.codaQuickPaymentViewPaymentTotal}</span></td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc1RunningTotal total runningTotal" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc1RunningTotal total runningTotal" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.grossValueTotalAsString}</apex:outputPanel>
+                                            </td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc2RunningTotal total runningTotal" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc2RunningTotal total runningTotal" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.discountTotalAsString}</apex:outputPanel>  
+                                            </td>
+                                            <td class="alignRight">
+                                                <apex:outputPanel styleClass="calc3RunningTotal total runningTotal" rendered="{!viewState.payment.retrievedSelectedStatus}">&nbsp;</apex:outputPanel>
+                                                <apex:outputPanel styleClass="calc3RunningTotal total runningTotal" rendered="{!!viewState.payment.retrievedSelectedStatus}">{!viewState.payment.paymentValueTotalAsString}</apex:outputPanel>
+                                            </td>
+                                            <td>&nbsp;</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                
+                                <script type="text/javascript">
+                                function showAccountTransactions(el, accountLineName, accountLineId, paymentId) {
+                                    if(typeof(Ext.get(el).parent('tr').select('.lineChkBoxIgnore').elements[0])!='undefined'){
+                                        Ext.get(el).parent('tr').select('.lineChkBoxIgnore').elements[0].checked=true;
+                                    }
+                                    var transactionsOn = 'false';
+                                    if(typeof(Ext.get(el).parent('tr').select('.lineChkBox').elements[0])!='undefined'){
+                                        if(Ext.get(el).parent('tr').select('.lineChkBox').elements[0].checked){
+                                            if(Ext.get(el).parent('tr').select('.partSelected').elements.length==0){
+                                                transactionsOn = 'true';
+                                            }else{
+                                                transactionsOn = 'ignore';
+                                            }
+                                        }else{
+                                            transactionsOn = 'false';
+                                        }
+                                    }else{
+                                        transactionsOn = 'ignore';
+                                    }
+                                    
+                                    var content = [{
+                                        tag: 'div',
+                                        style: 'height:610px',
+                                        cn: [{
+                                            tag: 'iframe',
+                                            frameBorder: 0,
+                                            src: 'apex/codaquickpaymenttransactionsview?paymentId=' + paymentId + '&accId=' + accountLineId + '&transactionsOn='+transactionsOn,
+                                            style: 'width:100%;height:100%;'
+                                        },
+                                        {
+                                            tag: 'div',
+                                            id: 'loadingOverlayWrapper',
+                                            cls: 'loadingOverlayWrapper',
+                                            style: 'width:100%;height:100%;',
+                                            cn: [{
+                                                tag: 'div',
+                                                cls: 'loadingOverlay'
+                                            },
+                                            {
+                                                tag: 'div',
+                                                cls: 'loadingIconWrapper',
+                                                cn: [{
+                                                    tag: 'img',
+                                                    src: '/img/loading.gif'
+                                                },
+                                                {
+                                                    tag: 'span',
+                                                    cls: 'loadingText',
+                                                    html: '{!$Label.codaQuickPaymentViewLoading}...'
+                                                }]
+                                            }]
+                                        }]
+                                    }];
+                                    
+                                    ffdc.go.dialogBox.createDialogBox({
+                                        dialogTitle: '{!$Label.codaQuickPaymentViewTitleTrans} ' + accountLineName,
+                                        dialogContent: content,
+                                        dialogWidth: 900,
+                                        dialogShowClose: false
+                                    });
+                                    
+                                }
+                                
+                                Ext.onReady(function () {
+                                    calculateTotalsWithCheckBox = new ffdc.components.CalculateTotalsByCheckBox(['calc1', 'calc2', 'calc3'], [{!viewState.payment.grossValueOffset}, {!viewState.payment.discountOffset}, {!viewState.payment.paymentValueOffset}],{!viewState.payment.retrievedSelectedStatus});
+                                });
+                                
+                            </script>
+                        </apex:outputPanel> 
+                    </div>
+                    <apex:actionFunction name="ffdc_calculatePaymentAccountLineItems" action="{!viewState.payment.calculateAccountLineItems}" oncomplete="if (CODA2GoButtons && CODA2GoButtons.disableSaveButtons && CODA2GoButtons.enableSaveButtons){CODA2GoButtons.enableSaveButtons();};ffdc.go.loadingOverlay.removeLoadingOverlay();" rerender="messagePanel,ffdcTableOuter"/>
+                </apex:outputPanel>     
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+        
+        <script type="text/javascript">
+            CODA.setExpanderIconState('view');
+        </script>
+    </apex:form>
+</apex:page>

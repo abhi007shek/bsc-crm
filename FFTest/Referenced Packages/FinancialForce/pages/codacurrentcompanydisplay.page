@@ -1,0 +1,27 @@
+<apex:page controller="c2g.CODACurrentCompanyDisplayController" showHeader="false" sidebar="false">
+<html>
+<head>
+<style type="text/css">
+	body{background-color:#CFEEF8;margin:0px;}
+	
+	.companyLink{
+	font-size:12px;
+	font-family:Arial;
+	text-shadow:0px 1px 1px #ffffff;
+	color:#333333;
+	font-weight:700;
+	}
+	
+	.companyLink:hover{
+	color:#015ba7;
+	
+	}
+	
+</style></head>
+	<body bgcolor="#E8E8F8">
+		<form>
+			<a href="{!CompanySelectionURL}" class="companyLink" target="_parent">{!companyName}</a>
+		</form>
+	</body>
+</html>
+</apex:page>

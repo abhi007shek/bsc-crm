@@ -1,0 +1,86 @@
+<!-- This page will be the step 16 -->
+<apex:page controller="ffqs.CODAQSSelectCurrentCompanyController" sidebar="false" tabStyle="QuickStart__tab">
+	<apex:stylesheet value="{!URLFOR($Resource.ffqs__FinancialForce_Wizard,'styles/wizard.css')}" />
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/prototype.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/scriptaculous.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/frameworks/scriptaculous/effects.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.FinancialForce_Wizard,'js/wizard.js')}" type="text/javascript"></script>
+
+    <div class="wizard" id="wizard">
+        <div class="header">
+            <h2>{!$Label.codaextactivatecompany3_4}</h2>
+    	</div>
+    	
+    	<div class="form">
+    	<apex:form >
+        	<div class="stepsWrapper">
+                <ul class="steps steps10">
+                    <li class="on firstChild">
+                        <div><span class="step">1</span><span class="title"> {!$Label.codaextcompanydetails}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">2</span><span class="title"> {!$Label.codaexttaxregime}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">3</span><span class="title"> {!$Label.codaexttaxdetails}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">4</span><span class="title"> {!$Label.codaextuseraccess}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">5</span><span class="title"> {!$Label.codawzacccurrsetup}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">6</span><span class="title"> {!$Label.codawzfinancialcalendar}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">7</span><span class="title"> {!$Label.codawzchartofacc}</span></div>
+                    </li>
+                    <li class="on">
+                        <div><span class="step">8</span><span class="title"> {!$Label.codaextaccountsreceivableanalysis}</span></div>
+                    </li>
+                    <li class="on on_current">
+                        <div><span class="step">9</span><span class="title"> {!$Label.codaextcreatecompany}</span></div>
+                    </li>
+                    <li class="current lastChild">
+                        <div><span class="step">10</span><span class="title"> {!$Label.codaextactivatecompany}</span></div>
+                    </li>
+                </ul>
+            </div>
+
+	        <div class="information">
+	            <h3>{!$Label.codacompany2_3information}
+                	<span class="conceptualHelp">
+                		<span class="text">{!$Label.codacompany2_3informationCurCny}</span> 
+                    	<span class="conceptualHelpPopup">
+                    		<span class="title">{!$Label.codacompany2_3informationCurCnyPopup}</span>
+                    		<span>{!$Label.codacompany2_3informationCurCnyHelp}</span>
+                    	</span>
+                    </span>
+                </h3>
+	        </div>
+	        
+	        <apex:outputPanel id="messagePanel" layout="block">
+	            <apex:outputPanel id="errorPanel" layout="block" styleClass="error" rendered="{!viewstate.showErrorMessages}">
+	                <!--apex:messages/-->
+	                <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+	                    <h3><apex:outputText value="{!errorMessage}" /></h3>
+	                </apex:repeat>
+	            </apex:outputPanel>
+	        </apex:outputPanel>
+        	
+	        <div class="left">
+	            <div class="row">
+	                <div class="field fieldFull">
+	                	<!-- Hidden Buttons -->  
+				        <apex:commandButton value="{!$Label.codacompany2_3ContinueBtn}" action="{!selectCurrentCompany}" id="selectCompany_h" styleclass="hiddensubmit"/>
+				        <!-- End of Hidden Buttons -->
+				        
+				        <apex:commandButton value="{!$Label.codacompany2_3ContinueBtn}" id="selectcompany" onclick="document.getElementById('{!$Component.selectCompany_h}').click();return false;" rerender=""/>              
+	                </div>
+	            </div>
+	        </div>
+        </apex:form> 
+		</div>
+	</div>
+</apex:page>
