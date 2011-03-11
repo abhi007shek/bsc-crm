@@ -102,12 +102,12 @@ public with sharing class BSCEventTriggerMethods
      			{
         			update b;
      			}
-     			catch(Exception e)
+     			catch(DMLException e)
      			{
      				se.adderror(e);
      			}
    			}
-   			catch(Exception f)
+   			catch(DMLException f)
    			{
    				se.adderror(f);
    			}
