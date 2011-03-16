@@ -1,8 +1,10 @@
-trigger BscEventDimensionTrigger on Special_Event__c (after insert) {
+trigger BscEventDimensionTrigger on Special_Event__c (after insert)
 // Purpose of this trigger is to get rid of the previous workflow Update Event Ref
 // to generate the name of the event and also to create
 // a dimension 4 entry and attach it to the Special_Event__c record
-for (Special_Event__c se : Trigger.new)
+{
+	BSCEventTriggerMethods.createDimension4(Trigger.new);
+/*for (Special_Event__c se : Trigger.new)
 {
    Special_Event__c b = new Special_Event__c();
    b=se.clone();
@@ -29,5 +31,5 @@ for (Special_Event__c se : Trigger.new)
    {
    	se.adderror(f);
    }
-  }
+  }*/
 }

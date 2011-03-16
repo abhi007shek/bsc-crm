@@ -27,15 +27,18 @@ public class InvoiceTriggerMethods
           
      public testmethod static void testInvoiceTriggerMethods()
      {
-         Test.startTest();
-         Id invoiceLineItemId = [Select c2g__Invoice__c from c2g__codaInvoiceLineItem__c limit 1].c2g__Invoice__c;
+    	// Case 1359 and  1254 -- Added due to Winter 11 FF release where the default company of the user is required to determine the appropriate data
+    	c2g__codaUserCompany__c userCompany = [Select id, c.c2g__User__r.Username, c.c2g__Company__c From  c2g__codaUserCompany__c c Where c.c2g__User__r.Username = :UserInfo.getUserName() and c.c2g__Company__r.name='Test - BSC'];
+     	
+		Test.startTest();
+		Id invoiceLineItemId = [Select c.c2g__Invoice__c from c2g__codaInvoiceLineItem__c c Where c.c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c limit 1].c2g__Invoice__c;
                                                                                                            
-         Map<Id,c2g__codaInvoice__c> invoiceMap = new Map<Id,c2g__codaInvoice__c>([Select c.Name, c.Id From c2g__codaInvoice__c c limit 1]);
+		Map<Id,c2g__codaInvoice__c> invoiceMap = new Map<Id,c2g__codaInvoice__c>([Select c.Name, c.Id From c2g__codaInvoice__c c Where c.Id = :invoiceLineItemId limit 1]);
          
-         InvoiceTriggerMethods.updateInvoiceLineItems(invoiceMap.keySet());
-         InvoiceTriggerMethods.populateCustomerReference(invoiceMap.values());
-         //update invoiceMap.values();  
-         Test.stopTest();       
+		InvoiceTriggerMethods.updateInvoiceLineItems(invoiceMap.keySet());
+		InvoiceTriggerMethods.populateCustomerReference(invoiceMap.values());
+		//update invoiceMap.values();  
+		Test.stopTest();       
  
      }
  

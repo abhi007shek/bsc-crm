@@ -44,14 +44,15 @@ public with sharing class AccountAssignmentHelper {
             	// Only update if insert - filter updates, only update if specific criteria. 
             	// oldAccounts == null or # Employees has changed or Principle_Address_ZIP_Postal_Code has changed or
             	// Principle_Address_Country has changed or Ultimate_Parent has changed.
-            	
-                if (oldAccounts == null || acc.NumberOfEmployees != oldAccounts.get(acc.Id).NumberOfEmployees ||
+            	// Case 0001359 and  0001254
+                /*if (oldAccounts == null || acc.NumberOfEmployees != oldAccounts.get(acc.Id).NumberOfEmployees ||
                     acc.Hierarchy_Employees__c != oldAccounts.get(acc.Id).Hierarchy_Employees__c ||
                     // brm - 2 August 2010 - added logic to work with change of country or postcode
                     acc.Principle_Address_ZIP_Postal_Code__c != oldAccounts.get(acc.Id).Principle_Address_ZIP_Postal_Code__c ||
                     acc.Principle_Address_Country__c != oldAccounts.get(acc.Id).Principle_Address_Country__c ||
                     // brm - 3 August 2010 - added logic to work with changing parents
-                    acc.Ultimate_Parent__c != oldAccounts.get(acc.Id).Ultimate_Parent__c)
+                    acc.Ultimate_Parent__c != oldAccounts.get(acc.Id).Ultimate_Parent__c)*/
+				if (acc.Exclude_from_Assignment__c==false)
                 {
                     accountsToUpdate.add(acc.Id);
                 }
@@ -94,6 +95,11 @@ public with sharing class AccountAssignmentHelper {
     @future(callout=false)
     public static void calculateOwners(Set<Id> accountIds)
     {
+        calculateOwnersBatch(accountIds);
+    }
+    
+    public static void calculateOwnersBatch(Set<Id> accountIds)
+    {
     	System.debug('** calculate owners');
     	
         Set<Id> ultimateParents = new Set<Id>();
@@ -130,7 +136,7 @@ public with sharing class AccountAssignmentHelper {
             // We lose this account object at this point. 
             
         }
-               
+              
         updateAccountOwners(ultimateParents);		// Standard processing
        // PostprocessNonUKAccounts(accountList); 		// Custom processing for non-UK accounts.
         
@@ -268,6 +274,7 @@ public with sharing class AccountAssignmentHelper {
         Set<String> postCodes = new Set<String>();
         
         Map<Id, AccountHierarchy> hierarchy = new Map<Id, AccountHierarchy>();
+	// Case 0001359 and  0001254 Added field Employee_Group__c
         for (Account a : [
         	Select
         		Id,
@@ -277,13 +284,15 @@ public with sharing class AccountAssignmentHelper {
         		Ultimate_Parent__r.Exclude_From_Assignment__c,
                 Principle_Address_Country__c,
                 Principle_Address_ZIP_Postal_Code__c,
+                Principle_Address_Postcode_Area_Uk__c,
                 Group_Formula__c,
                 Exclude_From_Assignment__c,
                 OwnerId,
                 Ultimate_Parent__r.OwnerId,
                 Area__c,
                 RecordTypeId,
-                NumberOfEmployees
+                NumberOfEmployees,
+                Employees_Group__c
             FROM
             	Account
             WHERE
@@ -372,11 +381,12 @@ public with sharing class AccountAssignmentHelper {
         for (AccountHierarchy accountHierarchy : hierarchy.values())
         {
         	// May need to modify this to take into account UltimateParent
-  	
+		// Case 0001359 and  0001254
+  	        Area__c found;
         	if (accountHierarchy.parent.RecordTypeId == accountRecordTypes.get('Private Delegate').Id)
         	{
         		
-        		Area__c found;
+        		// Area__c found;
         		found = FindAreaFromAddressEx(accountHierarchy, accountHierarchy.parent, ukAreas, 'Private Delegate');
         		if (found == null)
         			found = FindAreaFromAddressEx(accountHierarchy, accountHierarchy.parent, nonUkAreas, 'Private Delegate');        		
@@ -391,7 +401,7 @@ public with sharing class AccountAssignmentHelper {
         	}
         	else
         	{
-        		Area__c found;
+        		//Area__c found;
         		found = FindAreaFromAddressEx(accountHierarchy, accountHierarchy.parent, ukAreas, 'Last weeks washing');
         		if (found == null)
         			found = FindAreaFromAddressEx(accountHierarchy, accountHierarchy.parent, nonUkAreas, 'Last weeks washing');
@@ -411,13 +421,26 @@ public with sharing class AccountAssignmentHelper {
         	
         	for (Account account : accountHierarchy.children)
         	{
-        		Area__c found;
-        		found = FindAreaFromAddressEx(accountHierarchy, account, ukAreas, 'Last weeks washing');
-        		if (found == null)
-        			found = FindAreaFromAddressEx(accountHierarchy, account, nonUkAreas, 'Last weeks washing');        		
-        		if (found != null)
+        		Area__c foundLocal = new Area__c();
+        		System.debug('UK area section '+account.name+' County:'+account.Principle_Address_Country__c);
+        		foundLocal = FindAreaFromAddressEx(accountHierarchy, account, ukAreas, 'Last weeks washing');
+        		System.debug('UK area section-- foundLocal:'+foundLocal);
+        		if (foundLocal == null)
         		{
-        			account.Area__c = found.Id;
+        			System.debug('Non UK area section');
+        			found = FindAreaFromAddressEx(accountHierarchy, account, nonUkAreas, 'Last weeks washing');
+        			System.debug('Non UK area section---- Found: '+found);
+        		}
+				if (foundLocal!=null||found!=null)
+        		{
+        			if (foundLocal!=null)
+        			{
+        				account.Area__c = foundLocal.Id;
+        			}
+        			else
+        			{
+        				account.Area__c = found.Id;
+        			}
         			//account.Group_Formula__c = found.Type__c + '-Child';
         			if (account.OwnerId != found.Territory__r.Territory_Manager__c)
         			{
@@ -475,6 +498,7 @@ public with sharing class AccountAssignmentHelper {
         
         // Update associated contacts - select all contacts where the account id is the top parent or 
         // account's ultimate parent field is the top parent
+        /* Request from Adam Cartledge to remove the Owner reassignment
         List<Contact> contactsToUpdate = new List<Contact>();
         for (Contact contact : [
         	SELECT
@@ -597,7 +621,7 @@ public with sharing class AccountAssignmentHelper {
                 eventsToUpdate.add(event);
             }
         }
-        update eventsToUpdate;
+        update eventsToUpdate;*/
     }
     
     private static Map<String, RecordType> GetRecordTypes(String sObjectType)
@@ -688,7 +712,28 @@ public with sharing class AccountAssignmentHelper {
     
     private static Area__c FindAreaFromAddressEx(AccountHierarchy hierarchy, Account account, Map<String, Map<String, Area__c>> areas, String areaType)
     {
-    	String searchCriteria = hierarchy.parent.Principle_Address_Country__c + (hierarchy.parent.Principle_Address_Country__c == 'United Kingdom' ? '-' + hierarchy.postcodeDistrict : '');
+	// Case 0001359 and  0001254
+    	String searchCriteria;
+    	String ukCountry = 'United Kingdom';
+    	system.debug('*******************Company: '+account.name + ' Country: '+account.principle_address_country__c+' postcode:  '+account.principle_address_zip_postal_code__c);
+    	system.debug('*******************parent.Principle_Address_Country__c: '+hierarchy.parent.Principle_Address_Country__c);
+    	if ( account.Principle_Address_Country__c == ukCountry&&hierarchy.parent.Principle_Address_Country__c== ukCountry)
+    	{
+    		searchCriteria = hierarchy.parent.Principle_Address_Country__c + (hierarchy.parent.Principle_Address_Country__c == ukCountry ? '-' + hierarchy.postcodeDistrict : '');
+    	}
+    	else
+    	{ 
+    		if ( account.Principle_Address_Country__c == ukCountry&&hierarchy.parent.Principle_Address_Country__c!= ukCountry)
+    		{
+   		 		searchCriteria = account.Principle_Address_Country__c + '-' + account.Principle_Address_Postcode_Area_Uk__c;
+    		}
+    		else
+    		{
+    			searchCriteria = account.Principle_Address_Country__c;
+    		}
+    	}
+    	// Debug to be deleted
+    	System.debug('searchCriteria: '+searchCriteria +' : '+account.id + ' ultimate parent: '+account.ultimate_parent__c );
         boolean bFound = false;
         if (areas.containsKey(searchCriteria))
         {
@@ -699,7 +744,9 @@ public with sharing class AccountAssignmentHelper {
             }
             else
             {
-            	if (account.NumberOfEmployees > 499)
+            	// Case 1359 and Case 1254 
+            	//if (account.NumberOfEmployees > 499)
+            	if (account.Employees_Group__c > 499)
             	{
             		if(foundDistricts.get('KAM') != null)
             			return foundDistricts.get('KAM');
@@ -712,7 +759,9 @@ public with sharing class AccountAssignmentHelper {
             		    }
             		}
             	}
-            	if (account.NumberOfEmployees > 49 && account.NumberOfEmployees < 500 )
+            	// Case 1359 and Case 1254 
+            	//if (account.NumberOfEmployees > 49 && account.NumberOfEmployees < 500 )
+            	if (account.Employees_Group__c > 49 && account.Employees_Group__c < 500 )
             	{
             		if(foundDistricts.get('RAM') != null)
             			return foundDistricts.get('RAM');
@@ -721,7 +770,9 @@ public with sharing class AccountAssignmentHelper {
             				return foundDistricts.get('AE');
             		}
             	}
-            	if (account.NumberOfEmployees < 50 )
+            	// Case 1359 and Case 1254 
+            	//if (account.NumberOfEmployees < 50 )
+            	if (account.Employees_Group__c < 50 )
             	{
             		return foundDistricts.get('AE');
             	}
@@ -731,7 +782,7 @@ public with sharing class AccountAssignmentHelper {
     }
     
     
-    private static Area__c findAreaFromAddress(AccountHierarchy accounts, Map<String, Map<String, Area__c>> areas)
+/*    private static Area__c findAreaFromAddress(AccountHierarchy accounts, Map<String, Map<String, Area__c>> areas)
     {
         // Match Country and (if UK) Postcode to list of areas   
         
@@ -801,7 +852,7 @@ public with sharing class AccountAssignmentHelper {
         }        
         return null;
     }
-    
+  */  
     private static String parsePostcode(String postcode)
     {
         if (postcode != null && postcode != '')
@@ -871,4 +922,28 @@ public with sharing class AccountAssignmentHelper {
         return isPrivateDelegate;
         
     }
+    
+    /*static testMethod void areaAssignment()
+    {
+    	set<id>changedAreaIds = new set<id>();
+    	for (Account a:[Select area__c From Account where Exclude_From_Assignment__c=false limit 10])
+    	{
+    		changedAreaIds.add(a.area__c);
+    	}
+    	if (changedAreaIds.size() > 0)
+    	{
+    		AccountAssignmentHelper.doAreaAssignment(changedAreaIds);
+    	}
+    	
+		set<id>accountIds = new set<id>();
+		
+		for(Account a : [select id, name from Account where Exclude_From_Assignment__c=false limit 20]){
+			accountIds.add(a.Id);
+		}
+		
+		if(accountIds.size() > 0){
+			AccountAssignmentHelper.calculateOwners(accountIds);
+		}
+    	
+    } */   
 }
