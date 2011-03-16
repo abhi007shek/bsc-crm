@@ -1,0 +1,9 @@
+<!-- codacompanymismatchwarning -->
+<apex:page >
+	<apex:outputPanel id="msgPanel" layout="block">
+	<apex:outputPanel id="reportingPanel" layout="block" styleClass="pbError">
+		<!--apex:messages/-->
+			<apex:outputText value="{!$Label.codaOwnerMustBeCurrentCompanyError}"/><br/>
+	</apex:outputPanel>				
+    </apex:outputPanel>
+</apex:page>

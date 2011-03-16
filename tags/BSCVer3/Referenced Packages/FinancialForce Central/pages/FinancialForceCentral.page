@@ -1,0 +1,318 @@
+<apex:page sidebar="false" controller="ffc.DisplayPageController" tabStyle="FinancialForce_Central__tab">
+    
+    <link type="text/css" rel="stylesheet" href="{!URLFOR($Resource.ffCentral,'ffCentral/base/base.css')}" media="screen" />
+    <link type="text/css" rel="stylesheet" href="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/ffc.css')}" media="screen" />
+    
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/base/frameworks/jquery-1.4.2.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/base/frameworks/jquery-ui-1.8.1.custom.min.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/base/frameworks/jquery.cookie.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/base/frameworks/swfobject.js')}" type="text/javascript"></script>
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/base/base.js')}" type="text/javascript"></script>
+    <script type="text/javascript">
+        FFORCE.GO.JWPlayer = '{!URLFOR($Resource.ffCentral,'ffCentral/base/flash/player-licensed.swf')}';
+        FFORCE.GO.imageWeb = '{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_web_s1.png')}'
+        FFORCE.GO.imageSFDC = '{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_sfdc_s1.png')}'
+    </script>
+    <script src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/ffc.js')}" type="text/javascript"></script>
+    
+    <apex:form >
+        <div class="pageWrapper" id="pageWrapper">
+            <h1>Welcome {!$User.FirstName} to FinancialForce Central</h1>
+            
+            <a class="btn licences" id="morelicences" href="/apex/LicenseOrder">Need more FinancialForce licenses?</a>
+            
+            <div class="row">
+                
+                <div class="col_2">
+                    <div class="section sectionFavourites">
+                        <h3 class="header"><span class="title">Your Favorites</span> <a class="manageLink">Manage</a>
+	                        <span class="manageSizes">
+	                        	<a class="small">Small</a> 
+	                        	<a class="medium active">Medium</a> 
+	                        	<a class="large">Large</a>
+	                        </span>
+                        </h3>
+                        <div class="content contentTop">
+                        
+                            <div class="favouriteWrapper favouriteWrapperMedium">
+                            <ul class="favouriteList" id="favouriteList">
+                                
+                                
+				                
+				                <li class="sfdc">
+				                    <div class="image">
+				                    <img src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_sfdc_s1.png')}"/>
+				                    </div>
+									<a href="{!URLFOR($Action.Opportunity.New)}">
+										<span class="action"></span>
+										<span class="header">Create Opportunity<span class="right"></span></span>
+										<span class="top"><span class="right"></span></span>
+										<span class="bottom"><span class="right"></span></span>
+									</a>
+				                </li>
+				                
+				                <apex:outputPanel layout="none" rendered="{!ffInstalled}">
+				                <li class="sfdc">
+				                    <div class="image">
+				                    <img src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_sfdc_s1.png')}"/>
+				                    </div>
+									<a href="/apex/c2g__codainvoicenew">
+										<span class="action"></span>
+										<span class="header">Create Sales Invoice<span class="right"></span></span>
+										<span class="top"><span class="right"></span></span>
+										<span class="bottom"><span class="right"></span></span>
+									</a>
+				                </li>
+				                </apex:outputPanel>
+				                
+				                <li class="web">
+				                <div class="image">
+				                    <img src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_web_s1.png')}"/>
+				                    </div>
+									<a href="http://www.businessweek.com/" target="_blank">
+										<span class="action"></span>
+										<span class="header">Business Week<span class="right"></span></span>
+										<span class="top"><span class="right"></span></span>
+										<span class="bottom"><span class="right"></span></span>
+									</a>
+				                </li>
+				                
+				                <li class="web">
+				                    <div class="image">
+				                    <img src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_web_s1.png')}"/>
+				                    </div>
+									<a href="http://www.forbes.com" target="_blank">
+										<span class="action"></span>
+										<span class="header">Forbes.com<span class="right"></span></span>
+										<span class="top"><span class="right"></span></span>
+										<span class="bottom"><span class="right"></span></span>
+									</a>
+				                </li>
+                                
+                                 <li class="web">
+				                    <div class="image">
+				                    <img src="{!URLFOR($Resource.ffCentral,'ffCentral/pages/ffc/images/thumbs/fav_web_s1.png')}"/>
+				                    </div>
+									<a href="https://www.ft.com" target="_blank">
+										<span class="action"></span>
+										<span class="header">FT.com<span class="right"></span></span>
+										<span class="top"><span class="right"></span></span>
+										<span class="bottom"><span class="right"></span></span>
+									</a>
+				                </li>
+                                
+                                
+                                <apex:outputPanel layout="none" rendered="{!!ffInstalled}">
+				                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+				                </apex:outputPanel>
+                                
+                                
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                <li class="empty">
+                                    <a href="#">
+                                        <span class="action"></span>
+                                        <span class="top"><span class="right"></span></span>
+                                        <span class="bottom"><span class="right"></span></span>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col_1 col_last">
+                    <div class="section">
+                        <h3 class="header">Videos</h3>
+                        <div class="content contentTopMargin">
+                        <div class="contentScroll">
+                        <p>View our latest videos to help you get the most from FinancialForce.com</p>
+                        
+                            <ul class="vertical verticalVideos">
+                                <apex:repeat value="{!videos}" var="vids">
+                                <li>
+                                	<a href="{!vids.Link__c}" class="videoLink" title="{!vids.Title__c}">
+	                                	<img src="{!vids.thumbnailSmallURI__c}" alt=""/>
+	                                	<span class="mask"></span>
+	                                	<span class="description">
+	                                		<span class="title">{!vids.Title__c}</span>
+	                                		{!vids.Description__c}
+	                                	</span>
+                                	</a>
+                                </li>
+                                </apex:repeat>
+                            </ul>
+                        
+                         </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+            <h2>Information from FinancialForce.com</h2>
+            <div class="row">
+                <div class="col_1">
+                    <div class="section">
+                        <h3 class="header">News</h3>
+                        <div class="content">
+                            <div class="contentScroll">
+                                <ul class="vertical verticalNews">
+                                    <apex:repeat value="{!news}" var="newss">
+                                    <li>
+                                        <a href="{!newss.ffc__Link__c}" target="_blank">
+                                            <span class="title">{!newss.ffc__Title__c}</span>
+                                            <span class="date">{!newss.ffc__DateCreated__c}</span>
+                                        </a>
+                                    </li>
+                                    </apex:repeat>
+                                </ul>
+                            </div>
+                            <a href="http://www.financialforce.com/accounting-news-events/news" target="_blank" class="more">More News....</a>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col_1">
+                    <div class="section">
+                        <h3 class="header">Events</h3>
+                        <div class="content">
+                            <div class="contentScroll">
+                                <ul class="vertical verticalEvents">
+                                    <apex:repeat value="{!events}" var="event">
+                                    <li>
+                                        <a href="{!event.Link__c}" target="_blank">
+                                            <span class="title">{!event.Title__c}</span>
+                                            <span class="date">{!event.StartDate__c}</span>
+                                            <span class="time">{!event.StartTime__c}</span>
+                                        </a>
+                                    </li>
+                                    </apex:repeat>
+                                    
+                                </ul>
+                            </div>
+                            <a href="http://www.financialforce.com/accounting-news-events/events" target="_blank" class="more">More Events....</a> 
+                        </div>
+                    </div>  
+                </div>
+                <div class="col_1 col_last">
+                    <div class="section">
+                        <h3 class="header">Latest from our Blog</h3>
+                        <div class="content">
+                            <div class="contentScroll">
+                                <ul class="vertical verticalFeeds">
+                                 <apex:repeat value="{!blogs}" var="blog">
+                                    <li>
+                                        <a href="{!blog.Link__c}" target="_blank">
+                                            <span class="bullet">&nbsp;</span>
+                                            <span class="title">{!blog.Title__c} </span>
+                                        </a>
+                                    </li>
+                                    </apex:repeat>
+                                    
+                                </ul>
+                            </div>
+                            <a href="http://blog.financialforce.com/" target="_blank" class="more">View our Blog....</a>
+                        </div>
+                    </div>  
+                </div>
+                <div class="clearBoth"></div>
+            </div>
+        </div>
+        
+        <script type="text/javascript">
+        
+        $FFDC(document).ready(function () {
+            FFORCE.WelcomePage.init();
+        });
+    </script>
+        
+    </apex:form>
+</apex:page>

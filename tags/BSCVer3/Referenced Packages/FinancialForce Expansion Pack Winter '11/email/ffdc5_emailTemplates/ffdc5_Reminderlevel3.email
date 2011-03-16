@@ -1,0 +1,36 @@
+<messaging:emailTemplate subject="Final reminder" recipientType="Contact" relatedToType="c2g__codaInvoice__c">
+    <messaging:htmlEmailBody >
+        <p align="center">
+            <img src="{!relatedTo.c2g__OwnerCompany__r.c2g__LogoURL__c}"/><br/>
+            <small>{!relatedTo.c2g__OwnerCompany__r.c2g__Street__c}<br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__City__c}"/>,&nbsp;<apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__StateProvince__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__ZipPostCode__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Country__c}"/><br/>
+            Phone:&nbsp;<apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Phone__c}"/>&nbsp;Fax:&nbsp;<apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Fax__c}"/><br/><br/></small>
+        </p>
+        <p>    
+            <c:CODAFormatterExt date="{!TODAY()}"/>
+            <br/><br/>
+            <apex:outputField value="{!relatedTo.c2g__Account__r.Name}"/>
+            <br/><br/>
+            Dear Sir
+            <br/><br/>
+            We are writing once again about the outstanding invoice on your account:<br/>
+            <table border="0" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td>Invoice number</td><td><apex:outputField value="{!relatedTo.Name}"/></td>
+                </tr>
+                <tr>
+                    <td>Amount</td><td><apex:outputField value="{!relatedTo.c2g__OutstandingValue__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Due on</td><td><apex:outputField value="{!relatedTo.c2g__DueDate__c}"/></td>
+                </tr>
+            </table>
+            <br/><br/>
+ Despite two previous reminders you have not sent payment or made any attempt to explain the delay. If your remittance is not received within 7 working days of the date of this letter we will have no alternative but to institute legal proceedings and suspend your account.<br/><br/>
+ Yours faithfully<br/><br/>
+            {!$User.FirstName} {!$User.LastName}
+        </p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

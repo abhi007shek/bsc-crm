@@ -1,0 +1,9 @@
+<!-- codacompanynewwarning -->
+<apex:page controller="c2g.CODACompanyNewWarningController">
+	<apex:outputPanel id="msgPanel" layout="block">
+	<apex:outputPanel id="reportingPanel" layout="block" styleClass="pbError">
+		<!--apex:messages/-->
+		<apex:outputText value="{!$Label.codaCompanyNewWarning}"/><br/>
+	</apex:outputPanel>				
+    </apex:outputPanel>
+</apex:page>

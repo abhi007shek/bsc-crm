@@ -1,0 +1,20 @@
+<!-- codacompanysuccess -->
+<apex:page >
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"/>
+	<script>
+	</script>	 
+	
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+	
+	<apex:form >
+	<apex:sectionHeader title="{!$Label.codaSelectCompany}" />
+		<apex:pageBlock >	
+		<apex:outputPanel id="msgPanel" layout="block">
+		<apex:outputPanel id="reportingPanel" layout="block" styleClass="pbInfo">
+			<!--apex:messages/-->
+			<apex:outputText value="{!$Label.codaPageCompanySelectionSavedMsg}"/><br/>
+		</apex:outputPanel>				
+    	</apex:outputPanel>							
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>
