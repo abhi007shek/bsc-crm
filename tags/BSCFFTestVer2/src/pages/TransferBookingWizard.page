@@ -1,0 +1,12 @@
+<apex:page tabStyle="Special_Event_Booking__c" Controller="TransferBookingWizardController">
+
+<apex:sectionHeader title="Transfer Booking" subtitle="{!record.Name}" />
+
+<apex:pageMessages />
+
+<apex:outputPanel >
+    <apex:form >
+        <c:CourseFinder bookedEvent="{!record}" bookingType="Transfer" />
+    </apex:form>
+</apex:outputPanel>
+</apex:page>

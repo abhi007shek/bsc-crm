@@ -1,0 +1,7 @@
+<apex:page action="{!doAction}" standardController="Special_Event_Booking__c" extensions="PublicBookingCancellationController">
+
+<apex:sectionHeader title="" subtitle="{!Special_Event_Booking__c.Name}" />
+
+<apex:pageMessages />
+
+</apex:page>

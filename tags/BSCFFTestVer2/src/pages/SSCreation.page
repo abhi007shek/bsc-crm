@@ -1,0 +1,84 @@
+<apex:page id="SSCreation" Controller="SSCeationController">
+<apex:form >  
+<apex:sectionHeader title="Subscription Sites" subtitle="New Subscription Site"/>
+<apex:pageMessages /> 
+<apex:outputPanel rendered="{!pageNum == 1}">
+	<apex:pageBlock id="editBlock" title="Current Subscription Products Details" mode="edit">
+	 	
+		<apex:pageBlockButtons location="bottom">
+			<apex:commandButton action="{!cancel}" value="Cancel" />
+			<apex:commandButton action="{!next}" value="Next" />
+		</apex:pageBlockButtons> 
+		      	     
+		<apex:pageBlockSection columns="1" >                 
+		                <apex:pageBlockSectionItem >
+						<apex:pageBlockTable value="{!SubscriptionLines}" var="SLItem">
+							<apex:column value="{!SLItem.Product__R.Name}" /> 
+							<apex:column value="{!SLItem.Quantity__c}" /> 
+							<apex:column value="{!SLItem.Quantity_Available__c}" />					
+						</apex:pageBlockTable> 
+		                </apex:pageBlockSectionItem>      
+		</apex:pageBlockSection> 
+		            
+		<apex:pageBlockSection title="Enter Subscription Site Details"  columns="2" >                
+		                <apex:pageBlockSectionItem >
+		                    <apex:PageBlockTable value="{!Products2AddInfo }" var="Product2AddInfo" >
+		                        <apex:column value="{!Product2AddInfo.ProductName}" />
+		                        <apex:column >
+		                        <apex:Inputfield value="{!Product2AddInfo.record.Quantity__c}" /> 
+		                        </apex:column>		                        
+		                    </apex:PageBlockTable>   
+						</apex:pageBlockSectionItem> 
+		</apex:pageBlockSection>
+		          
+		<apex:pageBlockSection title="Account"  columns="1" >
+			<apex:pageBlockSectionItem >
+				<apex:inputField value="{!SubscriptionSite.Site_Account__c}"/>
+				<apex:inputField value="{!SubscriptionSite.Type__c}"/>
+			</apex:pageBlockSectionItem>
+
+									
+		</apex:pageBlockSection>
+	</apex:pageBlock>   
+</apex:outputPanel>    
+    
+<apex:outputPanel rendered="{!pageNum == 2}">
+	<apex:pageBlock title="Subscription Site Contact" mode="edit">
+	 	  
+		<apex:pageBlockButtons location="bottom">
+			<apex:commandButton action="{!prev}" value="Previous" />
+			<apex:commandButton action="{!cancel}" value="Cancel" />
+			<!-- Case 1447 <apex:outputPanel rendered="{!AccountContacts.size > 0 && SubscriptionSite.Site_Account__c!=null}"> -->			
+				<apex:commandButton action="{!savesite}" value="Create Site" />
+			<!-- Case 1447 </apex:outputPanel> -->
+		</apex:pageBlockButtons>    
+
+		<apex:outputPanel rendered="{!AccountContacts.size == 0 && SubscriptionSite.Site_Account__c!=null}">
+			<p style="margin-left: 20px; font-weight: bold;">No contacts have been assigned to this Account.</p>
+		</apex:outputPanel>		      	  
+  
+		<apex:pageBlockSection columns="1" rendered="{!AccountContacts!=null}">                 
+		                <apex:pageBlockSectionItem >
+							<apex:pageBlockTable value="{!AccountContacts}" var="AccountContact">
+								<apex:column >
+									<apex:inputCheckbox value="{!AccountContact.selected}" />
+								</apex:column>
+								<apex:column value="{!AccountContact.record.FirstName}" />
+								<apex:column value="{!AccountContact.record.LastName}" />
+							</apex:pageBlockTable>
+		                </apex:pageBlockSectionItem>   
+		</apex:pageBlockSection> 		      
+
+        <!--  Case 1447 -->
+        <apex:pageBlockSection title="Alternative Subscription Site Contact"  columns="1" >
+			             <apex:pageBlockSectionItem >
+				            <apex:inputField value="{!SubscriptionSite.Site_Contact__c}"/>
+			             </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+		<!-- End of Case 1447 -->
+		
+	</apex:pageBlock>
+</apex:outputPanel>          
+
+</apex:form>
+</apex:page>

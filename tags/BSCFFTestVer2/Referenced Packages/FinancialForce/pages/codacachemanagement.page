@@ -1,0 +1,143 @@
+<!-- CODACacheManagement -->
+<apex:page controller="c2g.CODACacheManagementController">
+	<script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+	<script>
+		CODA.documentFunctionTimer("keyup", CODA.executeQueue, 1500);
+		CODA.documentFunctionTimer("click", CODA.executeQueue, 1500);  
+	</script>
+	<apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <style>
+        .extracollapsed
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extracollapsed_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .newlinebutton 
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});
+        }
+        .pbError
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+        }
+        .pbInfo
+		{
+			background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbInfoIcon.gif')});
+		}
+        .informationerrorblock
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});
+        }
+    </style>
+	
+	<apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+		<DIV id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></DIV>
+		<!-- Header -->
+		<apex:sectionHeader title="{!$Label.codaCacheManagementPageTitle}" subtitle="{!$Label.codaCacheManagementPageSubtitle}"/>
+		
+		<apex:pageBlock id="CacheManagementBlock" mode="edit">
+
+			<!-- Messages -->
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                    <apex:repeat value="{!viewstate.messages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <apex:outputText value="{!errorMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+                <apex:outputPanel id="infoPanel" layout="block" styleClass="pbInfo" rendered="{!viewstate.showInfoMessages}">
+                    <apex:repeat value="{!viewstate.messages}" var="message" rendered="{!viewstate.showInfoMessages}">
+                        <apex:outputText value="{!message}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel>
+			
+            <!-- Buttons -->
+            <apex:pageBlockButtons location="top" rendered="{!!viewstate.isInfo}" id="cacheButtons">
+				<table border="0">
+					<tr>
+						<td width="120px"><apex:commandButton value="{!$Label.codaCacheManagementPageBtnPurgeTax}" id="purgeTax" styleClass="widthNumeric" action="{!purgeTaxCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementPageBtnEventPurgeTax}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,CacheManagementBlock"/></td>
+						<td><apex:commandButton value="{!$Label.codaCacheManagementPageBtnPurgeEx}" id="purgeEx" styleClass="widthNumeric" action="{!purgeExCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementPageBtnEventPurgeEx}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,CacheManagementBlock"/></td>
+					</tr>
+					<tr>
+						<td><apex:commandButton value="{!$Label.codaCacheManagementPageBtnRebuildTax}" id="rebuildTax" styleClass="widthNumeric" action="{!rebuildTaxCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementPageBtnEventRebuildTax}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,CacheManagementBlock"/></td>
+						<td><apex:commandButton value="{!$Label.codaCacheManagementPageBtnRebuildEx}" id="rebuildEx" styleClass="widthNumeric" action="{!rebuildExCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementPageBtnEventRebuildEx}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,CacheManagementBlock"/></td>
+					</tr>
+				</table>
+                <script>
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaCacheManagementPageBtnEventProcessing}";
+                    var pTaxCache = document.getElementById("{!$Component.purgeTax}");
+                    var pExCache = document.getElementById("{!$Component.purgeEx}");
+                    var rTaxCache = document.getElementById("{!$Component.rebuildTax}");
+                    var rExCache = document.getElementById("{!$Component.rebuildEx}");
+                    
+                    CODA2GoButtons.initButtons([pTaxCache.id,pExCache.id,rTaxCache.id,rExCache.id]);
+                </script>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection id="IDfields" title="{!$Label.codaCacheManagementSectionTitle}" columns="2" rendered="{!!viewstate.isInfo}">
+				
+				<apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.codaCacheManagementCurrencyField}"/>
+                    <apex:outputPanel id="currencyIDPanel" styleClass="widthauto">
+                        <apex:inputText value="{!viewstate.currency}"/>
+                        <apex:commandButton value="{!$Label.codaCacheManagementGetCurrencyButton}" id="currCacheBtn" styleClass="widthNumeric" action="{!getCurrencyCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementRetieveEvent}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,cacheContentSection,cacheContentPanel"/>
+                        <script>
+		                    var ExCache = document.getElementById("{!$Component.currCacheBtn}");
+		                    CODA2GoButtons.initButtons([ExCache.id]);
+		                </script>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+				
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="{!$Label.codaCacheManagementTaxField}"/>
+                    <apex:outputPanel id="taxCodeIDPanel" styleClass="widthauto">
+                        <apex:inputText value="{!viewstate.taxCode}"/>
+                        <apex:commandButton value="{!$Label.codaCacheManagementGetTaxbutton}" id="taxCacheBtn" styleClass="widthNumeric" action="{!getTaxCache}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementCacheContentField}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,cacheContentSection,cacheContentPanel"/>
+                        <script>
+		                    var TaxCache = document.getElementById("{!$Component.taxCacheBtn}");
+		                    CODA2GoButtons.initButtons([TaxCache.id]);
+		                </script>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+			</apex:pageBlockSection>
+			
+			<apex:pageBlockSection id="cacheContentSection" columns="1" rendered="{!!viewstate.isInfo}">
+			
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel id="CacheLabel" value="{!$Label.codaCacheManagementCacheContentField}"/>
+                    <apex:outputPanel id="cacheContentPanel" styleClass="widthauto">
+                        <apex:inputTextarea value="{!cacheContent}" id="CacheValue" rows="10" cols="115" disabled="true"/>
+                    </apex:outputPanel>
+				</apex:pageBlockSectionItem>
+				
+            </apex:pageBlockSection>
+            
+            
+            <apex:pageBlockButtons location="bottom" rendered="{!viewstate.isInfo}" id="backBlockButton">
+				<apex:commandButton value="{!$Label.codaCacheManagementPageBtnBack}" id="back" styleClass="widthNumeric" action="{!back}" onclick="CODA.indicatorOn('{!$Label.codaCacheManagementPageEventBack}');" oncomplete="CODA.indicatorOff();" reRender="messagePanel,CacheManagementBlock"/>
+                <script>
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaCacheManagementPageBtnEventProcessing}";
+                    var backBtn = document.getElementById("{!$Component.back}");
+                    CODA2GoButtons.initButtons([backBtn.id]);
+                </script>
+            </apex:pageBlockButtons>
+            
+		</apex:pageBlock>
+	
+	</apex:form>
+	
+</apex:page>

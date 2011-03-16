@@ -1,0 +1,104 @@
+<!-- CODAMassEmail -->
+<apex:page Controller="c2g.CODAMassEmailController">
+    <script src="{!URLFOR($Resource.coda2go,'coda2go/web/script/lib.js')}" type="text/javascript"></script>
+    <script>
+        CODA.documentFunctionTimer("keyup", CODA.executeQueue, 1500);
+        CODA.documentFunctionTimer("click", CODA.executeQueue, 1500);
+    </script>
+    <apex:stylesheet value="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/css/style.css')}"/>
+    <style>
+        .extracollapsed
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extracollapsed_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .extraexpanded_h
+        {
+            BACKGROUND-IMAGE: url( {!URLFOR($Resource.coda2go, 'coda2go/web/images/CollapsedExpanded.gif')});
+        }
+        .newlinebutton 
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/add.gif')});   
+        }
+        .pbError
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIcon.gif')});
+        }
+        .informationerrorblock
+        {
+            background-image:url({!URLFOR($Resource.coda2go, 'coda2go/web/images/pbErrorIconsm.gif')});
+        }
+    </style>
+    
+    <apex:form onsubmit="if(CODA2GoButtons.disableSaveButtons){ return CODA2GoButtons.disableSaveButtons(); }">
+        <DIV id="indicator"><img src="{!URLFOR($Resource.coda2go, 'coda2go/web/images/waiting.gif')}" align="absMiddle"/><span id="indicatortext"></span></DIV>
+
+        <!-- Header -->
+        <apex:sectionHeader title="{!$Label.codaPageMassEmailTitle}" subtitle="{!$Label.codaPageMassEmailSend}" help="{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm#1062')}"/>
+
+        <!-- Bulk eMail Details -->
+        <apex:pageBlock title="{!$Label.codaPageMassEmailSectionDetails}"  id="MassEmailBlock" mode="edit">
+
+            <!-- Buttons -->
+            <apex:pageBlockButtons >  
+                <!-- Hidden Buttons -->
+                <apex:commandButton value="{!$Label.codaPageMassEmailSend}" action="{!send}" id="send_h" styleclass="hiddensubmit" />
+
+                <!-- Buttons -->
+                <apex:commandButton value="{!$Label.codaPageMassEmailSend}" id="send" rerender="" onclick="if(!CODA.queing()){document.getElementById('{!$Component.send_h}').click()};return false;" />
+
+                <script>
+                    var CODA2GoButtons = new CODA2GoPage();
+                    var CODA2GoBtnSaveValue = "{!$Label.codaPageMassEmailProcessing}";
+                    var send = document.getElementById("{!$Component.send}");
+                    CODA2GoButtons.initButtons([send.id]);
+                </script>
+            </apex:pageBlockButtons>
+
+            <!-- Messages -->
+            <apex:outputPanel id="messagePanel" layout="block">
+                <apex:outputPanel id="errorPanel" layout="block" styleClass="pbError" rendered="{!viewstate.showErrorMessages}">
+                    <apex:repeat value="{!viewstate.errorMessages}" var="errorMessage" rendered="{!viewstate.showErrorMessages}">
+                        <apex:outputText value="{!errorMessage}"/><br/>
+                    </apex:repeat>
+                </apex:outputPanel>
+            </apex:outputPanel>
+
+            <!-- Page Detail -->
+            <apex:pageBlockSection id="massEmailDetail" title="{!$Label.codaPageMassEmailTitle}" columns="2" collapsible="false">
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel for="selectionField" value="{!$Label.codaPageMassEmailSelectionField}"/>
+					<apex:outputPanel >
+						<apex:inputField id="selectionField" value="{!viewstate.SelectionLookup.dto.c2g__Selection__c}"/>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem>
+
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel for="emailTemplateDetailField" value="{!$Label.codaPageMassEmailTemplateField}"/>
+					<apex:outputPanel >
+						<apex:selectList id="emailTemplateDetailField" value="{!viewstate.emailTemplates}" multiselect="false" size="1">
+							<apex:selectOptions value="{!viewstate.fillEmailTemplates}"/>
+						</apex:selectList>
+					</apex:outputPanel>
+				</apex:pageBlockSectionItem> 
+				
+				<apex:pageBlockSectionItem >
+				    <apex:outputLabel for="GroupByAccount" value="{!$Label.codaMassEmailPageGroupByAccount}"/>
+				    <apex:inputCheckbox id="GroupByAccount" value="{!viewstate.GroupByAccount}" disabled="false" />
+            	</apex:pageBlockSectionItem> 		 
+			
+           </apex:pageBlockSection>
+
+        </apex:pageBlock>
+    
+    </apex:form>
+    
+</apex:page>

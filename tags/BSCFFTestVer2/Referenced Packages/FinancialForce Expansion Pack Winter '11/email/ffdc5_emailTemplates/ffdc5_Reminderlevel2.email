@@ -1,0 +1,38 @@
+<messaging:emailTemplate subject="Credit terms exceeded" recipientType="Contact" relatedToType="c2g__codaInvoice__c">
+    <messaging:htmlEmailBody >
+        <p align="center">
+            <img src="{!relatedTo.c2g__OwnerCompany__r.c2g__LogoURL__c}"/><br/>
+            <small><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Street__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__City__c}"/>,&nbsp;<apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__StateProvince__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__ZipPostCode__c}"/><br/>
+            <apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Country__c}"/><br/>
+            <apex:outputText value="Phone: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Phone__c}"/><apex:outputText value=" Fax: "/><apex:outputField value="{!relatedTo.c2g__OwnerCompany__r.c2g__Fax__c}"/><br/><br/></small>
+        </p>
+        <p>
+            <c:CODAFormatterExt date="{!TODAY()}"/>
+            <br/><br/>
+            <apex:outputField value="{!relatedTo.c2g__Account__r.Name}"/>
+            <br/><br/>
+            Dear Sir
+            <br/><br/>
+ We recently contacted you about an outstanding invoice on your account, but we have not yet received a response from you.<br/><br/>
+ The following invoice is now seriously overdue for payment:<br/>
+            <table border="0" cellpadding="1" cellspacing="1">
+                <tr>
+                    <td>Invoice number</td><td><apex:outputField value="{!relatedTo.Name}"/></td>
+                </tr>
+                <tr>
+                    <td>Amount</td><td><apex:outputField value="{!relatedTo.c2g__OutstandingValue__c}"/></td>
+                </tr>
+                <tr>
+                    <td>Due on</td><td><apex:outputField value="{!relatedTo.c2g__DueDate__c}"/></td>
+                </tr>
+            </table>
+            <br/><br/>
+ Please call us as soon as possible to discuss your account or to let us know that you have sent your payment.<br/><br/>
+ We appreciate your prompt attention to this matter.<br/><br/>
+ Yours faithfully<br/><br/>
+ {!$User.FirstName} {!$User.LastName}
+        </p>
+    </messaging:htmlEmailBody>
+</messaging:emailTemplate>

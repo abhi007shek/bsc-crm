@@ -1,0 +1,297 @@
+<apex:page >
+<apex:stylesheet value="{!URLFOR($Resource.ffxp__ffdc5_launchpad,'ffdc5_launchpad/css/launchpad.css')}"/>
+<style type="text/css">
+/* Page specific styles */
+/* arrows */
+div#gridcell_0-1,
+div#gridcell_0-3,
+div#gridcell_2-3,
+div#gridcell_4-1,
+div#gridcell_4-3,
+div#gridcell_8-1,
+div#gridcell_10-1,
+div#gridcell_10-3       {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/arrows/')}arrow_W_E.png') no-repeat top right;}
+div#gridcell_1-2        {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/arrows/')}arrow_short_N_S.png') no-repeat top right;}
+div#gridcell_0-5        {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/arrows/')}arrow_W+S_E.png') no-repeat top right;}
+div#gridcell_1-5        {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/arrows/')}line_short_N_S.png') no-repeat top right;}
+div#gridcell_2-5        {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/arrows/')}arrow_W_N.png') no-repeat top right;}
+
+/* icons */
+div#gridcell_0-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}users_into.png') no-repeat top center;}
+div#gridcell_0-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}invoice_add.png') no-repeat top center;}
+div#gridcell_0-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}mail_into.png') no-repeat top center;}
+div#gridcell_0-6 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}Statements_and_Reminders_server_mail_download.png') no-repeat top center;}
+div#gridcell_2-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}credit_note_add.png') no-repeat top center;}
+div#gridcell_2-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}mail_into.png') no-repeat top center;}
+div#gridcell_4-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}money2_add.png') no-repeat top center;}
+div#gridcell_4-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}mail_into.png') no-repeat top center;}
+div#gridcell_4-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}documents_preferences.png') no-repeat top center;}
+div#gridcell_6-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}Collects_DDs_server_mail_upload.png') no-repeat top center;}
+div#gridcell_8-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}document_add.png') no-repeat top center;}
+div#gridcell_8-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}mail_into.png') no-repeat top center;}
+div#gridcell_10-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}Generate_Custom_Sales_Invoices_invoice_add.png') no-repeat top center;}
+div#gridcell_10-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}Generate_Custom_Cash_Entries_money2_add.png') no-repeat top center;}
+div#gridcell_10-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}Background_Matching_documents_preferences.png') no-repeat top center;}
+div#gridcell_12-0 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}businessman_add.png') no-repeat top center;}
+div#gridcell_12-2 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}package_add.png') no-repeat top center;}
+div#gridcell_12-4 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}chart.png') no-repeat top center;}
+div#gridcell_12-6 span.icon {background:transparent url('{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}column-chart.png') no-repeat top center;}
+</style>
+<script type="text/javascript">
+    function hoverToggle(strId, strImageName)
+    {
+        var strImagePath = 'url(' + "{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/')}" + strImageName+'.png)';
+        document.getElementById(strId).style.backgroundImage=strImagePath;
+    }
+</script>
+<div id="ar" class="panel_left">
+    <div class="title_bar title_bar_top">
+        <h1><span class="ff_heading">Accounts Receivable</span>&nbsp;<span class="ff_help" title="Go to FinancialForce Help" onclick="window.open('{!URLFOR($Resource.c2g__coda2go,'coda2go/web/help/Default_CSH.htm')}','_blank')"><img src="{!URLFOR($Resource.ffdc5_launchpad, 'ffdc5_launchpad/images/icons/')}help.png" /></span></h1>
+        <div class="select_panel">
+            <select name="Launchpad_select" id="Launchpad_select" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                    <option label="" value="">Select Launchpad...</option>
+                    <option label="" value="ffdc5_launchpad_home">Accounting Launchpad</option>
+                    <option label="" value="ffdc5_launchpad_billing">Billing Launchpad</option>
+                    <option label="" value="ffdc5_launchpad_accounts_receivable">Accounts Receivable</option>
+                    <option label="" value="ffdc5_launchpad_accounts_payable">Accounts Payable</option>
+                    <option label="" value="ffdc5_launchpad_cash_management">Cash Management</option>
+                    <option label="" value="ffdc5_launchpad_general_ledger">General Ledger &amp; Budgeting</option>
+                    <option label="" value="ffdc5_launchpad_data_setup">Data Setup</option>
+            </select>
+        </div>
+    </div>    
+    <div class="panel">    
+        <div class="grid_wrapper" id="grid_wrapper_0">
+            <div class="gridrow_0">
+                <div id="gridcell_0-0" class="ff_button" onclick="window.open('{!URLFOR($Action.Opportunity.Tab,$ObjectType.Opportunity)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Opportunities
+                </div>
+                <div id="gridcell_0-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_0-2"  class="ff_button" onclick="window.open('{!$Page.c2g__codainvoicenew}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Create <br />Sales Invoice
+                </div>
+                <div id="gridcell_0-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_0-4"  class="ff_button" onclick="window.open('{!URLFOR($Action.c2g__codaInvoice__c.Tab,$ObjectType.c2g__codaInvoice__c)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Post &amp; Print<br />Invoices
+                </div>
+                <div id="gridcell_0-5" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_0-6"  class="ff_button" onclick="window.open('{!$Page.c2g__codamassemail}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Statements &amp;<br />Reminders
+                </div>
+            </div>
+            <div class="gridrow_1">
+                <div id="gridcell_1-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_1-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_1-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_1-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_1-4" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_1-5" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_1-6" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_2">
+                <div id="gridcell_2-0" class="ff_spacer">
+                </div>
+                <div id="gridcell_2-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_2-2" class="ff_button" onclick="window.open('{!$Page.c2g__codacreditnotenew}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Raise Sales<br/>Credit Note
+                </div>
+                <div id="gridcell_2-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_2-4" class="ff_button" onclick="window.open('{!URLFOR($Action.c2g__codaCreditNote__c.Tab,$ObjectType.c2g__codaCreditNote__c)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Post &amp; Print<br />Credit Notes
+                </div>
+                <div id="gridcell_2-5" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_2-6" class="ff_spacer">
+                </div>
+            </div>
+            <div class="gridrow_3">
+                <div id="gridcell_3-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_3-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_3-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_3-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_3-4" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_3-5" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_3-6" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_4">
+                <div id="gridcell_4-0" class="ff_button" onclick="window.open('{!$Page.c2g__codacashentrynew}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Enter <br />Cash
+                </div>
+                <div id="gridcell_4-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_4-2" class="ff_button" onclick="window.open('{!URLFOR($Action.c2g__codaCashEntry__c.Tab,$ObjectType.c2g__codaCashEntry__c)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Post <br/>Cash Entries
+                </div>
+                <div id="gridcell_4-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_4-4" class="ff_button" onclick="window.open('{!$Page.c2g__codacashmatching}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Cash <br/>Matching
+                </div>
+                <div id="gridcell_4-5" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_4-6" class="ff_spacer">
+                </div>
+            </div>
+            <div class="gridrow_5">
+                <div id="gridcell_5-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_5-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_5-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_5-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_5-4" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_5-5" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_5-6" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_6">
+                <div id="gridcell_6-0" class="ff_button" onclick="window.open('{!$Page.c2g__codaquickpaymentnew}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Direct Debit<br/>Collections
+                </div>
+            </div>
+            <div class="gridrow_7">
+                <div id="gridcell_7-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_7-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_7-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_7-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_7-4" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_7-5" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_7-6" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_8">
+                <div id="gridcell_8-0" class="ff_button" onclick="window.open('{!$Page.c2g__codajournalnew}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Create <br/>Journal
+                </div>
+                <div id="gridcell_8-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_8-2" class="ff_button" onclick="window.open('{!URLFOR($Action.c2g__codaJournal__c.Tab,$ObjectType.c2g__codaJournal__c)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Post <br/>Journals
+                </div>
+            </div>
+            <div class="gridrow_9">
+                <div id="gridcell_9-0" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_9-1" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_9-2" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_9-3" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_9-4" class="ff_spacer_v-mid">
+                </div>
+                <div id="gridcell_9-5" class="ff_spacer_vh-mid">
+                </div>
+                <div id="gridcell_9-6" class="ff_spacer_v-mid">
+                </div>
+            </div>
+            <div class="gridrow_10">
+                <div id="gridcell_10-0" class="ff_button" onclick="window.open('{!$Page.c2g__codaprocessintegrationrule}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Generate Custom<br />Sales Invoices
+                </div>
+                <div id="gridcell_10-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_10-2" class="ff_button" onclick="window.open('{!$Page.c2g__codaprocessintegrationrule}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Generate Custom<br/>Cash Entries
+                </div>
+                <div id="gridcell_10-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_10-4" class="ff_button" onclick="window.open('{!$Page.c2g__codabackgroundcashmatching}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Background<br/>Matching
+                </div>
+                <div id="gridcell_10-5" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_10-6" class="ff_spacer">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel"> 
+        <div class="title_bar">
+            <h2>Related tasks</h2>
+            <div class="select_panel">
+                <select name="tasks_select" id="tasks_select" onchange="window.open(this.options[this.selectedIndex].value,'_top')">
+                        <option label="" value="">Jump to...</option>
+                        <option label="" value="{!URLFOR($Action.Account.Tab,$ObjectType.Account)}">Accounts Home</option>
+                        <option label="" value="{!URLFOR($Action.Product2.Tab,$ObjectType.Product2)}">Products Home</option>
+                        <option label="" value="{!URLFOR($Action.c2g__codaInvoice__c.Tab,$ObjectType.c2g__codaInvoice__c)}">Sales Invoices Home</option>
+                        <option label="" value="{!URLFOR($Action.c2g__codaCreditNote__c.Tab,$ObjectType.c2g__codaCreditNote__c)}">Sales Credit Notes Home</option>
+                        <option label="" value="{!URLFOR($Action.c2g__codaCashEntry__c.Tab,$ObjectType.c2g__codaCashEntry__c)}">Cash Entries Home</option>
+                        <option label="" value="{!URLFOR($Action.c2g__codaJournal__c.Tab,$ObjectType.c2g__codaJournal__c)}">Journals Home</option>
+                        <option label="" value="/00O/o">Reports Home</option>
+                </select>
+            </div>
+        </div>    
+        <div class="grid_wrapper" id="grid_wrapper_1">
+            <div class="gridrow_12">
+                <div id="gridcell_12-0" class="ff_button" onclick="window.open('{!URLFOR($Action.Account.New)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Create<br/>Account
+                </div>
+                <div id="gridcell_12-1" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_12-2" class="ff_button" onclick="window.open('{!URLFOR($Action.Product2.Add)}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Create<br/>Product
+                </div>
+                <div id="gridcell_12-3" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_12-4" class="ff_button" onclick="window.open('{!$Page.c2g__codaagedanalysisselection}','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Aged <br/>Analysis
+                </div>
+                <div id="gridcell_12-5" class="ff_spacer_h-mid">
+                </div>
+                <div id="gridcell_12-6" class="ff_button" onclick="window.open('http://www.financialforce.com/printformatter-v1-2','_top')">
+                    <span class="icon">&nbsp;</span>
+                    Print <br/>Formatter
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</apex:page>
