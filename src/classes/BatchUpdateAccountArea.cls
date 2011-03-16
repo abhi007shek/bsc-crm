@@ -1,4 +1,6 @@
 global class BatchUpdateAccountArea implements Database.Batchable<sObject>
+// Case 0001359 and Case 0001254
+// New Class to Update Area on Account object
 {
 	global final String Query;
 	public List<Integer> maxLevel = new List<Integer>();
@@ -7,9 +9,13 @@ global class BatchUpdateAccountArea implements Database.Batchable<sObject>
 	global BatchUpdateAccountArea(Integer size)
 	{
 		if (isTest)
-			Query = 'SELECT Id FROM Account WHERE ParentId != null LIMIT ' + size;
+			Query = 'SELECT Id, Hierarchy_Employees__c, ParentId, NumberOfEmployees FROM Account WHERE ParentId != null LIMIT ' + size;
 		else
-			Query = 'SELECT Id FROM Account Where area__c != null order by name' + ' LIMIT ' + size;
+		{
+			// Query = 'SELECT Id, Hierarchy_Employees__c, ParentId, NumberOfEmployees FROM Account order by name' + ' LIMIT ' + size;
+			Query = 'SELECT Id, Hierarchy_Employees__c, ParentId, NumberOfEmployees FROM Account order by name';
+		}
+			
 	}
 	
 	global Database.QueryLocator start(Database.BatchableContext BC)
@@ -19,12 +25,50 @@ global class BatchUpdateAccountArea implements Database.Batchable<sObject>
 
 	global void execute(Database.BatchableContext BC, List<Account> scope)
 	{
-		//List<Account> a = new List<Account>();
-		for (Account s : scope)
+		Account_Trigger_Flags__c settingsTrig =Account_Trigger_Flags__c.getInstance('Deactivated');
+		settingsTrig.Account_Assignment_Deactivated__c = true;
+		update settingsTrig;
+		List<Account> accArea = new List<Account>();
+		// System.Debug('*********************batchAccounts:'+batchAccounts.size());
+		for (Account a: scope)
 		{
-			s.Area__c = null;	        
+			System.Debug('*********************batchAccounts Account:'+a);
+			Account accUpdate =new Account(id=a.Id, Area__c=null);
+			// Case 1359 and 1254
+			if (a.parentId == null&&( (a.Hierarchy_Employees__c==null&&a.NumberOfEmployees!=null)||(a.Hierarchy_Employees__c<>a.NumberOfEmployees)))
+	        {
+	        	System.Debug('*********************batchAccounts Updating employees Hierarchy:'+a.NumberOfEmployees);
+	        	accUpdate.Hierarchy_Employees__c = a.NumberOfEmployees;
+	        	accUpdate.Employees_Group__c = accUpdate.Hierarchy_Employees__c;
+	        }
+		
+			accArea.add(accUpdate);
 		}
-		update scope;
+		update accArea;
+
+		set<id>accountIds = new set<id>();
+		for(Account a : scope)
+		{
+			/*Boolean result;
+			result = accountIds.contains(a.Id);
+			if (!result)
+			{
+				try
+				{*/
+					accountIds.add(a.Id);
+				/*}
+				catch (exception e)
+				{
+					continue;
+				}
+			}*/                    
+		}
+		if(accountIds.size() > 0){
+			AccountAssignmentHelper.calculateOwnersBatch(accountIds);
+		}
+		
+		settingsTrig.Account_Assignment_Deactivated__c = false;
+		update settingsTrig;	
 	}
 	
     

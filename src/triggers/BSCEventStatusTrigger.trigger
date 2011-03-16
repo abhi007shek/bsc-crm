@@ -3,7 +3,8 @@ trigger BSCEventStatusTrigger on Special_Event__c (after update) {
 // when the status of the event is set to confirmed.
 // for In-Company Events only 
 // Case 00001323
-    List<RecordType> recType = [Select r.Id From RecordType r where r.name in ('Audit','In-Company Event')];
+	BSCEventTriggerMethods.updateBookingStatus(trigger.new);
+   /* List<RecordType> recType = [Select r.Id From RecordType r where r.name in ('Audit','In-Company Event')];
     if (recType.size() < 4)
     {
     	Trigger.new[0].addError('Missing Record Types Audit or In-Company Event '+ recType.size());
@@ -27,5 +28,5 @@ trigger BSCEventStatusTrigger on Special_Event__c (after update) {
 	   	  		update bscEventBooking;
 	    	}
     	}
-    }
+    }*/
 }
