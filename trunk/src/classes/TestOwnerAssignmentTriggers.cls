@@ -46,15 +46,27 @@ private class TestOwnerAssignmentTriggers
 	        	Name = 'Test Account 2',
 	        	Area__c = area2.Id,
 	        	ParentId = account1.Id,
+	        	Ultimate_Parent__c = account1.Id,
 	        	Principle_Address_Country__c = 'United Kingdom');      
 	        insert account2;
 	        // AccountAssignmentHelper -	68% coverage
 	        // AccountHierarchyHelper -		70% coverage	        
 	        
-	        //delete account2;
+	        // 	        delete account2;	
 	        // AccountAssignmentHelper -	52% coverage
 	        // AccountHierarchyHelper -		87% coverage
 	        
+	        Account account3 = new Account(
+	        	Name = 'Test Account 3',
+	        	Area__c = area2.Id,
+	        	ParentId = account2.Id,
+	        	Ultimate_Parent__c = account1.Id,
+	        	Principle_Address_Country__c = 'United Kingdom');      
+	        insert account3;
+	        
+	        delete account3;
+
+	        delete account2;
 	        
 	        // Test failure caused by Postcode lookup
 /*	        account2 = new Account(
@@ -96,4 +108,35 @@ private class TestOwnerAssignmentTriggers
         }
         
     }
+    
+    /*static testMethod void areaAssignment()
+    {
+
+    	set<id>changedAreaIds = new set<id>();
+    	for (Account a:[Select area__c From Account where Exclude_From_Assignment__c=false limit 1])
+    	{
+    		changedAreaIds.add(a.area__c);
+    	}
+    	Test.startTest();    	
+    	if (changedAreaIds.size() > 0)
+    	{
+    		AccountAssignmentHelper.doAreaAssignment(changedAreaIds);
+    	}
+    	Test.stopTest();    	
+    }
+    
+    static testMethod void calculateOwnersOnAccounts()
+    {
+		set<id>accountIds = new set<id>();
+		
+		for(Account a : [select id, name from Account where Exclude_From_Assignment__c=false limit 1]){
+			accountIds.add(a.Id);
+		}
+		
+		Test.startTest();
+		if(accountIds.size() > 0){
+			AccountAssignmentHelper.calculateOwners(accountIds);
+		}
+    	Test.stopTest();
+    }  */
 }

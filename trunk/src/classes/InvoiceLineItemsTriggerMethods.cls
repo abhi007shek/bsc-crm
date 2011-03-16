@@ -126,17 +126,25 @@ public with sharing class InvoiceLineItemsTriggerMethods {
          
         Subscription_Line__c subsline = [Select Id from Subscription_Line__c limit 1];
         Special_Event_Booking__c bookingEvt = [Select Id from Special_Event_Booking__c limit 1];
-        OpportunityLineItem oppLineItem  =[Select Id from OpportunityLineItem limit 1];
+        // OpportunityLineItem oppLineItem  =[Select Id from OpportunityLineItem limit 1];
+    	// Case 1359 and  1254 -- Added due to Winter 11 FF release where the default company of the user is required to determine the appropriate data
+    	c2g__codaUserCompany__c userCompany = [Select id, c.c2g__User__r.Username, c.c2g__Company__c From  c2g__codaUserCompany__c c Where c.c2g__User__r.Username = :UserInfo.getUserName() and c.c2g__Company__r.name='Test - BSC'];
         
-        List<c2g__codaInvoiceLineItem__c> invoiceLineItemList= [Select Id,OPL_ID__c,c2g__Invoice__c,SL__c,BEB__c,c2g__LineDescription__c from c2g__codaInvoiceLineItem__c limit 1];
+		Test.startTest();
         
-        invoiceLineItemList.get(0).c2g__LineDescription__c = oppLineItem.Id+';'+subsline.Id;
+        List<c2g__codaInvoiceLineItem__c> invoiceLineItemList= [Select c.Id,c.OPL_ID__c,c.c2g__Invoice__c,c.SL__c,c.BEB__c,c.c2g__LineDescription__c from c2g__codaInvoiceLineItem__c c Where c.c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c  and c.OPL_ID__c!=null and c2g__Invoice__r.Copy_Invoice_Status__c <> 'Paid' limit 5];
+        
+        OpportunityLineItem oppLineItem  =[Select Id from OpportunityLineItem where id = :invoiceLineItemList[4].OPL_ID__c limit 1];
+        
+        invoiceLineItemList.get(4).c2g__LineDescription__c = oppLineItem.Id+';'+subsline.Id;
         InvoiceLineItemsTriggerMethods.populateFields(invoiceLineItemList);
         
-        invoiceLineItemList.get(0).c2g__LineDescription__c = oppLineItem.Id+';'+bookingEvt.Id;
+        invoiceLineItemList.get(4).c2g__LineDescription__c = oppLineItem.Id+';'+bookingEvt.Id;
         InvoiceLineItemsTriggerMethods.populateFields(invoiceLineItemList);
-                
-        update invoiceLineItemList;
+        // 15/03/2011 Below line is commented as there is now a restriction with updating fields directly
+        // System.DmlException: Update failed. First exception on row 4 with id a1YD0000000LKWNMA4; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, You cannot edit invoice lines directly.: []       
+        // update invoiceLineItemList;
+        Test.stopTest();
          
     }
 

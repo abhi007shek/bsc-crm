@@ -3,6 +3,7 @@
     Controller for 0818-IPE development task.
     
     Modified by Ben Mansfield 6 August 2010
+    Modified by N Muneesamy   15 March 2011 -  Case 00001682 Change done to ensure that the user selected Venue applies
 */
 
 public with sharing class CreateProvisionalEventsController {
@@ -129,9 +130,10 @@ public with sharing class CreateProvisionalEventsController {
                         /*e.Status__c = 'Costing';*/
                         e.Status__c = 'Requested';
                         e.Stage__c = 'Provisional';
+                        /* Case 00001682 Change done on 15/03/2011 to ensure that the user selected Venue applies
                         if (oppy.AccountId != null)
                             e.Venue__c = oppy.AccountId;
-                        e.Product__c = p.myId;
+                        e.Product__c = p.myId;*/
                         //System.debug('*****'+e);
                         events.add(e);
                     }
