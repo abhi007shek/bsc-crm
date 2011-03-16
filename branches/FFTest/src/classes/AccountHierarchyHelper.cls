@@ -46,7 +46,7 @@ public with sharing class AccountHierarchyHelper {
 				Id id = calculateUltimateParent(acc, null, parentAccounts);
 				if (id != null)
 					ultimateParents.add(id);
-				//modifiedParents.addAll(calculateHierarchyEmployeeNumbers(acc, null, parentAccounts));
+				modifiedParents.addAll(calculateHierarchyEmployeeNumbers(acc, null, parentAccounts));
 			}
 		}
 		else if (Trigger.isUpdate)
@@ -60,7 +60,7 @@ public with sharing class AccountHierarchyHelper {
 				Id id = calculateUltimateParent(acc, oldtargets.get(acc.Id), parentAccounts);
 				if (id != null)
 					ultimateParents.add(id);
-				//modifiedParents.addAll(calculateHierarchyEmployeeNumbers(acc, oldtargets.get(acc.Id), parentAccounts));
+				modifiedParents.addAll(calculateHierarchyEmployeeNumbers(acc, oldtargets.get(acc.Id), parentAccounts));
 				
 				alreadyUpdated.add(acc.Id);
 			}
@@ -74,7 +74,7 @@ public with sharing class AccountHierarchyHelper {
 			for (Account acc : oldTargets.values())
 			{
 				System.debug('\nDEBUG_CLASS\nCalling "calculateHierarchyEmployeeNumbers"\nDEBUG_CLASS"');
-				//modifiedParents.addAll(calculateHierarchyEmployeeNumbers(null, acc, parentAccounts));
+				modifiedParents.addAll(calculateHierarchyEmployeeNumbers(null, acc, parentAccounts));
 			}
 			
 			// If is delete we need to get the deleted children and update these with a null ultimate parent reference
@@ -313,7 +313,7 @@ public with sharing class AccountHierarchyHelper {
 		return children;
 	}
 	
-/*	private static Set<Id> calculateHierarchyEmployeeNumbers(Account target, Account oldtarget, Map<Id, Account> parents)
+	private static Set<Id> calculateHierarchyEmployeeNumbers(Account target, Account oldtarget, Map<Id, Account> parents)
 	{
 		Set<Id> parentsChanged = new Set<Id>();
 		System.debug('\nDEBUG_CLASS\ncalculateHierarchyEmployeeNumbers target: ' + target + '\nDEBUG_CLASS"');
@@ -368,7 +368,7 @@ public with sharing class AccountHierarchyHelper {
 		}
 		
 		return parentsChanged;
-	}*/
+	}
 	
 	/*
 	private static void calculateEmployeeNumbersGroup(Account target)
@@ -423,7 +423,7 @@ public with sharing class AccountHierarchyHelper {
 		// Check parent id is the same as the Ultimate parent.
 		System.assertEquals(parent.Id, child.Ultimate_Parent__c);
 		// Check 
-//		System.assertEquals(child.NumberOfEmployees, child.Hierarchy_Employees__c);
+		System.assertEquals(child.NumberOfEmployees, child.Hierarchy_Employees__c);
 		
 		// Check that the parent hierarchy employees has been updated
 		parent = [
@@ -436,7 +436,7 @@ public with sharing class AccountHierarchyHelper {
 				Account
 			WHERE
 				Id = :parent.Id];
-//		System.assertEquals(child.NumberOfEmployees + parent.NumberOfEmployees, parent.Hierarchy_Employees__c);
+		System.assertEquals(child.NumberOfEmployees + parent.NumberOfEmployees, parent.Hierarchy_Employees__c);
 		
 		// Create a new top level parent
 		Account newParent = new Account(
@@ -460,7 +460,7 @@ public with sharing class AccountHierarchyHelper {
 				Account
 			WHERE
 				Id = :newParent.Id];
-//		System.assertEquals(child.NumberOfEmployees + parent.NumberOfEmployees, newParent.Hierarchy_Employees__c);
+		System.assertEquals(child.NumberOfEmployees + parent.NumberOfEmployees, newParent.Hierarchy_Employees__c);
 		
 		AccountHierarchyHelper.alreadyUpdated = null;
 		
@@ -492,7 +492,7 @@ public with sharing class AccountHierarchyHelper {
 				Account
 			WHERE
 				Id = :newParent.Id];
-//		System.assertEquals(0, newParent.Hierarchy_Employees__c);
+		System.assertEquals(0, newParent.Hierarchy_Employees__c);
 		
 		// Check that the child ultimate parent has been removed
 		child = [

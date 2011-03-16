@@ -302,6 +302,16 @@ global class BatchUpdateAccountHeirarchy implements Database.Batchable<sObject>
     
     global void finish(Database.BatchableContext BC)
 	{
+		// Case 0001559 and Case 0001254 Call a scheduler to invoke the batch BatchUpdateAccountArea
+		System.debug(LoggingLevel.WARN,'Batch Process 1 Finished');
+		//Build the system time of now + 20 seconds to schedule the batch apex.
+		Datetime sysTime = System.now();
+		sysTime = sysTime.addSeconds(20);
+		String chron_exp = '' + sysTime.second() + ' ' + sysTime.minute() + ' ' + sysTime.hour() + ' ' + sysTime.day() + ' ' + sysTime.month() + ' ? ' + sysTime.year();
+		system.debug(chron_exp);
+		UpdateAccountAreaScheduler acctAreaSched = new UpdateAccountAreaScheduler();
+		//Schedule the next job, and give it the system time so name is unique
+		System.schedule('UpdateAccountArea' + sysTime.getTime(),chron_exp,acctAreaSched);
 		AsyncApexJob a = [
 			SELECT
 				Id,
