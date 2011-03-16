@@ -64,10 +64,10 @@ global class SubscriptionRenewalBatch implements Database.Batchable<sObject>{
 			for (Subscription_Line__c subscriptionLine : subscription.Subscription_Lines__r) {
 				
 				List<PricebookEntry> pricebookEntries = null;
-				
+				 // Case 00001610 changing the reference from Account_Name__r.Pricebook__c to Account_Name__r.Pricebook2__c.
 				if(subscription.Account_Name__r.Pricebook__c != null && subscriptionLine.Product__c != null){
 					pricebookEntries = [SELECT Id, UnitPrice FROM PricebookEntry
-						WHERE Pricebook2Id = :subscription.Account_Name__r.Pricebook__c
+						WHERE Pricebook2Id = :subscription.Account_Name__r.Pricebook2__c
 						AND Product2Id = :subscriptionLine.Product__c 
 						limit 1];
 				}

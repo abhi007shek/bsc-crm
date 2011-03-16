@@ -19,7 +19,7 @@ public class OpportunityLineItemsTriggerMethods{
      {
          OpportunityLineItemsTriggerMethods.updateOpportunity(lineItemListId);
      }
-     
+    
      
      
      public static void countQuantity (Map<Id,OpportunityLineItem> lineItemMap,Map<Id,OpportunityLineItem>oldLineItemMap)
@@ -149,22 +149,36 @@ public class OpportunityLineItemsTriggerMethods{
          
                                    
       	
+         Set<Id> invoiceId = new Set<Id>();
+        /* List<c2g__codaInvoiceLineItem__c> invoiceLineItemList = new List<c2g__codaInvoiceLineItem__c>
+                                                               ([Select Id,
+                                                               OPL_ID__c,
+                                                               c2g__Invoice__c 
+                                                               from c2g__codaInvoiceLineItem__c 
+                                                               where OPL_ID__c!=null
+                                                               and c2g__Invoice__c='a1ZD0000000TTYV' limit 2 ]);*/ 
+    	
+    	// Case 1359 and  1254 -- Added due to Winter 11 FF release where the default company of the user is required to determine the appropriate data
+    	c2g__codaUserCompany__c userCompany = [Select id, c.c2g__User__r.Username, c.c2g__Company__c From  c2g__codaUserCompany__c c Where c.c2g__User__r.Username = :UserInfo.getUserName() and c.c2g__Company__r.name='Test - BSC'];
+
+        List<c2g__codaInvoiceLineItem__c> invoiceLineItemList = new List<c2g__codaInvoiceLineItem__c>
+                                                               ([Select Id,
+                                                               OPL_ID__c,
+                                                               c2g__Invoice__c 
+                                                               from c2g__codaInvoiceLineItem__c 
+                                                               where OPL_ID__c!=null
+                                                               and c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c
+                                                               and c2g__Invoice__r.Copy_Invoice_Status__c <> 'Paid' limit 5 ]); 
+
          Map<Id,OpportunityLineItem> lineItemMap = new Map<Id,OpportunityLineItem>( [Select Id,
                                                                                            Quantity_Invoiced__c,
                                                                                            Quantity_Paid__c,
                                                                                            Quantity_Part_Paid__c,
                                                                                            Quantity_Credited__c 
                                                                                            from OpportunityLineItem 
+                                                                                           where id = :invoiceLineItemList[4].OPL_ID__c
                                                                                            limit 1]);
         
-         Set<Id> invoiceId = new Set<Id>();
-         List<c2g__codaInvoiceLineItem__c> invoiceLineItemList = new List<c2g__codaInvoiceLineItem__c>
-                                                               ([Select Id,
-                                                               OPL_ID__c,
-                                                               c2g__Invoice__c 
-                                                               from c2g__codaInvoiceLineItem__c 
-                                                               where OPL_ID__c!=null
-                                                               and c2g__Invoice__c='a1ZD0000000TTYV' limit 2 ]); 
          
          for(c2g__codaInvoiceLineItem__c invoiceLineItem:invoiceLineItemList )
          {
@@ -174,7 +188,8 @@ public class OpportunityLineItemsTriggerMethods{
          }
       
          update invoiceLineItemList ;
-         List<c2g__codaInvoice__c > invoice = [Select id,Copy_Invoice_Status__c from c2g__codaInvoice__c where Id='a1ZD0000000TTYV' limit 1];
+         // List<c2g__codaInvoice__c > invoice = [Select id,Copy_Invoice_Status__c from c2g__codaInvoice__c where Id='a1ZD0000000TTYV' limit 1];
+         List<c2g__codaInvoice__c > invoice = [Select id,Copy_Invoice_Status__c from c2g__codaInvoice__c where Id=:invoiceLineItemList[4].c2g__Invoice__c limit 1];
          invoice.get(0).Copy_Invoice_Status__c ='Part Paid';
          update invoice;                                                   
          

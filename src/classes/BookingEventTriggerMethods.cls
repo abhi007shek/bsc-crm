@@ -37,14 +37,16 @@ public class BookingEventTriggerMethods
 
     public testmethod static void testBookingEventTriggerMethods()
     {
-      Special_Event_Booking__c booking = [Select Id,Invoice_Status__c,Invoice_Paid_Date__c from Special_Event_Booking__c limit 1];
-      c2g__codaInvoiceLineItem__c invoiceLineItem = [Select Id,BEB__c from c2g__codaInvoiceLineItem__c limit 1];
+    	// Case 1359 and  1254 -- Added due to Winter 11 FF release where the default company of the user is required to determine the appropriate data
+    	c2g__codaUserCompany__c userCompany = [Select id, c.c2g__User__r.Username, c.c2g__Company__c From  c2g__codaUserCompany__c c Where c.c2g__User__r.Username = :UserInfo.getUserName() and c.c2g__Company__r.name='Test - BSC'];
+		Special_Event_Booking__c booking = [Select Id,Invoice_Status__c,Invoice_Paid_Date__c from Special_Event_Booking__c limit 1];
+		c2g__codaInvoiceLineItem__c invoiceLineItem = [Select c.Id, c.BEB__c from c2g__codaInvoiceLineItem__c c Where c.c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c limit 1];
    
-      Map<Id,Special_Event_Booking__c> bookingMap = new Map<Id,Special_Event_Booking__c>();
-      bookingMap.put(booking.Id,booking);
-      invoiceLineItem.BEB__c = booking.Id;
-      update invoiceLineItem;
-      BookingEventTriggerMethods.updateInvoiceStatus(bookingMap );                 
+		Map<Id,Special_Event_Booking__c> bookingMap = new Map<Id,Special_Event_Booking__c>();
+		bookingMap.put(booking.Id,booking);
+		invoiceLineItem.BEB__c = booking.Id;
+		update invoiceLineItem;
+		BookingEventTriggerMethods.updateInvoiceStatus(bookingMap );                 
 
     }
 
