@@ -132,8 +132,8 @@ public with sharing class CreateProvisionalEventsController {
                         e.Stage__c = 'Provisional';
                         /* Case 00001682 Change done on 15/03/2011 to ensure that the user selected Venue applies
                         if (oppy.AccountId != null)
-                            e.Venue__c = oppy.AccountId;
-                        e.Product__c = p.myId;*/
+                            e.Venue__c = oppy.AccountId;*/
+                        e.Product__c = p.myId;
                         //System.debug('*****'+e);
                         events.add(e);
                     }

@@ -132,14 +132,16 @@ public with sharing class InvoiceLineItemsTriggerMethods {
         
 		Test.startTest();
         
-        List<c2g__codaInvoiceLineItem__c> invoiceLineItemList= [Select c.Id,c.OPL_ID__c,c.c2g__Invoice__c,c.SL__c,c.BEB__c,c.c2g__LineDescription__c from c2g__codaInvoiceLineItem__c c Where c.c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c  and c.OPL_ID__c!=null and c2g__Invoice__r.Copy_Invoice_Status__c <> 'Paid' limit 5];
+        List<c2g__codaInvoiceLineItem__c> invoiceLineItemList= [Select c.Id,c.OPL_ID__c,c.c2g__Invoice__c,c.SL__c,c.BEB__c,c.c2g__LineDescription__c from c2g__codaInvoiceLineItem__c c Where c.c2g__Invoice__r.c2g__OwnerCompany__c = :userCompany.c2g__Company__c  and c.OPL_ID__c!=null and (c2g__Invoice__r.Copy_Invoice_Status__c <> 'Paid' or c2g__Invoice__r.Copy_Invoice_Status__c <> 'Not Paid') limit 5];
         
-        OpportunityLineItem oppLineItem  =[Select Id from OpportunityLineItem where id = :invoiceLineItemList[4].OPL_ID__c limit 1];
+        //OpportunityLineItem oppLineItem  =[Select Id from OpportunityLineItem where id = :invoiceLineItemList[0].OPL_ID__c limit 1];
         
-        invoiceLineItemList.get(4).c2g__LineDescription__c = oppLineItem.Id+';'+subsline.Id;
+        // invoiceLineItemList.get(0).c2g__LineDescription__c = oppLineItem.Id+';'+subsline.Id;
+        invoiceLineItemList.get(0).c2g__LineDescription__c = '12345'+';'+subsline.Id;
         InvoiceLineItemsTriggerMethods.populateFields(invoiceLineItemList);
         
-        invoiceLineItemList.get(4).c2g__LineDescription__c = oppLineItem.Id+';'+bookingEvt.Id;
+        invoiceLineItemList.get(0).c2g__LineDescription__c = '12345'+';'+bookingEvt.Id;
+        //invoiceLineItemList.get(0).c2g__LineDescription__c = oppLineItem.Id+';'+bookingEvt.Id;
         InvoiceLineItemsTriggerMethods.populateFields(invoiceLineItemList);
         // 15/03/2011 Below line is commented as there is now a restriction with updating fields directly
         // System.DmlException: Update failed. First exception on row 4 with id a1YD0000000LKWNMA4; first error: FIELD_CUSTOM_VALIDATION_EXCEPTION, You cannot edit invoice lines directly.: []       
